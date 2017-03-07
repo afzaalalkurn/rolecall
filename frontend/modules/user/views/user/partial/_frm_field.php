@@ -227,8 +227,7 @@ $js = <<<JS
                                     ].join();
                                 
                                 var imageHiddenId = imageId.replace("-value", "-image_data");
-                                $('#'+imageHiddenId).attr('value', json); 
-                                console.log( $('#'+imageHiddenId).val() );
+                                $('#'+imageHiddenId).attr('value', json);  
                             },
                             ready: function () {
                                 image.cropper('setCanvasData', canvasData);
