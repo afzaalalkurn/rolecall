@@ -1,0 +1,926 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {font-family: 'MyriadProRegular';src: url('../fonts/myriadpro-regular.eot');src: url('../fonts/myriadpro-regular.woff') format('woff'), url('../fonts/myriadpro-regular.ttf') format('truetype'), url('../fonts/myriadpro-regular.svg') format('svg');font-weight: normal;font-style: normal;}
+@font-face {font-family: 'RalewayRegular';src: url('../fonts/RalewayRegular.eot');src: url('../fonts/RalewayRegular.woff') format('woff'), url('../fonts/RalewayRegular.ttf') format('truetype'), url('../fonts/RalewayRegular.svg') format('svg');font-weight: normal;font-style: normal;}
+@font-face {font-family: 'RalewayBold';src: url('../fonts/RalewayBold.eot');src: url('../fonts/RalewayBold.woff') format('woff'), url('../fonts/RalewayBold.ttf') format('truetype'), url('../fonts/RalewayBold.svg') format('svg');font-weight: normal;font-style: normal;}
+@font-face {font-family: 'RalewayMedium';src: url('../fonts/RalewayMedium.eot');src: url('../fonts/RalewayMedium.woff') format('woff'), url('../fonts/RalewayMedium.ttf') format('truetype'), url('../fonts/RalewayMedium.svg') format('svg');font-weight: normal;font-style: normal;}
+@font-face {font-family: 'RalewayLight';src: url('../fonts/RalewayLight.eot');src: url('../fonts/RalewayLight.woff') format('woff'), url('../fonts/RalewayLight.ttf') format('truetype'), url('../fonts/RalewayLight.svg') format('svg');font-weight: normal;font-style: normal;}
+/*@font-face {font-family: 'Lato', sans-serif;src: url('../fonts/Lato-Regular.eot');src: url('../fonts/Lato-Regular.woff') format('woff'), url('../fonts/Lato-Regular.ttf') format('truetype'), url('../fonts/Lato-Regular.svg') format('svg');font-weight: normal;font-style: normal;}
+@font-face {font-family: 'Lato-Bold';src: url('../fonts/Lato-Bold.eot');src: url('../fonts/Lato-Bold.woff') format('woff'), url('../fonts/Lato-Bold.ttf') format('truetype'), url('../fonts/Lato-Bold.svg') format('svg');font-weight: normal;font-style: normal;}*/
+
+body{font-family: 'RalewayRegular';color:#494848;font-weight:normal; background:#fff; overflow-x: hidden;}
+a{outline: none;}
+a:focus{outline: none;}
+a:hover {outline: none;transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+img{max-width:100%;}
+
+.header {background: #25af61;width:100%; min-height: 116px;}
+.header .logo {padding: 14px 0 0 0; text-align: left;}
+.header .headerbottom {margin: 48px 0 0;}
+.header .headerbottom .userlink {font-size: 14px; margin: 0px 0px 0 0; color: #fff; text-align: right}
+.header .headerbottom .userlink a.login-link {text-decoration: none;color: #fff; margin: 0 25px 0 0;}
+.header .headerbottom .userlink a.login-link:hover {color: #313a4a;}
+.header .headerbottom .userlink a.register-link {text-decoration: none;color: #fff;}
+.header .headerbottom .userlink a.register-link:hover {color: #313a4a;}
+.header .headerbottom a.btn-tasker {border: 1px solid #fff;color: #fff;padding: 14px 25px;text-decoration: none; text-transform: uppercase; margin: 0 0 0 5px;}
+.header .headerbottom a.btn-tasker:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);border: 1px solid #313a4a;background: #313a4a;color: #fff; text-decoration: none;}
+.log-hr-top {float: right; margin: -12px 0 0;}
+.log-hr-top .ds-txt {display: inline-block;margin: 2px 25px 0 0; color: #182a40;}
+.log-hr-top .ds-txt .fa.fa-tachometer {font-size: 22px;padding: 7px 5px 0 0; color: #fff;}
+.log-hr-top .ds-txt a {font-size: 16px; color: #fff; text-decoration: none;}
+.log-hr-top .ds-txt a:hover {color: #313a4a;}
+.logout {}
+.logout .btn-link {display: block;border: 0px solid #fff;color: #333;padding: 7px 20px;width: 100%;text-decoration: none; margin: 0 0 0 0px;transition: all 0.3s ease-in-out;}
+.logout .btn-link:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);border: 0px solid #313a4a;background: #f5f5f5;color: #333; text-decoration: none;}
+.tomenuSec {display: inline-block;margin: 3px 40px 0 0 !important; float: right;}
+.tomenuSec .navbar-nav > li > a {padding: 0px; color: #fff; font-size: 23px;}
+.tomenuSec .nav > li > a:hover, .tomenuSec .nav > li > a:focus {background-color: transparent; color: #313a4a;}
+.tomenuSec .label {font-size: 50%; padding: 0.1em 0.5em 0.3em;}
+.tomenuSec .label-warning {background-color: #182a40; vertical-align: top;}
+.tomenuSec .dropdown-menu {z-index: 9999; min-width: 250px; padding: 10px 10px;border-top-left-radius: 4px !important;border-top-right-radius: 4px !important;}
+.tomenuSec .header {background: transparent;border: 1px solid #ccc;border-radius: 0px;color: #182a40;font-weight: 700;margin-bottom: 5px;min-height: 32px;padding: 5px 0;text-align: center;}
+.tomenuSec .footer {background: #313a4a;border-radius: 4px;margin-top: 5px;min-height: 32px;padding: 3px 0;}
+.tomenuSec .footer a {background: transparent; color: #fff;}
+.tomenuSec .footer a:hover {background: transparent; color: #fff;}
+.tomenuSec .dropdown-menu > li > a {text-align: center;}
+.tomenuSec .dropdown-menu > li ul {margin: 0; padding: 0px; list-style: none;}
+.tomenuSec .dropdown-menu > li ul li {background: #f5f5f5;font-size: 12px;margin: 0 0 2px;padding: 5px;}
+.tomenuSec .dropdown-menu > li ul li a {color: #333; text-decoration: none;}
+.tomenuSec .dropdown-menu > li ul li a:hover {color: #4145FF;}
+.header .headerbottom .profilesetting {float: right; font-family: 'Lato', sans-serif;}
+.header .headerbottom .profilesetting img {width: 30px; height: 30px; border-radius: 100%; margin-right: 5px;}
+.header .headerbottom .profilesetting .dropdown-link {color: #fff; text-decoration: none;}
+.header .headerbottom .profilesetting .dropdown-link i {margin-left: 5px;}
+.header .headerbottom .profilesetting .btn {text-align: left;}
+
+.menuSec {min-height: 64px;}
+.top-menu {padding: 17px 0 0 0;position:relative;min-height: 64px; background: #92c910 url("../images/") no-repeat scroll left top; font-size: 15px;margin: 0px 0 0 0px; text-transform: uppercase;}
+.top-menu:before {top: 0;width: 0;height: 0;border-style: solid;border-width: 0 41px 65px 0;border-color: transparent #92c910 transparent transparent; position:absolute; content:""; left:-40px;}
+.top-menu::after {background: #92c910;content: "";height: 64px;left: 100%;position: absolute;right: 0;top: 0;width: 400%;}
+.top-menu .navbar-fixed-top, .navbar-fixed-bottom {position: relative; !important;}
+.top-menu .navbar-inverse {background: none !important; border: none !important;}
+.top-menu .navbar {margin-bottom: 0px !important; min-height: 30px !important;}
+.top-menu .navbar-inverse .navbar-nav > li > a {border-bottom: 2px dotted transparent;color: #fff !important; padding-top: 0px; padding-bottom: 0px; line-height: 30px;}
+.top-menu .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {border-bottom: 2px dotted #182a40;color: #182a40 !important; background: url("../images/") no-repeat scroll center center; border-radius: 0px; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.top-menu .nav > li > a {padding-left: 1px; padding-right: 1px;}
+.top-menu .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {margin-left: 0px;}
+.top-menu .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {border-bottom: 2px dotted #182a40;background: url("../images/") no-repeat scroll center center; color: #182a40 !important;}
+.top-menu .navbar-toggle {margin-right: 0px;}
+.top-menu .navbar-nav > li > .dropdown-menu {border-top-left-radius: 6px; border-top-right-radius: 6px;}
+.top-menu .navbar-nav > li {background: url("../images/") top right no-repeat; margin: 0 12px;}
+.top-menu .navbar-inverse .navbar-nav > li {border-right: 0px solid #47651b;}
+.top-menu .navbar-inverse .navbar-nav > li:last-child {border-right: none;}
+
+.banner {background: url("../images/banner-1.jpg") center center no-repeat; background-size: cover; min-height: 638px; display: none;}
+.banner .capone {position:absolute; top:60%; left:10%; color: #fff; background-color: rgba(19, 142, 61, 0.8); padding: 20px 30px;}
+.banner .capone h1 {margin: 0 0 0 0; font-size: 40px; text-transform: uppercase; font-family: 'OpenSansSemibold';}
+.ellipsis {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.banner .bannertext {font-size: 50px; color: #fff; font-family: 'RalewayBold'; margin: 170px 0 0; text-transform: uppercase; text-align: center;}
+.banner .bannertext .headdiv {color: #25af61;}
+.banner .bannertext span {font-size: 65px; padding: 15px 0; display: inline-block;}
+.banner .bannertext .btn-primary {font-weight: normal;margin: 70px 0 0 0;border-radius: 0px;padding: 14px 50px;font-size: 14px; background-color: #25af61;border: none;color: #fff; text-transform: uppercase;}
+.banner .bannertext .btn-primary:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #fff; color: #fff;}
+.banner .bannertext .btn-primary .fa {margin-left: 5px; font-size: 16px;}
+.top-menu .container, .site.index .container.middlebody {margin-bottom: 0;padding: 0;width: auto;}
+.site.index .banner .bannertext {display: block;}
+.header-sub-banner {display: none;}
+.site.index .banner {display: block;}
+
+.WhatwedoSec {background: #ffffff; padding: 60px 0 0;}
+.WhatwedoSec .Whatwedobox h1 {background: url("../images/title-border.jpg") left bottom no-repeat;text-align: left;font-size: 45px; color:#3c3c3c; padding: 0 0 30px; margin: 0 0 20px 0px; font-family: 'RalewayLight';}
+.WhatwedoSec .Whatwedobox .content {color: #646464;font-size: 15px; line-height: 30px; text-align: left; margin: 0 0px 0px 0;}
+.WhatwedoSec .Whatwedobox .content p { margin: 0 0 30px;}
+.WhatwedoSec .slider-section {padding: 38px 0 0;}
+.WhatwedoSec .helpbox {text-align: center; padding: 35px 28px 35px; border: 2px solid #eaeaea; margin-bottom: 30px;}
+.WhatwedoSec .helpbox h3 {font-size: 18px; color: #313a4a; margin-top: 20px; font-family: 'RalewayBold';}
+.WhatwedoSec .helpbox p {font-size: 15px; line-height: 26px; color: #3d3d3d;}
+.WhatwedoSec .helpbox .linebor {border-top: 1px solid #3d3d3d;margin: 30px auto 35px;width: 20%;}
+.WhatwedoSec .helpbox .icondiv1 {background: url("../images/television.png") center top no-repeat; width: 74px; height: 83px; margin: 0 auto;}
+.WhatwedoSec .helpbox .icondiv2 {background: url("../images/shortfilm.png") center top no-repeat; width: 82px; height: 83px; margin: 0 auto;}
+.WhatwedoSec .helpbox .icondiv3 {background: url("../images/modeling.png") center top no-repeat; width: 92px; height: 83px; margin: 0 auto;}
+.WhatwedoSec .helpbox .icondiv4 {background: url("../images/theater.png") center top no-repeat; width: 80px; height: 83px; margin: 0 auto;}
+.WhatwedoSec .helpbox .icondiv5 {background: url("../images/help.png") center top no-repeat; width: 82px; height: 83px; margin: 0 auto;}
+.WhatwedoSec .helpbox:hover {cursor: pointer; border: 2px solid #25af61; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .helpbox:hover h3 {color: #313a4a;}
+.WhatwedoSec .helpbox:hover p {color: #fff;}
+.WhatwedoSec .helpbox:hover .icondiv1 {background: url("../images/television.png") center -83px no-repeat; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .helpbox:hover .icondiv2 {background: url("../images/shortfilm.png") center -83px no-repeat; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .helpbox:hover .icondiv3 {background: url("../images/modeling.png") center -83px no-repeat; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .helpbox:hover .icondiv4 {background: url("../images/theater.png") center -83px no-repeat; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .helpbox:hover .icondiv5 {background: url("../images/help.png") center -83px no-repeat; transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out;}
+.WhatwedoSec .slider-section .bx-wrapper img {display: inline-block;}
+.WhatwedoSec .slider-section .bx-wrapper {padding: 0 0px;}
+.WhatwedoSec .slider-section  .bx-wrapper .bx-controls-direction a {top: -35px;}
+.WhatwedoSec .slider-section  .bx-wrapper .bx-next {right: 0;}
+.WhatwedoSec .slider-section  .bx-wrapper .bx-prev {left: 515px;}
+
+.HowitworkSec {background: #ffffff; padding: 70px 0 90px;}
+.HowitworkSec h1 {text-align: center;font-size: 50px; color:#403f3f; padding: 0 0 0 0px; margin: 0 0 90px 0px; text-transform: uppercase;}
+.HowitworkSec .hiwbox {text-align: center;}
+.HowitworkSec .hiwbox h4 {font-size: 15px; color: #25af61; font-family: 'RalewayBold'; text-transform: uppercase; margin-top: 28px;}
+.HowitworkSec .hiwbox p {color: #646464;line-height: 24px; font-size: 15px; padding: 0 20px;}
+.HowitworkSec .hiwbox .arrow {margin: 20px 0 0 265px; position: absolute;background: url("../images/arrow.png") center center no-repeat; width: 49px; height: 65px;}
+
+.JoinSec {background: #fff url("../images/join-bg.jpg") center center no-repeat; background-size: cover; padding: 125px 0 0px; min-height: 572px;}
+.JoinSec .JoinSecbox h2 {text-align: left;font-size: 30px; color:#fff; padding: 0 300px 0 0; margin: 0 0 50px; text-transform: uppercase; line-height: 50px;}
+.JoinSec .JoinSecbox p {font-size: 15px; color: #fff; line-height: 30px; padding: 0 370px 0 0;}
+.JoinSec .JoinSecbox .btn-primary {font-family: 'RalewayBold';margin: 40px 0 0 0;border-radius: 5px;padding: 14px 40px;font-size: 16px; background-color: #fff;border: none;color: #25af61; text-transform: uppercase;}
+.JoinSec .JoinSecbox .btn-primary:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #fff; color: #fff;}
+
+.RiskSec {background: #fff url("../images/") center center no-repeat; background-size: cover; padding: 80px 0px 60px;}
+.RiskSec .RiskSecbox {padding: 0 10px 0 0;}
+.RiskSec .RiskSecbox h4 {font-family: 'RalewayBold';text-align: left;font-size: 18px; color:#25af61; padding: 0 0 0 0; margin: 0 0 15px 0; text-transform: uppercase;}
+.RiskSec .RiskSecbox p {font-size: 15px; line-height: 22px;}
+.RiskSec .RiskSecbox img {float: left; margin: 0 15px 45px 0;}
+.RiskSec .RiskSecbox.two > img {width: 70px;}
+
+.BecomeSec {background: #fff url("../images/becomebg.jpg") center center no-repeat; background-size: cover; padding: 0px 0 0px; min-height: 456px;}
+.BecomeSec .BecomeSecbox {background: #fff; width: 560px; min-height: 315px; border-radius: 10px; margin: 75px 0 0 auto; text-align: center; padding: 35px 20px 0;}
+.BecomeSec .BecomeSecbox h2 {font-family: 'RalewayLight';font-size: 34px; color:#25af61; padding: 0 0px 0 0; margin: 0 0 35px;}
+.BecomeSec .BecomeSecbox p {font-size: 15px; color: #605f5e; line-height: 25px; padding: 0 0 15px;}
+.BecomeSec .BecomeSecbox .btn-primary {font-family: 'RalewayMedium';margin: 0px 0 0 0;border-radius: 5px;padding: 14px 40px;font-size: 16px; background-color: #fff;border: 1px solid #25af61;color: #25af61; text-transform: uppercase;}
+.BecomeSec .BecomeSecbox .btn-primary:hover {background: #25af61;border-color: #25af61; color: #fff;}
+
+.RecentmemberskSec {background: #ffffff; padding: 70px 0 70px;}
+.RecentmemberskSec h1 {text-align: center;font-size: 50px; color:#403f3f; padding: 0 0 0 0px; margin: 0 0 30px 0px; text-transform: uppercase;}
+.RecentmemberskSec .nav-tabs {border: none;}
+.RecentmemberskSec .nav-tabs > li {float: none; display: inline-block;}
+.RecentmemberskSec .nav-tabs > li > a {font-size: 15px; text-transform: uppercase; color: #403f3f; background: none; border: none;}
+.RecentmemberskSec .nav-tabs > li.active > a, .RecentmemberskSec .nav-tabs > li.active > a:hover, .RecentmemberskSec .nav-tabs > li.active > a:focus {color: #25af61;  background: none; border: none; text-decoration: underline;}
+.RecentmemberskSec .tab-content > .tab-pane {padding-top: 100px;}
+.RecentmemberskSec .talentimg {padding: 15px 0 0;}
+.RecentmemberskSec .talentdis {background: #25af61; padding: 20px 15px; color: #fff;}
+.RecentmemberskSec .talentdis h3 {font-family: 'RalewayMedium';font-size: 20px; text-transform: uppercase; margin-top: 0px; margin-bottom: 0px;}
+.RecentmemberskSec .talentdis .addressdiv {font-size: 15px; padding: 13px 0;}
+.RecentmemberskSec .talentdis p {font-size: 15px; line-height: 24px;}
+.RecentmemberskSec .talentdis .btn-primary {font-family: 'RalewayMedium';margin: 0px 0 0 0;border-radius: 0px;padding: 9px 40px;font-size: 15px; background-color: #25af61;border: 1px solid #8cfabc;color: #fff; text-transform: uppercase;}
+.RecentmemberskSec .talentdis .btn-primary:hover {background: #313a4a;border-color: #fff; color: #fff;}
+.RecentmemberskSec .talentdis .socielmedia {margin: 4px auto 0 0; right: 0px; width: 176px;}
+.RecentmemberskSec .talentdis .socielmedia a {display: block;float: left;font-size: 23px;height: 30px;line-height: 30px;margin: 5px 10px 15px 0;text-align: center;width: auto; border-radius: 100%;}
+.RecentmemberskSec .talentdis .socielmedia .twitter {color: #fff; text-decoration: none; background: transparent; border: 1px solid #25af61;}
+.RecentmemberskSec .talentdis .socielmedia a.twitter:hover {border: 1px solid #25af61; background: transparent; color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.RecentmemberskSec .talentdis .socielmedia .facebook {background: transparent;color: #fff; text-decoration: none; border: 1px solid #25af61;}
+.RecentmemberskSec .talentdis .socielmedia a.facebook:hover {border: 1px solid #25af61; background: transparent;color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.RecentmemberskSec .talentdis .socielmedia .instagram {background: transparent;color: #fff; text-decoration: none; border: 1px solid #25af61;}
+.RecentmemberskSec .talentdis .socielmedia a.instagram:hover {border: 1px solid #25af61; background: transparent;color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.RecentmemberskSec .talentdis .socielmedia .youtube {background: transparent;color: #fff; text-decoration: none; border: 1px solid #25af61;}
+.RecentmemberskSec .talentdis .socielmedia a.youtube:hover {border: 1px solid #25af61; background: transparent;color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.RecentmemberskSec .talentdis .socielmedia .linkedin {background: transparent;color: #fff; text-decoration: none; border: 1px solid #25af61;}
+.RecentmemberskSec .talentdis .socielmedia a.linkedin:hover {border: 1px solid #25af61; background: transparent;color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.RecentmemberskSec .slider-section .bx-wrapper img {display: inline-block;}
+.RecentmemberskSec .slider-section .bx-wrapper {padding: 0 130px;}
+.RecentmemberskSec .slider-section .bx-wrapper .bx-controls-direction a {top: 48%;}
+.RecentmemberskSec .slider-section .bx-wrapper .bx-next {right: 0; background: url("../images/next-two.png") no-repeat;}
+.RecentmemberskSec .slider-section .bx-wrapper .bx-prev {left: 0px; background: url("../images/prev-two.png") no-repeat;}
+.RecentmemberskSec .slider-section.one .bx-wrapper .bx-controls-direction a {width: 79px; height: 46px;}
+
+.SubscribeSec {background: url("../images/subscribe-bg.jpg") center center no-repeat; background-size: cover; padding: 0px 0 0px; min-height: 400px;}
+.SubscribeSec .subscribebox {text-align: center;width: 758px; margin: 115px auto 0;}
+.SubscribeSec .subscribebox h2 {text-align: center;font-size: 50px; color:#fff; padding: 0 0 0 0px; margin: 55px 0 35px 0px; text-transform: uppercase;}
+.SubscribeSec .subscribebox .textdiv {font-size: 13px; padding: 0 0 45px; color: #fff;}
+.SubscribeSec .subscribebox .formdiv input[type="email"]{font-size: 13px;padding: 0 0 0 55px;width: 62%;background: #fff url("../images/mail.png") 20px center no-repeat;height: 58px;border: 1px solid #fff; line-height: 58px;}
+.SubscribeSec .subscribebox .formdiv input[type="email"]:focus {border: 1px solid #25af61; transition: all 0.3s ease-in-out;}
+.SubscribeSec .subscribebox .formdiv button {background: #25af61 none repeat;border: medium none;color: #fff;font-size: 17px;height: 58px;padding: 0 45px;text-transform: uppercase;vertical-align: top;}
+.SubscribeSec .subscribebox .formdiv button:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #fff; color: #fff;transition: all 0.3s ease-in-out;}
+
+.footer {background: #1d222a url("../images/") center center no-repeat; border-top: 1px solid #242931; min-height: 560px; padding: 0px 0 30px 0;}
+.footer .aboutrollcall {border-bottom: 1px solid #343940; padding: 60px 0;}
+.footer .aboutrollcall h3 {font-size: 21px; text-transform: uppercase; color: #25af61; padding: 0 0 0px; margin-bottom: 18px; margin-top: 0px;}
+.footer .aboutrollcall .content {font-size: 14px; line-height: 27px; color: #646464;}
+.footer .aboutrollcall > img {float: left;margin: 3px 25px 0 0;}
+.footer .fotmenu {}
+.footer .fotmenu h3 {font-size: 20px; text-transform: uppercase; color: #fff; padding: 0 0 0px; margin-bottom: 20px; margin-top: 80px;}
+.footer .fotmenu ul {margin: 0px 0 0 0px; padding: 0px; list-style: none;}
+.footer .fotmenu li {margin: 0 0 6px 0px;}
+.footer .fotmenu li a {color: #777a7f; text-decoration: none;}
+.footer .fotmenu li a:hover {color: #25af61;}
+.footer .fotlegal {margin: 0 0 0 0px;}
+.footer .fotlegal h3 {font-size: 20px; text-transform: uppercase; color: #fff; padding: 0 0 0px; margin-bottom: 20px; margin-top: 80px;}
+.footer .fotlegal ul {margin: 0px 0 0 0px; padding: 0px; list-style: none;}
+.footer .fotlegal li {margin: 0 0 6px 0px;}
+.footer .fotlegal li a {color: #777a7f; text-decoration: none;}
+.footer .fotlegal li a:hover {color: #25af61;}
+.footer .followus {margin: 0px 0 0 0;}
+.footer .followus h3 {font-size: 20px; text-transform: uppercase; color: #fff; padding: 0 0 0px; margin-bottom: 20px; margin-top: 80px;}
+.footer .followus ul {margin: 0px 0 0 0px; padding: 0px; list-style: none;}
+.footer .followus li {margin: 0 0 6px 0px;}
+.footer .followus li a {color: #777a7f; text-decoration: none;}
+.footer .followus li a:hover {color: #25af61;}
+.footer .followus li .fa {font-size: 17px; width: 25px;}
+.footer .download {margin: 0px 0 0 0;}
+.footer .download h3 {font-size: 20px; text-transform: uppercase; color: #fff; padding: 0 0 0px; margin-bottom: 20px; margin-top: 80px;}
+.footer .download .textdiv {color: #777a7f; padding: 0 0 20px;}
+.footer .download img {width: 126px;}
+.footer .copyright {text-align: center; padding: 30px 0 0; font-size: 12px; color: #777a7f; font-family: Arial;}
+.footer .copyright a {color: #777a7f; text-decoration: underline;}
+.footer .copyright a:hover {color: #25af61;}
+.disclamer {background: #161a20;padding: 25px 0 25px;font-size: 12px; color: #646464; font-family: Arial; text-align: center; line-height: 27px;}
+
+/* Inner Page Css */
+.breadcrumb {background: #313a4a;border-bottom: 0px solid #e5e5e5;border-radius: 0; padding: 12px 25px; margin-bottom: 0px;}
+.breadcrumb > li.active {color: #25af61;}
+.breadcrumb li > a {color: #fff; text-decoration: none;}
+.breadcrumb li > a:hover {color: #25af61;}
+.entry-header h1.entry-title {border-bottom: 2px dotted #3c3c3c;color: #3c3c3c;font-family: "RalewayMedium",sans-serif;margin-bottom: 15px;margin-top: 0;padding: 0 0 5px;text-transform: uppercase;}
+.container.middlebody {margin-bottom: 30px; margin-top: 30px;}
+.site.talent .talentdis {font-family: 'RalewayMedium';  font-size: 16px;}
+.site.talent .talentdis p {margin-bottom: 25px;}
+.site.talent .talentdis h3 {color: #25af61; margin-top: 0px; font-size: 20px; font-family: 'RalewayBold';}
+.site.talent .talentdis ul {margin: 0px; padding: 0px; list-style: none;}
+.site.talent .talentdis ul li {padding: 0 0 5px 0;}
+.site.talent .talentdis .btn-primary {margin-top: 50px;color: #25af61;display: block;background-color: #fff;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 12px 12px;}
+.site.talent .talentdis .btn-primary:hover {color: #fff;box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #25af61;border-color: #25af61; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.site.talent .panel-success .lead, .site.talent .panel-danger .lead  {font-family: 'RalewayBold';}
+.site.talent .panel-success .panel-heading h3, .site.talent .panel-danger .panel-heading h3 {font-family: 'RalewayMedium'; text-transform: uppercase;}
+.site.talent .panel-footer .btn-primary {background-color: #25af61;border-color: #25af61;padding: 10px 12px;text-align: center;text-transform: uppercase;}
+.site.talent .panel-footer .btn-primary:hover {background: #313a4a;border-color: #313a4a;transition: all 0.3s ease-in-out 0s;}
+.site.talent .panel-danger:hover {border-color: #25af61; transition: all 0.3s ease-in-out 0s;}
+.site.talent .panel-danger:hover .panel-heading {background-color: #25af61;border-color: #25af61;color: #fff; transition: all 0.3s ease-in-out 0s;}
+.site.talent .panel-success:hover {border-color: #25af61; transition: all 0.3s ease-in-out 0s;}
+.site.talent .panel-success:hover .panel-heading {background-color: #25af61;border-color: #25af61;color: #fff; transition: all 0.3s ease-in-out 0s;}
+
+.site.director .talentdis {font-family: 'RalewayMedium';  font-size: 16px;}
+.site.director .talentdis p {margin-bottom: 25px;}
+.site.director .talentdis h3 {color: #25af61; margin-top: 0px; font-size: 20px; font-family: 'RalewayBold';}
+.site.director .talentdis ul {margin: 0px; padding: 0px; list-style: none;}
+.site.director .talentdis ul li {padding: 0 0 5px 0;}
+.site.director .talentdis .btn-primary {margin-top: 50px;color: #25af61;display: block;background-color: #fff;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 12px 12px;}
+.site.director .talentdis .btn-primary:hover {color: #fff;box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #25af61;border-color: #25af61; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.site.director .panel-success .lead, .site.director .panel-danger .lead  {font-family: 'RalewayBold';}
+.site.director .panel-success .panel-heading h3, .site.director .panel-danger .panel-heading h3 {font-family: 'RalewayMedium'; text-transform: uppercase;}
+.site.director .panel-footer .btn-primary {background-color: #25af61;border-color: #25af61;padding: 10px 12px;text-align: center;text-transform: uppercase;}
+.site.director .panel-footer .btn-primary:hover {background: #313a4a;border-color: #313a4a;transition: all 0.3s ease-in-out 0s;}
+.site.director .panel-success .list-group-item {padding: 10px;}
+.site.director .panel-danger:hover {border-color: #25af61; transition: all 0.3s ease-in-out 0s;}
+.site.director .panel-danger:hover .panel-heading {background-color: #25af61;border-color: #25af61;color: #fff; transition: all 0.3s ease-in-out 0s;}
+.site.director .panel-success:hover {border-color: #25af61; transition: all 0.3s ease-in-out 0s;}
+.site.director .panel-success:hover .panel-heading {background-color: #25af61;border-color: #25af61;color: #fff; transition: all 0.3s ease-in-out 0s;}
+
+/* Login Register Page */
+body.site.signup {background: url("../images/talent-reg-bg.jpg") center top no-repeat; background-size: cover;}
+body.site.login {background: url("../images/talent-reg-bg.jpg") center top no-repeat; background-size: cover;}
+body.site.request-password-reset {background: url("../images/talent-reg-bg.jpg") center top no-repeat; background-size: cover;}
+body.site.become-job-owner {background: url("../images/cd-reg-bg.jpg") center top no-repeat; background-size: cover;}
+body.site.change-password {background: url("../images/talent-reg-bg.jpg") center top no-repeat; background-size: cover;}
+.loginregistration {background-color: rgba(0, 0, 0, 0.8);width: 55%; margin: 50px auto 50px; color: #fff; padding: 40px 50px 30px; border-radius: 0px; border-top: 4px solid #25af61; border-bottom: 4px solid #25af61;}
+.loginregistration h1 {margin: 0px; font-size: 25px; text-transform: uppercase; text-align: left;}
+.loginregistration .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
+.loginregistration .form-control {padding-left: 45px;height: 40px; border-radius: 0px; color: #fff; background-color: transparent; border-color: #6b6764;}
+.loginregistration .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.loginregistration .form-control::-moz-placeholder {color: #fff !important; opacity: inherit;}
+.help-block.help-block-error {color: red; text-align: left !important;font-family: Arial;font-size: 12px;}
+.loginregistration p {margin-top: 10px;}
+.loginregistration .terms {font-size: 13px; color: #fff; text-align: center; margin-bottom: 15px}
+.loginregistration .terms a {color: #93c911; text-decoration: none;}
+.loginregistration .terms a:hover {color: #fff;}
+.loginregistration .submit {text-align: center;}
+.loginregistration .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 12px 12px;}
+.loginregistration .submit .btn-primary:hover {box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.loginregistration .submit p {margin: 25px 0 0 0;}
+.loginregistration .submit p a {color: #25af61; text-decoration: underline;}
+.loginregistration .submit p a:hover {color: #fff;}
+.loginregistration .form-group {margin-bottom: 25px;}
+.loginregistration .imgbg .form-group.field-loginform-rememberme {margin-bottom: 0px;}
+.file-preview-frame {height: auto;}
+.site.signup .breadcrumb, .site.login .breadcrumb, .site.become-job-owner .breadcrumb, .site.request-password-reset .breadcrumb, .site.change-password .breadcrumb {display: none;}
+.select2-container--krajee .select2-selection {background: none; border-radius: 0px; border: 1px solid #6b6764;}
+.select2-container--krajee .select2-selection {height: 40px; color: #fff;}
+.select2-container--krajee .select2-selection--multiple .select2-selection__rendered {padding: 5px 0 0 0; height: 38px; overflow-y: auto;}
+.select2-container--krajee .select2-selection--single .select2-selection__arrow {height: 38px;}
+.select2-container--krajee .select2-selection--single .select2-selection__rendered {padding: 4px 0 0 0; color: #fff;}
+.loginregistration .radio, .loginregistration .checkbox {margin-bottom: 0px; margin-top: 0px;}
+select option {background: rgba(0,0,0,0.5);color:#fff;text-shadow:0 1px 0 rgba(0,0,0,0.4);padding: 7px 15px !important;}
+.loginregistration .auth-icon.google {background: url("../images/google-btn-1.jpg") center center no-repeat;width: 220px; height: 34px; border: 1px solid #6b6764;}
+.loginregistration .auth-icon.facebook {background: url("../images/facebook-btn-1.jpg") center center no-repeat;width: 220px; height: 34px; border: 1px solid #6b6764;}
+.loginregistration .auth-icon.linkedin {background: url("../images/linkdin-btn-1.jpg") center center no-repeat;width: 220px; height: 34px; border: 1px solid #6b6764;}
+.loginregistration .auth-icon.twitter {background: url("../images/twiitter-btn-1.jpg") center center no-repeat;width: 220px; height: 34px; border: 1px solid #6b6764;}
+.loginregistration .auth-clients {width: 220px; margin: 30px auto 0; padding: 0px;}
+.loginregistration .auth-clients li:last-child {margin-right: 0px;}
+.loginregistration h4.ortxt {color: #25af61;font-family: 'RalewayBold', sans-serif;font-size: 21px;margin: 20px auto;text-align: center;width: 80%;}
+.loginregistration h4.ortxt span {padding: 0 10px;}
+.loginregistration .file-input .btn-default {padding: 10px 12px;background: none;border-color: #ccc;color: #fff; border-radius: 0px; background-color: rgba(205, 205, 205, 0.3);}
+.loginregistration #signupform-first_name.form-control, .loginregistration #becomejobownerform-first_name.form-control {background: url("../images/fullname.png") 10px center no-repeat;}
+.loginregistration #signupform-last_name.form-control, .loginregistration #becomejobownerform-last_name.form-control {background: url("../images/fullname.png") 10px center no-repeat;}
+.loginregistration #signupform-email.form-control, .loginregistration #loginform-email.form-control, .loginregistration #becomejobownerform-email.form-control, .loginregistration #passwordresetrequestform-email.form-control {background: url("../images/email.png") 10px center no-repeat;}
+.loginregistration #signupform-password.form-control,
+.loginregistration #loginform-password.form-control,
+.loginregistration #becomejobownerform-password.form-control,
+.loginregistration #changepasswordform-password,
+.loginregistration #changepasswordform-newpass, 
+.loginregistration #changepasswordform-repeatnewpass
+{background: url("../images/password.png") 10px center no-repeat;}
+.loginregistration #signupform-is_subscriber div.radio, .loginregistration #becomejobownerform-is_subscriber div.radio {float: left; margin-right: 30px;}
+.loginregistration .form-group.field-signupform-is_subscriber, .loginregistration .form-group.field-becomejobownerform-is_subscriber {margin-bottom: 30px;}
+.loginregistration .form-group.field-signupform-is_subscriber > div {float: right;margin: 0 160px 0 0;}
+.loginregistration .form-group.field-becomejobownerform-is_subscriber > div {float: right;margin: 0 175px 0 0;}
+.loginregistration .ui-state-default, .loginregistration .ui-widget-content .ui-state-default, .loginregistration .ui-widget-header .ui-state-default {display: none;}
+
+/* New Login Page*/
+body.site.login .container.middlebody {margin-top: 55px; margin-bottom: 0px;}
+body.site.login .header {display: none;}
+body.site.login .footer {display: none;}
+body.site.login .disclamer {display: none;}
+.login-form {color: #212121;background: rgba(0, 0, 0, 0) linear-gradient(0deg, #fff 80%, #f5f5f5) repeat scroll 0 0 padding-box;border: 10px solid rgba(0, 0, 0, 0.5);border-radius: 5px;margin: 10px;opacity: 1;padding: 25px;}
+.login-form .logo {background: #25af61;color: #000;display: block;float: none;font-size: 4rem;margin: -25px -25px 25px; text-align: center; padding: 15px;}
+.login-form h1 {font-size: 2.3rem; margin-bottom: 15px; text-align: center; font-family: 'RalewayMedium';}
+.login-form a {color: rgba(0, 0, 0, 0.87);font-size: 1.4rem;margin-top: 1.5rem;}
+.login-form a:active, .login-form a:hover {color: #000;text-decoration: none;}
+.login-cta {flex-direction: column;margin-bottom: 0;min-height: 345px;}
+.login-cta {align-items: center;background: rgba(0, 0, 0, 0) linear-gradient(45deg, #f5f5f5, #fff) repeat scroll 0 0;border: 1px solid #e5e5e5;box-shadow: 0 1px 1px #ccc;display: flex;flex-direction: column;justify-content: center;margin-bottom: 15px;opacity: 1;padding: 10px;width: 100%;}
+.login-cta i {font-size: 10rem;}
+.login-cta p {margin-left: 5px;margin-right: 5px;margin-top: 5px; text-align: center;}
+.login-cta h4 {font-family: 'RalewayMedium';}
+.login-form .or {margin-bottom: 0;top: 200px; text-align: center;}
+.login-form .or {font-size: 23px;font-weight: 300;margin-bottom: 15px;position: relative;}
+.login-form.text-xs-center {text-align: center !important;}
+.login-form label {float: left; font-weight: normal !important; font-family: 'RalewayMedium';}
+.login-form label, .login-form legend {color: rgba(0, 0, 0, 0.54);display: block;font-size: 1.1rem;font-weight: 600;margin-bottom: 0.5rem;text-transform: uppercase;}
+.login-form label .required {color: #e84949;font-size: 1.4rem;line-height: 1.1;margin-left: 0.5rem;}
+input[type="email"], 
+input[type="number"], 
+input[type="password"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="text"], 
+input[type="url"], 
+select, textarea
+{background-color: #fff;border: 0.1px solid rgba(0, 0, 0, 0.12);border-radius: 0.4rem;box-shadow: none;height: 3.5rem;margin-bottom: 0;padding: 0.6rem 1rem;transition: border-color 0.2s ease-out 0s;width: 100%;}
+.login-form form {margin-top: 1.5rem;}
+.login-form .submit {padding: 0 0 15px 0;}
+.login-form .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; text-transform: uppercase;padding: 10px 12px;}
+.login-form .submit .btn-primary:hover {background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.login-form .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.login-form .auth-icon.facebook {background: url("../images/facebook-btn-1.jpg") center center no-repeat;width: 220px; height: 34px; border: 1px solid #000;}
+.login-form .auth-clients {width: 220px; margin: 15px auto 0; padding: 0px;}
+.login-form .auth-clients li:last-child {margin-right: 0px;}
+.login-form h4.ortxt {font-size: 21px;margin: 15px auto 0;text-align: center;width: 100%; background: url("../images/devider.jpg") center center repeat-x;}
+.login-form h4.ortxt span {padding: 0 10px; background: #fff;}
+.select2-container--krajee .select2-selection--multiple .select2-selection__clear {margin: 5px 25px 0;}
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {width: 48%;}
+
+/* Talent Profile Page */
+.user.view .container.middlebody {min-height: 600px;background: rgba(0, 0, 0, 0) url("../images/sidebg.jpg") repeat-y scroll 0 0 / 23.6% auto;margin: 0;padding: 0;width: 100%;}
+.directordiv.user.view .container.middlebody {min-height: auto;background: none;margin-left: auto; margin-right: auto;margin-bottom: 40px; margin-top: 40px;padding-left: 15px; padding-right: 15px;width: 1170px;}
+.user.view {background: #f3f3f3 none repeat scroll 0 0;}
+.talentprofile .repesentational img {width: 100%; border: 1px solid #dddddd; padding: 3px;}
+.talentprofile .additional-images img {border: 1px solid #dddddd; padding: 3px;}
+.talentprofile .additional-images .bx-wrapper {padding: 25px 0;}
+.talentprofile .additional-images .bx-wrapper .bx-controls-direction a {top: 44%;}
+.talentprofile .additional-images .bx-wrapper .bx-next {right: 10px; background: url("../images/next-three.png") no-repeat;}
+.talentprofile .additional-images .bx-wrapper .bx-prev {left: 10px; background: url("../images/prev-three.png") no-repeat;}
+.talentprofile .additional-images .bx-wrapper .bx-controls-direction a {width: 22px; height: 22px; z-index: 999;}
+.user.view .breadcrumb {}
+.talentprofile h1.title {margin-top: 0px; font-family: 'RalewayMedium'; font-size: 22px; text-transform: uppercase; color: #25af61; border-bottom: 1px solid #dddddd; padding: 0 0 18px; margin-bottom: 18px;}
+.talentprofile #RequestToUpgrade.btn-success {margin: -5px 40px 0 0;background-color: #25af61;border-color: #25af61;border-radius: 0;color: #fff;float: right;padding: 8px 17px;text-transform: uppercase;transition: all 0.3s ease-in-out 0s;}
+.talentprofile #RequestToUpgrade.btn-success:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.talentprofile span.messdiv {float: right; margin: -60px 0 0;}
+.talentprofile span.messdiv button {color: #313a4a; background: none; border: none; font-size: 22px;}
+.talentprofile .activedate {font-size: 13px; padding-bottom: 20px;}
+.talentprofile .address {text-align: right; font-size: 13px; padding-bottom: 20px;}
+.talentprofile .discription {font-size: 15px; line-height: 25px; padding: 0px 0; word-wrap: break-word;}
+.talentprofile .jobsother {font-size: 15px; font-family: 'RalewayBold'; padding: 35px 0 0;}
+.talentprofile .jobsother h3 {display: none;}
+.talentprofile .jobsother .sal {font-family: 'Raleway'; margin: 0 10px 0 0;}
+.talentprofile .jobsother .summery {padding: 0 0 15px;}
+.talentprofile .jobsother .summery .fa {background: url("../images/icon-5.png") center center no-repeat; height: 20px;vertical-align: middle;width: 20px; margin-right: 10px;}
+.talentprofile .jobsother .summery .fa.cls-Set.Experience {background: url("../images/icon-3.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Real.World.Experience {background: url("../images/icon-3.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Hair.Color {background: url("../images/icon-7.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Vehicle.Year {background: url("../images/icon-4.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Vehicle.Model.Type {background: url("../images/icon-4.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Vehicle.Color {background: url("../images/icon-4.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Gender {background: url("../images/icon-2.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Dob {background: url("../images/icon-1.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Union {background: url("../images/icon-6.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Location {background: url("../images/icon-8.png") center center no-repeat;}
+.talentprofile .jobsother .summery .fa.cls-Rolecall {background: url("../images/icon-9.png") center center no-repeat;}
+.talentprofile .talentsummary {margin-top: 30px;margin-bottom: 30px;border-top: 1px solid #dddddd; padding: 30px 0px 0;}
+.talentprofile .bodyinformation {margin-top: 30px;margin-bottom: 30px;border-top: 1px solid #dddddd; padding: 30px 0px 0;}
+.talentprofile .bodyinformation h3 {margin-top: 0px; margin-bottom: 25px; font-size: 25px; text-transform: uppercase; color: #242424;}
+.talentprofile .bodyinformation .summery {font-size: 15px; font-family: 'RalewayBold'; padding: 0 0 15px;}
+.talentprofile .bodyinformation .summery .sal {color: #25af61; margin: 0 20px 0 0;}
+.talentprofile .bodyinformation .summery .fa {display: none;}
+.ekko-lightbox .modal-header {border: 0 none;height: 0 !important;padding: 0;}
+.ekko-lightbox .modal-header h4 {display: none;}
+.ekko-lightbox .modal-header .close {background: #25af61 none repeat scroll 0 0;border-radius: 30px;color: #fff;font-size: 24px;height: 25px;margin: -10px -10px 0 0;opacity: 0.9;width: 25px;}
+.talentprofile .floatleftdiv {float: left;margin: 0 30px 20px 0;width: 555px;}
+.vpicture {margin-top: -20px;}
+.vpicture .sal {background: #25af61;color: #fff;font-family: 'RalewayBold';padding: 8px;position: absolute;text-align: center;text-transform: uppercase;width: 100%; bottom: 0;}
+.vpicture .vimage {position: relative;}
+.talentprofile .ribbondiv {background: url("../images/rebbin.png") no-repeat;height: 144px;left: 2px;position: absolute;top: -12px;width: 144px;}
+.user-view.userprofile {padding: 30px 30px 30px 0;}
+.directordiv.user.view .user-view.userprofile {padding: 25px 20px; background: #fff;}
+.directordiv.user.view .talentprofile #RequestToUpgrade.btn-success {margin: -5px 0px 0 0;}
+
+/* Job Individual Page */
+body.job-item.view {background: #f3f3f3;}
+.jobindividual {font-family: 'Lato', sans-serif; padding: 20px 30px 30px 0;}
+.jobindividual .repesentational img {width: 100%; border: 1px solid #dddddd; padding: 3px;}
+.jobindividual .additional-images img {border: 1px solid #dddddd; padding: 3px;}
+.jobindividual .additional-images .bx-wrapper {padding: 25px 0;}
+.jobindividual .additional-images .bx-wrapper .bx-controls-direction a {top: 44%;}
+.jobindividual .additional-images .bx-wrapper .bx-next {right: 10px; background: url("../images/next-three.png") no-repeat;}
+.jobindividual .additional-images .bx-wrapper .bx-prev {left: 10px; background: url("../images/prev-three.png") no-repeat;}
+.jobindividual .additional-images .bx-wrapper .bx-controls-direction a {width: 22px; height: 22px;}
+.job-item.view .breadcrumb {}
+.jobindividual h1.title {margin-top: 0px; font-family: 'Lato', sans-serif; font-size: 22px; text-transform: uppercase; color: #25af61; border-bottom: 1px solid #dddddd; padding: 0 0 18px; margin-bottom: 18px;}
+.jobindividual span.messdiv {float: right; margin: -60px 0 0;}
+.jobindividual span.messdiv button {color: #313a4a; background: none; border: none; font-size: 22px;}
+.jobindividual .activedate {font-size: 13px; padding-bottom: 20px;}
+.jobindividual .address { float: right;font-size: 14px;margin: -5px 0 0;padding-bottom: 5px;text-align: right;}
+.jobindividual .address i {color: #25af61; padding-right: 5px; margin: 0 0 0 25px;}
+.jobindividual .address.two {}
+.jobindividual .address.two a {color: #494848;}
+.jobindividual .discription {font-size: 14px; line-height: 25px; padding: 0px 0;}
+.jobindividual .jobsother {font-size: 15px; font-family: 'Lato', sans-serif; padding: 35px 0 0;}
+.jobindividual .jobsother h3 {display: none;}
+.jobindividual .jobsother .sal {font-family: 'Lato', sans-serif; margin: 0 10px 0 0;}
+.jobindividual .jobsother .summery {padding: 0 0 15px;}
+.jobindividual .talentsummary {margin-top: 30px;margin-bottom: 30px;border-top: 1px solid #dddddd; padding: 30px 0px 0;}
+.jobindividual .bodyinformation {margin-top: 30px;margin-bottom: 30px;border-top: 1px solid #dddddd; padding: 30px 0px 0;}
+.jobindividual .bodyinformation h3 {margin-top: 0px; margin-bottom: 25px; font-size: 25px; text-transform: uppercase; color: #242424;}
+.jobindividual .bodyinformation .summery {font-size: 15px; font-family: 'Lato', sans-serif; font-weight: 700; padding: 0 0 15px;}
+.jobindividual .bodyinformation .summery .sal {color: #25af61; margin: 0 20px 0 0;}
+.jobindividual .bodyinformation .summery .fa {display: none;}
+.jobindividual .floatleftdiv {float: left;margin: 0 30px 20px 0;width: 555px;}
+.jobindividual h3.distitle {font-size: 15px;text-transform: uppercase; font-family: 'Lato', sans-serif; font-weight: 700; margin-top: 0px; margin-bottom: 14px;}
+.jobindividual .btn-sequence {padding: 15px 15px 0;}
+.jobindividual .btn-sequence .btn-primary {margin-bottom: 5px;font-size: 15px; font-family: 'Lato', sans-serif; font-weight: 700;padding: 12px 25px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; transition: all 0.3s ease-in-out;}
+.jobindividual .btn-sequence .btn-primary:hover { box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.jobindividual .btn-sequence .btn-success {margin-bottom: 5px;font-size: 15px; font-family: 'Lato', sans-serif; font-weight: 700;padding: 12px 25px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; transition: all 0.3s ease-in-out;}
+.jobindividual .btn-sequence .btn-success:hover { box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.jobindividual .text-center .btn-sequence .btn-primary {padding: 10px 30px; font-size: 20px; border-radius: 4px;}
+.job-item.view .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+
+/* Dashboard CD Page */
+.site.dashboard {background: #f3f3f3;}
+.site.dashboard .breadcrumb {}
+.site.dashboard .container.middlebody {padding: 0;}
+.site.dashboard h1.dashtitle {display: none;font-size: 25px; text-transform: uppercase; color: #353636; margin-bottom: 20px;}
+.site.dashboard .site-dashboard {font-family: 'Lato', sans-serif;}
+.site.dashboard .profiledis {background: #fff; border-radius: 4px; padding: 20px;}
+.site.dashboard .profiledis h3 {font-size: 20px; color: #000; margin: 0;}
+.site.dashboard .profiledis .sub-field {color: #25af61;}
+.site.dashboard .recent-job-postingSec {font-family: 'Lato', sans-serif;}
+.site.dashboard .recent-job-postingSec h1 {font-family: 'Lato', sans-serif;font-size: 25px; color: #25af61; margin-bottom: 20px; margin-top: 0px; border-bottom: 1px solid #e7eaeb; padding: 0 0 17px;}
+.site.dashboard .entry-header .btn {margin-left: 10px;background-color: #25af61;border-color: #25af61;border-radius: 0;color: #fff;float: right;padding: 8px 17px;text-transform: uppercase;transition: all 0.3s ease-in-out 0s;}
+.site.dashboard .entry-header .btn:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.site.dashboard .recent-job-postingSec .jobsbox {margin-bottom: 30px;box-shadow: 0 0 3px #b1b1b1;font-family: 'Lato', sans-serif;background: #fff;border: 1px solid #e9e5e5;  padding: 0 0 0px 0;}
+.site.dashboard .recent-job-postingSec .jobsbox:hover {box-shadow: 0 0 3px #25af61;border-color: #25af61; transition: all 0.3s ease-in-out;}
+.site.dashboard .recent-job-postingSec .jobsbox h3 {font-family: 'Lato', sans-serif; font-weight: 700;color: #fff;text-align: center;padding: 10px;background: #25af61;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;font-size: 15px; text-transform: uppercase;margin-bottom: 0px;margin-top: 0px;}
+.site.dashboard .recent-job-postingSec .jobsbox h5 {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.site.dashboard .recent-job-postingSec .jobsbox h3 a {color: #3a3a3a;}
+.site.dashboard .recent-job-postingSec .jobsbox h3 a:hover {color: #25af61; text-decoration: none;}
+.site.dashboard .recent-job-postingSec .jobsbox .textcont {padding: 20px 20px; min-height: 195px; word-wrap: break-word; font-size: 15px; line-height: 22px;}
+.site.dashboard .recent-job-postingSec .jobsbox .textcont span {color: #000;}
+.site.dashboard .recent-job-postingSec .jobsbox .jobsimg img {width: 100%; height: 250px;}
+.site.dashboard .recent-job-postingSec .jobsbox .btn-primary {display: block;background-color: #e9e5e5;border-color: #e9e5e5;color: #25af61; border-radius: 0px; font-size: 16px; letter-spacing: 1px;}
+.site.dashboard .recent-job-postingSec .jobsbox .btn-primary:hover {background-color: #25af61;border-color: #25af61;color: #fff;}
+.site.dashboard .recent-job-postingSec .jobsbox .counter {position: absolute;font-family: 'Lato', sans-serif; font-weight: 700;right: 5px; top: -10px; background: #25af61; color: #fff; width: 40px; height: 40px; border-radius: 100%; text-align: center; line-height: 40px;}
+.site.dashboard .recent-job-postingSec .jobsbox .counter a {text-decoration: none;color: #fff; display: block;}
+.site.dashboard .recent-job-postingSec .text-center {margin-top: 20px;}
+.site.dashboard .recent-job-postingSec .text-center .btn-primary {padding: 8px 17px;background-color: #fff;border-color: #25af61;color: #25af61; border-radius: 0px; text-transform: uppercase;}
+.site.dashboard .recent-job-postingSec .text-center .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.site.dashboard .recent-job-postingSec .empty {padding: 0 0 0 15px;}
+.sidebar {background: #ffffff; min-height: auto; padding: 0 0 30px; font-family: 'Lato', sans-serif;}
+.sidebar .btn {border-radius: 0px;border-left: 3px solid #ffffff;display: block; text-align: left; padding: 13px 20px; border-bottom: 1px solid #e7e7e7; font-size: 15px; color: #333;}
+.sidebar .btn:hover {background: #EDEEEE; border-left: 3px solid #25af61;}
+.sidebar li.active-talent .btn {background: #EDEEEE; border-left: 3px solid #25af61;}
+.sidebar .btn-success {background: none;border: 0px;border-radius: 0px;border-left: 3px solid #2b3a41;display: block; width: 100%; text-align: left; padding: 13px 20px; border-bottom: 1px solid #3a494e; font-size: 15px; color: #fff;}
+.sidebar .btn-success:hover {background: #1d222a; border-left: 3px solid #25af61; transition: all 0.3s ease-in-out;}
+.sidebar .dashboardtab {border-bottom: 1px solid #e7e7e7;background: #fff; border-left: 3px solid #25af61; padding: 13px 0px 13px 20px; display: block; color: #8D9494;font-size: 15px;}
+.sidebar .dashboardtab a {text-transform: capitalize;text-decoration: none;color: #333; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 17px; vertical-align: top;}
+.sidebar .dashboardtab a:hover {color: #25af61;}
+.sidebar .dashboardtab span {display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;}
+.sidebar .dashboardtab small {display: block; color: #999999; margin: -20px 0 0 46px; vertical-align: top;}
+.sidebar .dashboardtab:before {content: "\f15c";font-family: 'FontAwesome'; font-size: 32px; padding: 0 15px 0 0;}
+.sidebar .btn-talent-matches:before {content: "\f24d";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-talent-passes:before {content: "\f165";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-talent-selects:before {content: "\f14c";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-talent-booked:before {content: "\f274";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-booked:before {content: "\f274";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-pending:before {content: "\f24d";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-declined:before {content: "\f165";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-success:before {content: "\f151";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-applied:before {content: "\f046";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-favorite:before {content: "\f005";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-approved:before {content: "\f14c";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-update-profile:before {content: "\f021";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-approved-talents:before {content: "\f164";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar .btn-passed:before {content: "\f165";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
+.sidebar li {list-style: none;}
+.sidebar li span.counter {position: absolute;display: inline-block;background: #25af61;border-radius: 100%;color: #fff;font-family: 'Lato', sans-serif;height: 30px;line-height: 30px;text-align: center;width: 30px; font-size:13px; margin: -2px 0 0 0; right: 35px;}
+.entry-header h1.dashtitle {font-size: 25px; text-transform: uppercase; color: #353636; margin-bottom: 20px; font-family: 'Lato', sans-serif;}
+.productbgcolor {background: #fff;border-radius: 4px;margin: 0px 0 0;padding: 20px; font-family: 'Lato', sans-serif;}
+.job-user-mapper.index {background: #f3f3f3;}
+.job-user-mapper-index {padding: 0 30px 30px 0;}
+/*start - added by vasundhara*/
+.btn-talent-passes:before {content: "\f165";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;color:#000;}
+.btn-talent-selects:before {content: "\f14c";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;color:#000;}
+.btn-talent-booked:before {content: "\f274";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;color:#000;}
+.btn-talent-passes.select-talent,
+.btn-talent-booked.select-talent,
+.btn-talent-selects.select-talent{
+    text-decoration: none;
+}
+/*end - added by vasundhara*/
+/* Archive Page */
+.job-item.archive {background: #f3f3f3 none repeat scroll 0 0;}
+.job-item.archive .recent-job-postingSec h1 {font-family: 'Lato', sans-serif;font-size: 25px; color: #25af61; margin-bottom: 20px; margin-top: 0px; border-bottom: 1px solid #e7eaeb; padding: 0 0 17px;}
+.job-item.archive .entry-header .btn {margin-left: 10px;background-color: #25af61;border-color: #25af61;border-radius: 0;color: #fff;float: right;padding: 8px 17px;text-transform: uppercase;transition: all 0.3s ease-in-out 0s;}
+.job-item.archive .entry-header .btn:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.archive .recent-job-postingSec .jobsbox {margin-bottom: 30px;box-shadow: 0 0 3px #b1b1b1;font-family: 'Lato', sans-serif;background: #fff;border: 1px solid #e9e5e5;  padding: 0 0 0px 0;}
+.job-item.archive .recent-job-postingSec .jobsbox:hover {box-shadow: 0 0 3px #25af61;border-color: #25af61; transition: all 0.3s ease-in-out;}
+.job-item.archive .recent-job-postingSec .jobsbox h3 {font-family: 'Lato', sans-serif; font-weight: 700;color: #fff;text-align: center;padding: 10px;background: #25af61;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;font-size: 15px; text-transform: uppercase;margin-bottom: 0px;margin-top: 0px;}
+.job-item.archive .recent-job-postingSec .jobsbox h5 {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+.job-item.archive .recent-job-postingSec .jobsbox h3 a {color: #3a3a3a;}
+.job-item.archive .recent-job-postingSec .jobsbox h3 a:hover {color: #25af61; text-decoration: none;}
+.job-item.archive .recent-job-postingSec .jobsbox .textcont {padding: 20px 20px; min-height: 195px; word-wrap: break-word; font-size: 15px; line-height: 22px;}
+.job-item.archive .recent-job-postingSec .jobsbox .textcont span {color: #000;}
+.job-item.archive .recent-job-postingSec .jobsbox .jobsimg img {width: 100%; height: 250px;}
+.job-item.archive .recent-job-postingSec .jobsbox .btn-primary {display: block;background-color: #e9e5e5;border-color: #e9e5e5;color: #25af61; border-radius: 0px; font-size: 16px; letter-spacing: 1px;}
+.job-item.archive .recent-job-postingSec .jobsbox .btn-primary:hover {background-color: #25af61;border-color: #25af61;color: #fff;}
+.job-item.archive .recent-job-postingSec .jobsbox .counter {position: absolute;font-family: 'Lato', sans-serif; font-weight: 700;right: 5px; top: -10px; background: #25af61; color: #fff; width: 40px; height: 40px; border-radius: 100%; text-align: center; line-height: 40px;}
+.job-item.archive .recent-job-postingSec .jobsbox .counter a {text-decoration: none;color: #fff; display: block;}
+
+/* My Jobs Page */
+.job-item.my-jobs .breadcrumb {}
+.job-item.my-jobs .entry-header .btn-primary {padding: 8px 17px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; float: right; transition: all 0.3s ease-in-out;}
+.job-item.my-jobs .entry-header .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.my-jobs .search-item-box {background-color: rgba(0, 0, 0, 0.8);width: 100%; margin: 0px auto 20px; color: #fff; padding: 40px 50px 30px; border-radius: 0px; border-top: 4px solid #25af61; border-bottom: 4px solid #25af61;}
+.job-item.my-jobs .search-item-box h2 {margin: 0px 0 20px 0; font-size: 25px; text-transform: uppercase; text-align: left;}
+.job-item.my-jobs .search-item-box .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
+.job-item.my-jobs .search-item-box .form-control {padding-left: 15px;height: 50px; border-radius: 0px; color: #fff; background-color: transparent; border-color: #6b6764;}
+.job-item.my-jobs .search-item-box .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.job-item.my-jobs .search-item-box .form-control::-moz-placeholder {color: #fff !important; opacity: inherit;}
+.help-block.help-block-error {color: red; text-align: left !important;font-family: Arial;font-size: 12px;}
+.job-item.my-jobs .search-item-box .submit {text-align: center;}
+.job-item.my-jobs .search-item-box .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 10px 30px;}
+.job-item.my-jobs .search-item-box .submit .btn-primary:hover {box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.job-item.my-jobs .jobsbox {border: 1px solid #e9e5e5; border-bottom: 3px solid #25af61; padding: 0 0 0px 0; margin-bottom: 30px;}
+.job-item.my-jobs .jobsbox:hover {border-color: #25af61; transition: all 0.3s ease-in-out;}
+.job-item.my-jobs .jobsbox h3 {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;font-size: 14px; font-family: 'RalewayBold'; text-transform: uppercase;margin-bottom: 10px;margin-top: 20px;}
+.job-item.my-jobs .jobsbox h3 a {color: #3a3a3a;}
+.job-item.my-jobs .jobsbox h3 a:hover {color: #25af61; text-decoration: none;}
+.job-item.my-jobs .jobsbox .textcont {padding: 0 20px; min-height: 110px; font-size: 12px;}
+.job-item.my-jobs .jobsbox .jobsimg img {width: 100%; height: 220px;}
+.job-item.my-jobs .jobsbox .loccaltime {padding: 15px 20px 20px;}
+.job-item.my-jobs .jobsbox .loccaltime .fa {color: #25af61;}
+.job-item.my-jobs .jobsbox .loccaltime .date {text-align: left;}
+.job-item.my-jobs .jobsbox .buttondiv .btn-primary {display: block;padding: 7px 17px 3px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; transition: all 0.3s ease-in-out;}
+.job-item.my-jobs .jobsbox .buttondiv .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.my-jobs .list-view .empty {padding: 0 0 0 15px;}
+.job-item.my-jobs .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+.job-item.my-jobs .job-item-index {padding: 0 30px 30px 0;}
+body.job-item.my-jobs {background: #f3f3f3;}
+.job-item.index .RoleCallfront.col-sm-9 {width: 100%;}
+.job-item.index .productbgcolor {padding: 0px;}
+.job-item.index .wrapper {margin-left: -15px; margin-right: -15px;}
+
+
+/* Profile Update Page */
+body.user.update {background: #f3f3f3;}
+.user.update .breadcrumb {}
+.user.update .updateform {padding: 0 0px 30px 0; border-radius: 4px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
+.user.update .updateform h1 {}
+.user.update .updateform h1.secondti {border-top: 0px dotted #d1cdca; margin-top: 0px; margin-bottom: 20px; padding-top: 0px; color: #25af61; font-size: 25px;text-transform: uppercase;}
+.user.update .updateform h1.secondti.two {border-top: 1px dotted #d1cdca; margin-top: 25px; margin-bottom: 20px; padding-top: 25px; color: #25af61; font-size: 25px;text-transform: uppercase;}
+.user.update .updateform .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
+.user.update .updateform .form-control {padding-left: 15px;height: 40px; border-radius: 0px; color: #777; background-color: transparent; border-color: #d1cdca;}
+.user.update .updateform textarea.form-control {height: 139px;}
+.user.update .updateform .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.user.update .updateform .form-control::-moz-placeholder {color: #fff !important; opacity: inherit;}
+.user.update .updateform .hasDatepicker {width: 100%;display: block;padding-left: 15px;height: 40px; border-radius: 0px; color: #777; background-color: transparent; border: 1px solid #d1cdca;}
+.user.update .updateform .hasDatepicker:focus {box-shadow: inherit; border-color: #25af61;}
+.help-block.help-block-error {color: red; text-align: left !important;font-family: Arial;font-size: 12px;}
+.user.update .updateform .submit {text-align: center;}
+.user.update .updateform .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 10px 30px;}
+.user.update .updateform .submit .btn-primary:hover {box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.user.update .updateform #userprofile-gender label {margin-right: 30px;}
+.user.update .updateform .file-preview {border-color: #d1cdca;}
+.user.update .updateform .file-preview-frame {border: none;}
+.user.update .container.middlebody {margin-bottom: 20px; margin-top: 20px;}
+.user.update .updateform .user-form {background: #fff;padding: 20px; border-radius: 4px;}
+.user.update .updateform .select2-container--krajee .select2-selection {border: 1px solid #d1cdca;}
+.user.update .updateform .select2-container--krajee .select2-selection--single .select2-selection__rendered {color: #777;}
+.user.update .updateform #useraddress-location {background-color: transparent;border-color: #d1cdca;border-radius: 0;color: #777;height: 40px;padding-left: 15px;}
+.user.update .updateform .file-preview-image {height: 100px !important;}
+.user.update .updateform #userfieldvalue-34-value label, .user.update .updateform #userfieldvalue-17-value label {margin-right: 20px;}
+.user.update .updateform .btn-default {background-color: #25af61;border-color: #25af61; color: #fff;}
+.user.update .updateform .btn-default:hover {background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.krajee-default.file-preview-frame .kv-file-content {height: 100px;}
+.file-preview {border-radius: 0;}
+.user.update .updateform .col-sm-4.user-field-11, 
+.user.update .updateform .col-sm-4.user-field-12,
+.user.update .updateform .col-sm-4.user-field-13,
+.user.update .updateform .col-sm-4.user-field-14,
+.user.update .updateform .col-sm-4.user-field-15,
+.user.update .updateform .col-sm-4.user-field-16,
+.user.update .updateform .col-sm-4.user-field-17,
+.user.update .updateform .col-sm-4.user-field-40,
+.user.update .updateform .col-sm-4.user-field-41,
+.user.update .updateform .col-sm-4.user-field-42,
+.user.update .updateform .col-sm-4.user-field-43
+{width: 18%;}
+.user.update .updateform .file-input {width: 100%;}
+.directordiv.user.update .updateform .file-input {width: 32%;}
+.krajee-default.file-preview-frame .file-thumbnail-footer {height: auto;}
+
+/* Pending Talents Page */
+.user.job-talents .breadcrumb {}
+.user.job-talents .jobsbox {background: #fff;border: 1px solid #e9e5e5;box-shadow: 0 0 3px #b1b1b1;font-family: 'Lato', sans-serif;margin-bottom: 30px;padding: 0;}
+.user.job-talents .jobsbox:hover {border-color: #25af61;box-shadow: 0 0 3px #25af61;transition: all 0.3s ease-in-out 0s;}
+.user.job-talents .jobsbox h3 {background: #25af61;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;font-size: 15px;margin-bottom: 0;margin-top: 0;overflow: hidden;padding: 10px;text-align: center;text-overflow: ellipsis;text-transform: uppercase;white-space: nowrap;}
+.user.job-talents .jobsbox h3 a { color: #fff;}
+.user.job-talents .jobsbox h3 a:hover {color: #fff; text-decoration: none;}
+.user.job-talents .jobsbox .textcont {font-size: 15px;line-height: 22px;min-height: 130px;overflow-wrap: break-word;padding: 20px;}
+.user.job-talents .jobsbox .textcont span {color: #000;}
+.user.job-talents .jobsbox .jobsimg img {width: 100%; height: 250px;}
+.user.job-talents .jobsbox .loccaltime {padding: 0 20px 20px;}
+.user.job-talents .jobsbox .loccaltime .fa {color: #25af61;}
+.user.job-talents .jobsbox .loccaltime .date {text-align: left; padding: 12px 0 0;}
+.user.job-talents .jobsbox .buttondiv { background: #e9e5e5;text-align: center;}
+.user.job-talents .jobsbox .buttondiv .btn-primary { background-color: #e9e5e5;border-color: #e9e5e5;border-radius: 0;color: #25af61;font-size: 17px;letter-spacing: 1px;text-transform: uppercase;width: 49%;}
+.user.job-talents .jobsbox .buttondiv .btn-primary:hover {background-color: transparent;border-color: transparent;color: #313a4a;}
+.user.job-talents .jobsbox .counter {background: #25af61;border-radius: 100%;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;height: 40px;line-height: 40px;position: absolute;right: 5px;text-align: center;top: -10px;width: 40px;}
+.user.job-talents .jobsbox .counter a {color: #fff;display: block;text-decoration: none;}
+.user.job-talents .list-view .empty {padding: 0 0 0 15px;}
+.user.job-talents .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+body.user.job-talents {background: #f3f3f3;}
+.user.job-talents .user-index {padding: 0 30px 30px 0;} 
+
+/* Select Talent Page */
+.job-item.talents .breadcrumb {}
+.job-item.talents .entry-header .btn-primary {padding: 8px 17px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; float: right; transition: all 0.3s ease-in-out;}
+.job-item.talents .entry-header .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.talents .search-item-box {background-color: rgba(0, 0, 0, 0.8);width: 100%; margin: 10px auto 20px; color: #fff; padding: 40px 50px 30px; border-radius: 0px; border-top: 4px solid #25af61; border-bottom: 4px solid #25af61;}
+.job-item.talents .search-item-box h2 {margin: 0px 0 20px 0; font-size: 25px; text-transform: uppercase; text-align: left;}
+.job-item.talents .search-item-box .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
+.job-item.talents .search-item-box .form-control {padding-left: 15px;height: 50px; border-radius: 0px; color: #fff; background-color: transparent; border-color: #6b6764;}
+.job-item.talents .search-item-box .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.job-item.talents .search-item-box .form-control::-moz-placeholder {color: #fff !important; opacity: inherit;}
+.help-block.help-block-error {color: red; text-align: left !important;font-family: Arial;font-size: 12px;}
+.job-item.talents .search-item-box .submit {text-align: center;}
+.job-item.talents .search-item-box .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 10px 30px;}
+.job-item.talents .search-item-box .submit .btn-primary:hover {box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.job-item.talents h3.dashtitle {font-size: 25px; text-transform: uppercase; color: #353636; margin-bottom: 20px; margin-top: 0px;}
+.job-item.talents .jobsbox {background: #fff;border: 1px solid #e9e5e5;box-shadow: 0 0 3px #b1b1b1;font-family: 'Lato', sans-serif;margin-bottom: 30px;padding: 0;}
+.job-item.talents .jobsbox:hover {box-shadow: 0 0 3px #25af61;border-color: #25af61; transition: all 0.3s ease-in-out;}
+.job-item.talents .jobsbox h3 {background: #25af61;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;font-size: 15px;margin-bottom: 0;margin-top: 0;overflow: hidden;padding: 10px;text-align: center;text-overflow: ellipsis;text-transform: uppercase;white-space: nowrap;}
+.job-item.talents .jobsbox h3 a {color: #fff;}
+.job-item.talents .jobsbox h3 a:hover {color: #fff; text-decoration: none;}
+.job-item.talents .jobsbox .textcont {font-size: 15px;line-height: 22px;min-height: 130px;overflow-wrap: break-word;padding: 20px;}
+.job-item.talents .jobsbox .textcont span {color: #000;}
+.job-item.talents .jobsbox .jobsimg img {width: 100%; height: 250px;}
+.job-item.talents .jobsbox .loccaltime {padding: 0 20px 20px;}
+.job-item.talents .jobsbox .loccaltime .fa {color: #25af61;}
+.job-item.talents .jobsbox .loccaltime .date {text-align: left;}
+.job-item.talents .jobsbox .buttondiv {text-align: center; background: #e9e5e5;}
+.job-item.talents .jobsbox .buttondiv .btn-primary {text-transform: uppercase;width: 49%;background-color: #e9e5e5;border-color: #e9e5e5;border-radius: 0;color: #25af61;font-size: 17px;letter-spacing: 1px;}
+.job-item.talents .jobsbox .buttondiv .btn-primary:hover {background-color: transparent;border-color: transparent;color: #313a4a;}
+.job-item.talents .jobsbox .counter {background: #25af61;border-radius: 100%;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;height: 40px;line-height: 40px;position: absolute;right: 5px;text-align: center;top: -10px;width: 40px;}
+.job-item.talents .jobsbox .counter a {color: #fff;display: block;text-decoration: none;}
+.job-item.talents .list-view .empty {padding: 0 0 0 15px;}
+body.job-item.talents {background: #f3f3f3;}
+.job-item.talents .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+.job-item.talents .findtalent {padding: 0 30px 30px 0;}
+.job-item.talents .taldiscription {background: #fff; padding: 20px; margin-bottom: 30px;}
+
+/* Message Page */
+body.user-msg.index {background: #f3f3f3;}
+.user-msg.index .entry-header .btn {margin: -50px 0 0 0px;background-color: #25af61;border-color: #25af61;border-radius: 0;color: #fff;float: right;padding: 8px 17px;text-transform: uppercase;transition: all 0.3s ease-in-out 0s;}
+.user-msg.index .entry-header .btn:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.user-msg.index .breadcrumb {}
+.user-msg.index .mailbox-messages th {text-align: center; padding: 18px; background: #f2f2f2;}
+.user-msg.index .mailbox-messages th.action-column {width: 90px;}
+.user-msg.index .mailbox-messages td {text-align: center; padding: 15px;}
+.user-msg.index .mailbox-messages .summary {text-align: right; font-size: 16px; padding: 0 0 15px 0;}
+.user-msg.index .mailbox-messages h2 {color: #25af61;font-size: 25px;margin-top: 0; text-align: left;}
+.user-msg.index .mailbox-messages td a {color: #25af61; font-size: 15px;}
+.user-msg.index .mailbox-messages td a:hover {color: #313a4a;}
+.user-msg.index .container.middlebody {}
+.user-msg.index .mailbox-messages {background: #fff;padding: 20px; border-radius: 4px; text-align: center;}
+.user-msg.index .user-school-msg-index {padding: 0 0px 30px 0;}
+.user-msg.view .breadcrumb {}
+body.user-msg.view {background: #f3f3f3;}
+.user-msg.view .container.middlebody {}
+.user-msg.view .user-school-msg-view {padding: 0 0px 30px 0;}
+.user-msg.view .productbgcolor {margin-bottom: 30px;}
+.user-msg.view .productbgcolor.mailbox {padding: 20px 20px 10px 20px;}
+.user-msg.view .productbgcolor .jobitembox {border: 1px solid #ddd; padding: 20px 20px 20px 20px; margin-bottom: 10px;}
+.user-msg.view .productbgcolor .jobitembox h3 {color: #25af61;font-size: 20px;margin-top: 0; margin-bottom: 15px;}
+.user-msg.view .productbgcolor .jobitembox .schoolname {margin-bottom: 5px; display: inline-block;}
+.user-msg.view .productbgcolor .jobitembox .date {text-align: right;}
+.user-msg.view .productbgcolor .jobitembox i {color: #25af61;}
+
+/* User Notifications Page */
+body.user-notification.index {background: #f3f3f3;}
+.user-notification.index .breadcrumb {}
+.user-notification.index .mailbox-messages th {text-align: center; padding: 18px; background: #f2f2f2;}
+.user-notification.index .mailbox-messages th.action-column {width: 70px;}
+.user-notification.index .mailbox-messages th a {color: #494848; text-decoration: none;}
+.user-notification.index .mailbox-messages td {text-align: center; padding: 15px;}
+.user-notification.index .mailbox-messages .summary {text-align: right; font-size: 16px; padding: 0 0 15px 0;}
+.user-notification.index .mailbox-messages h2 {color: #25af61;font-size: 25px;margin-top: 0;}
+.user-notification.index .mailbox-messages td a {color: #25af61; font-size: 15px;}
+.user-notification.index .mailbox-messages td a:hover {color: #313a4a;}
+.user-notification.index .container.middlebody {}
+.user-notification.index .mailbox-messages {background: #fff;padding: 20px; border-radius: 4px; text-align: center;}
+.user-notification.index .user-school-msg-index {padding: 0 0px 30px 0;}
+body.user-notification.view {background: #f3f3f3;}
+.user-notification.view .breadcrumb {}
+.user-notification.view .user-school-msg-view {padding: 0 0px 30px 0;}
+.user-notification.view .productbgcolor {margin-bottom: 30px;}
+.user-notification.view .productbgcolor.mailbox {padding: 20px 20px 10px 20px;}
+.user-notification.view .productbgcolor .jobitembox {border: 1px solid #ddd; padding: 20px 20px 20px 20px; margin-bottom: 10px;}
+.user-notification.view .productbgcolor .jobitembox h3 {color: #25af61;font-size: 20px;margin-top: 0; margin-bottom: 15px;}
+.user-notification.view .productbgcolor .jobitembox .schoolname {margin-bottom: 5px; display: inline-block;}
+.user-notification.view .productbgcolor .jobitembox .date {text-align: right;}
+.user-notification.view .productbgcolor .jobitembox i {color: #25af61;}
+.pagination > li > a, .pagination > li > span {color: #25af61;}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {background-color: #25af61;border-color: #25af61;}
+
+/* User Archive Page */
+body.user-msg.all-archive {background: #f3f3f3;}
+.user-msg.all-archive .breadcrumb {}
+.user-msg.all-archive .mailbox-messages th {text-align: center; padding: 18px; background: #f2f2f2;}
+.user-msg.all-archive .mailbox-messages th.action-column {width: 70px;}
+.user-msg.all-archive .mailbox-messages th a {color: #494848; text-decoration: none;}
+.user-msg.all-archive .mailbox-messages td {text-align: center; padding: 15px;}
+.user-msg.all-archive .mailbox-messages .summary {text-align: right; font-size: 16px; padding: 0 0 15px 0;}
+.user-msg.all-archive .mailbox-messages h2 {color: #25af61;font-size: 25px;margin-top: 0;}
+.user-msg.all-archive .mailbox-messages td a {color: #25af61; font-size: 15px;}
+.user-msg.all-archive .mailbox-messages td a:hover {color: #313a4a;}
+.user-msg.all-archive .container.middlebody {}
+.user-msg.all-archive .mailbox-messages {background: #fff;padding: 20px; border-radius: 4px;}
+.user-msg.all-archive .user-school-msg-index {padding: 0 0px 30px 0;}
+.user-msg.all-archive .entry-header .btn {margin: -50px 0 0 0px;background-color: #25af61;border-color: #25af61;border-radius: 0;color: #fff;float: right;padding: 8px 17px;text-transform: uppercase;transition: all 0.3s ease-in-out 0s;}
+.user-msg.all-archive .entry-header .btn:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+
+/* Create Rolecall Page */
+body.job-item.create {background: #f3f3f3;}
+.job-item.create .breadcrumb {}
+.job-item.create .loginregistration {background-color: transparent;width: 100%; margin: 0px auto; color: #494848; padding: 0 0px 30px 0; border-radius: 0px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
+.job-item.create .loginregistration .submit .btn-primary {padding: 10px 30px;}
+.job-item.create .loginregistration h1 {margin-top: 20px;color: #353636;font-size: 25px;margin-bottom: 20px;text-transform: uppercase;}
+.job-item.create .loginregistration h1.secondti {color: #25af61;border-top: 1px dotted #d1cdca;margin-top: 25px;padding-top: 25px; margin-bottom: 20px; text-transform: capitalize;}
+.job-item.create .loginregistration h1.overview {color: #25af61;border-top: 0px dotted #d1cdca;margin-top: 0;padding-top: 0; margin-bottom: 20px; text-transform: capitalize;}
+.job-item.create .loginregistration .hasDatepicker {width: 100%;display: block;padding-left: 15px;height: 40px; border-radius: 0px; color: #777; background-color: transparent; border: 1px solid #d1cdca;}
+.job-item.create .loginregistration .hasDatepicker:focus {box-shadow: inherit; border-color: #25af61;}
+.job-item.create .loginregistration .form-control {padding-left: 15px; border-color: #d1cdca; color: #777;}
+.job-item.create .loginregistration #jobitem-location {padding-left: 15px; border-color: #d1cdca; color: #777; height: 40px; border-radius: 0; background-color: transparent;}
+.job-item.create .loginregistration .file-input .btn-default {color: #333; font-size: 15px;}
+.job-item.create .select2-container--krajee .select2-selection--single .select2-selection__rendered {color: #777;}
+.job-item.create .form-group .form-control {box-shadow: inherit;}
+.job-item.create .form-group select.form-control {padding-left: 15px;}
+.job-item.create #w2-container.form-group .form-control {}
+.job-item.create .loginregistration .ui-spinner-input {margin: 0px;}
+.job-item.create .loginregistration #jobfieldvalue-22-value.form-control {border: 0px; border-radius: 0px; text-align: center; padding: 0 5px; height: 38px;}
+.job-item.create .loginregistration .ui-spinner {border-radius: 0px; border-color: #d1cdca;}
+.job-item.create .loginregistration .input-group-addon {padding: 6px 25px;}
+.job-item.create .loginregistration .input-group-addon {background: none; border: none;}
+.job-item.update .loginregistration .input-group-addon {background: none; border: none;}
+.kv-field-range .form-control {text-align: center; padding-left: 0 !important;}
+.ui-widget-content {z-index: 3 !important;}
+body.job-item.update {background: url("../images/cd-reg-bg.jpg") center top no-repeat; background-size: cover;}
+.job-item.update .breadcrumb {}
+.job-item.update .loginregistration {background-color: rgba(0, 0, 0, 0.8);width: 100%; margin: 50px auto; color: #fff; padding: 40px 50px 30px; border-radius: 0px; border-top: 4px solid #25af61; border-bottom: 4px solid #25af61;}
+.job-item.update .loginregistration .submit .btn-primary {padding: 10px 30px;}
+.job-item.update .loginregistration h1 {margin-top: 20px;color: #353636;font-size: 25px;margin-bottom: 20px;text-transform: uppercase;}
+.job-item.update .loginregistration h1.secondti {color: #25af61;border-top: 1px dotted #d1cdca;margin-top: 25px;padding-top: 25px; margin-bottom: 20px; text-transform: capitalize;}
+.job-item.update .loginregistration h1.overview {color: #25af61;border-top: 0px dotted #d1cdca;margin-top: 0;padding-top: 0; margin-bottom: 20px; text-transform: capitalize;}
+.job-item.update .loginregistration .hasDatepicker {width: 100%;display: block;padding-left: 15px;height: 40px; border-radius: 0px; color: #777; background-color: transparent; border: 1px solid #d1cdca;}
+.job-item.update .loginregistration .hasDatepicker:focus {box-shadow: inherit; border-color: #25af61;}
+.job-item.update .loginregistration .form-control {padding-left: 15px; border-color: #d1cdca; color: #777;}
+.job-item.update .loginregistration #jobitem-location {padding-left: 15px; border-color: #d1cdca; color: #777; height: 40px; border-radius: 0; background-color: transparent;}
+.job-item.create .container.middlebody {}
+.job-item.create .select2-container--krajee .select2-selection {border: 1px solid #d1cdca; color: #777;}
+body.job-item.update {background: #f3f3f3;}
+.job-item.update .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+.job-item.update .select2-container--krajee .select2-selection {border: 1px solid #d1cdca; color: #777;}
+.job-item.update .loginregistration {background-color: transparent;width: 100%; margin: 0px auto; color: #494848; padding: 0 30px 30px 0; border-radius: 0px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
+.job-item.update .select2-container--krajee .select2-selection--single .select2-selection__rendered {color: #777;}
+.job-item.update .loginregistration .file-input .btn-default {color: #333; font-size: 15px;}
+.job-item.update .form-group .kv-container-from.form-control, .job-item.update .form-group .kv-container-to.form-control {padding-left: 0; box-shadow: inherit;}
+.job-item.update .form-group select.form-control {padding-left: 15px;}
+.job-item.update #w2-container.form-group .form-control {text-align: left; margin: 0px;}
+.job-item.create .loginregistration .btn-default {background-color: #25af61;border-color: #25af61; color: #fff !important; padding: 10px 10px; font-size: 12px !important; border-radius: 3px !important;}
+.job-item.create .loginregistration .btn-default:hover {background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.job-item.update .loginregistration .btn-default {background-color: #25af61;border-color: #25af61; color: #fff !important; padding: 10px 10px; font-size: 12px !important; border-radius: 3px !important;}
+.job-item.update .loginregistration .btn-default:hover {background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.job-item.update .loginregistration .ui-spinner-input {margin: 0px;}
+.job-item.update .loginregistration #jobfieldvalue-22-value.form-control {border: 0px; border-radius: 0px; text-align: center;}
+.job-item.update .loginregistration .ui-spinner {border-radius: 0px; border-color: #d1cdca;}
+.job-item.update .loginregistration .input-group-addon {padding: 6px 25px;}
+.file-preview {border: none; padding: 0px;}
+.job-item.create .loginregistration .ui-state-default, .job-item.create .loginregistration .ui-widget-content .job-item.create .ui-state-default, .loginregistration .ui-widget-header .ui-state-default {display: block;}
+.job-item.create .ui-widget-header {background: #25af61;}
+.job-item.update .loginregistration .ui-state-default, .job-item.update .loginregistration .ui-widget-content .job-item.update .ui-state-default, .loginregistration .ui-widget-header .ui-state-default {display: block;}
+.job-item.update .ui-widget-header {background: #25af61;}
+.ui-widget-content {border: 1px solid #d1cdca;}
+.file-input {width: 32%;}
+.krajee-default.file-preview-frame {margin: 8px 1px;}
+
+/* Applied By Talent Page */
+.job-user-mapper.index .breadcrumb {}
+.job-user-mapper.index .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
+.job-user-mapper.index .jobsbox {background: #fff;border: 1px solid #e9e5e5;box-shadow: 0 0 3px #b1b1b1;font-family: 'Lato', sans-serif;margin-bottom: 30px;padding: 0;}
+.job-user-mapper.index .jobsbox:hover {border-color: #25af61;box-shadow: 0 0 3px #25af61;transition: all 0.3s ease-in-out 0s;}
+.job-user-mapper.index .jobsbox h3 { background: #25af61;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;font-size: 15px;margin-bottom: 0;margin-top: 0;overflow: hidden;padding: 10px;text-align: center;text-overflow: ellipsis;text-transform: uppercase;white-space: nowrap;}
+.job-user-mapper.index .jobsbox h3 a {color: #fff;}
+.job-user-mapper.index .jobsbox h3 a:hover {color: #fff; text-decoration: none;}
+.job-user-mapper.index .jobsbox .textcont {font-size: 15px;line-height: 22px;min-height: 130px;overflow-wrap: break-word;padding: 20px;}
+.job-user-mapper.index .jobsbox .textcont span {color: #000;}
+.job-user-mapper.index .jobsbox .jobsimg img {width: 100%; height: 250px;}
+.job-user-mapper.index .jobsbox .loccaltime {padding: 0 20px 20px;}
+.job-user-mapper.index .jobsbox .loccaltime .fa {color: #25af61;}
+.job-user-mapper.index .jobsbox .loccaltime .date {text-align: left;}
+.job-user-mapper.index .jobsbox .buttondiv {background: #e9e5e5;text-align: center;}
+.job-user-mapper.index .jobsbox .buttondiv .btn-primary {background-color: #e9e5e5;border-color: #e9e5e5;border-radius: 0;color: #25af61;font-size: 17px;letter-spacing: 1px;text-transform: uppercase;width: 49%;}
+.job-user-mapper.index .jobsbox .buttondiv .btn-primary:hover {background-color: transparent;border-color: transparent;color: #313a4a;}
+.job-user-mapper.index .jobsbox .counter {background: #25af61;border-radius: 100%;color: #fff;font-family: 'Lato', sans-serif; font-weight: 700;height: 40px;line-height: 40px;position: absolute;right: 5px;text-align: center;top: -10px;width: 40px;}
+.job-user-mapper.index .jobsbox .counter a {color: #fff;display: block;text-decoration: none;}
+.job-user-mapper.index .list-view .empty {padding: 0 0 0 15px;}
+
+/* Jobs Search Page */
+.job-item.index .breadcrumb {}
+.job-item.index .entry-header .btn-primary {padding: 8px 17px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; float: right; transition: all 0.3s ease-in-out;}
+.job-item.index .entry-header .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.index .search-item-box {background-color: rgba(0, 0, 0, 0.8);width: 100%; margin: 0px auto 20px; color: #fff; padding: 40px 50px 30px; border-radius: 0px; border-top: 4px solid #25af61; border-bottom: 4px solid #25af61;}
+.job-item.index .search-item-box h2 {margin: 0px 0 20px 0; font-size: 25px; text-transform: uppercase; text-align: left;}
+.job-item.index .search-item-box .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
+.job-item.index .search-item-box .form-control {padding-left: 15px;height: 50px; border-radius: 0px; color: #fff; background-color: transparent; border-color: #6b6764;}
+.job-item.index .search-item-box .form-control:focus {box-shadow: inherit; border-color: #25af61;}
+.job-item.index .search-item-box .form-control::-moz-placeholder {color: #fff !important; opacity: inherit;}
+.help-block.help-block-error {color: red; text-align: left !important;font-family: Arial;font-size: 12px;}
+.job-item.index .search-item-box .submit {text-align: center;}
+.job-item.index .search-item-box .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; font-size: 20px; text-transform: uppercase;padding: 10px 30px;}
+.job-item.index .search-item-box .submit .btn-primary:hover {box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #313a4a; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.job-item.index .jobsbox {border: 1px solid #e9e5e5; border-bottom: 3px solid #25af61; padding: 0 0 0px 0; margin-bottom: 30px;}
+.job-item.index .jobsbox:hover {border-color: #25af61; transition: all 0.3s ease-in-out;}
+.job-item.index .jobsbox h3 {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;font-size: 14px; font-family: 'RalewayBold'; text-transform: uppercase;margin-bottom: 10px;margin-top: 20px;}
+.job-item.index .jobsbox h3 a {color: #3a3a3a;}
+.job-item.index .jobsbox h3 a:hover {color: #25af61; text-decoration: none;}
+.job-item.index .jobsbox .textcont {padding: 0 20px; min-height: 100px; overflow-wrap: break-word; font-size: 12px;}
+.job-item.index .jobsbox .jobsimg img {width: 100%; height: 220px;}
+.job-item.index .jobsbox .loccaltime {padding: 15px 20px 20px;}
+.job-item.index .jobsbox .loccaltime .fa {color: #25af61;}
+.job-item.index .jobsbox .loccaltime .date {text-align: left;}
+.job-item.index .jobsbox .buttondiv .btn-primary {display: block;padding: 7px 17px 3px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; transition: all 0.3s ease-in-out;}
+.job-item.index .jobsbox .buttondiv .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
+.job-item.index .list-view .empty {padding: 0 0 0 15px;}
+
+
+/*Modal CSS*/
+.modal-body header.entry-header {display: none;}
+.modal-header {color: #fff;font-size: 25px; background-color: #25af61; border: 5px solid #fff;}
+.modal-body p {margin: 0px;}
+.modal-body .form-control {height: 43px; border-radius: 0px; background-color: rgba(205, 205, 205, 0.3);}
+.modal-body .form-control:focus {box-shadow: inherit; border-color: #93c911;}
+.modal-content {border-radius: 0px;box-shadow: 0 0 10px rgba(205, 205, 205, 0.9);}
+.modal-body .btn-primary {background-color: #25af61 !important;border-color: #25af61 !important;text-align: center !important; font-size: 18px !important; text-transform: uppercase;padding: 10px 30px !important;}
+.modal-body .btn-primary:hover {background: #313a4a !important;border-color: #313a4a !important; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.modal-body .btn-success {color: #fff !important;background-color: #25af61 !important;border-color: #25af61 !important;text-align: center !important; font-size: 18px !important; text-transform: uppercase;padding: 10px 30px !important;}
+.modal-body .btn-success:hover {background: #313a4a !important;border-color: #313a4a !important; transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out;}
+.modal-body {text-align: left;}
+.modal-body h2 {color: #353636;font-size: 22px;margin-bottom: 20px;text-transform: uppercase; margin-top: 0px;}
+
+
+
+
+
+
+
+@media (min-width: 1200px) {
+.top-menu .navbar-header {display: none;}
+}
+
+@media (min-width: 1024px) and (max-width: 1050px) {
+.top-menu .navbar-header {display: none;}
+
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+.top-menu .navbar-header {display: none;}
+
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+
+}
+
+@media (max-width: 600px) {
+
+}
+
+@media (max-width: 480px) {
+
+}
+
+@media (max-width: 360px) {
+
+}
+
+@media (max-width: 320px) {
+
+}

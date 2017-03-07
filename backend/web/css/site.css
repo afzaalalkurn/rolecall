@@ -1,0 +1,151 @@
+html,body {height: 100%;}
+.wrap {min-height: 100%;height: auto;margin: 0 auto -60px;padding: 0 0 60px;}
+.wrap > .container {padding: 70px 15px 20px;}
+.footer {height: 60px;background-color: #f5f5f5;border-top: 1px solid #ddd;padding-top: 20px;}
+.jumbotron {text-align: center;background-color: transparent;}
+.jumbotron .btn {font-size: 21px;padding: 14px 24px;}
+.not-set {color: #c55;font-style: italic;}
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {position: relative;top: 1px;display: inline-block;font-family: 'Glyphicons Halflings';font-style: normal;font-weight: normal;line-height: 1;padding-left: 5px;}
+a.asc:after {content: /*"\e113"*/ "\e151";}
+a.desc:after {content: /*"\e114"*/ "\e152";}
+.sort-numerical a.asc:after {content: "\e153";}
+.sort-numerical a.desc:after {content: "\e154";}
+.sort-ordinal a.asc:after {content: "\e155";}
+.sort-ordinal a.desc:after {content: "\e156";}
+.grid-view td {white-space: nowrap;}
+.grid-view .filters input,
+.grid-view .filters select {min-width: 50px;}
+.hint-block {display: block;margin-top: 5px;color: #999;}
+.error-summary {color: #a94442;background: #fdf7f7;border-left: 3px solid #eed3d7;padding: 10px 20px;margin: 0 0 15px 0;}
+/* align the logout "link" (button in form) of the navbar */
+.nav > li > form {padding: 8px;}
+@media(max-width:768px) {
+.nav li > form {padding: 3px;}
+}
+.nav > li > form > button:hover {text-decoration: none;}
+
+.skin-blue .main-header .logo {background-color: #3399fe !important; padding: 2px 15px 0;}
+.main-header .logo {height: 81px !important;line-height: 70px !important;}
+.main-header > .navbar {background-color: #3399fe !important;box-shadow: 5px 0 6px #a1a1a1;min-height: 77px !important;}
+.skin-blue .main-header .navbar .sidebar-toggle {color: #fff !important;font-size: 24px;}
+.main-header .sidebar-toggle {padding: 24px !important;}
+.skin-blue .main-header .navbar .sidebar-toggle:hover {background-color: #1b81e6 !important;color: #fff !important;}
+.skin-blue .main-header .navbar .nav > li > a {color: #fff !important;}
+.navbar-custom-menu .navbar-nav > li > a {line-height: 51px !important;}
+.skin-blue .main-header .navbar .nav > li > a:hover, .skin-blue .main-header .navbar .nav > li > a:active, .skin-blue .main-header .navbar .nav > li > a:focus, .skin-blue .main-header .navbar .nav .open > a, .skin-blue .main-header .navbar .nav .open > a:hover, .skin-blue .main-header .navbar .nav .open > a:focus, .skin-blue .main-header .navbar .nav > .active > a {background-color: #1b81e6 !important;color: #fff !important;}
+.sidebar-menu {margin: 27px 0 0 !important;}
+.user-panel {display: none;}
+.sidebar-mini .smalllogo {display: none;}
+.sidebar-mini.sidebar-collapse .smalllogo {display: block;}
+.sidebar-mini.sidebar-collapse .biglogo {display: none;}
+.sidebar-mini.sidebar-collapse .main-header .logo {padding: 0 5px;}
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {background-color: #1a1b1b !important;}
+.skin-blue .treeview-menu > li > a {color: #fff !important;font-family: Arial;font-size: 13px;font-weight: bold;}
+.skin-blue .sidebar a {border-bottom: 1px solid #323333;color: #fff !important;font-family: Arial;font-size: 13px;font-weight: bold;}
+.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a {background: #7dc033 !important;color: #fff !important;}
+.skin-blue .sidebar-menu > li > a {border-left: 0 solid transparent !important;}
+.skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover {background: #7dc033;color: #fff;}
+.skin-blue .main-header li.user-header {background-color: #3399fe !important;}
+.content-header > h1 {font-size: 30px !important; margin: 0 0 10px !important;}
+.login-page, .register-page {background: #fff !important;}
+.login-box-body, .register-box-body {background: #1a1b1b !important;color: #fff !important;}
+.skin-blue .sidebar-menu > li.header {background: #40484c !important; color: #fff !important; font-size: 16px !important; font-weight: bold !important;}
+.sidebar-menu li.header {padding: 13px 25px 10px 15px !important;}
+.navbar-custom-menu .nav > li > a > img {border-radius: 100%;max-width: none;width: 35px;}
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {border-radius: 100%;}
+.list-group {margin-top: 15px;}
+
+.cms-item-form {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-item-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-item-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-item-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-category-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-category-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-category-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-category-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-field-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-field-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-field-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-field-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-layout-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-layout-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-layout-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-layout-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-widget-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-widget-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-widget-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-widget-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-block-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-block-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-block-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-block-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.cms-menu-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-menu-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-menu-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.cms-menu-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.assignment-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.job-item-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-item-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-item-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-item-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.job-category-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-category-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-category-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-category-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.job-field-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-field-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-field-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.job-field-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.user-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.user-ads-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-ads-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-ads-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-ads-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.user-news-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-news-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-news-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-news-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.user-notification-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-notification-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-notification-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-notification-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.user-subscription-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-subscription-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-subscription-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.user-subscription-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.routes-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.role-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.auth-item-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.auth-item-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.auth-item-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.menu-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.menu-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.menu-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.menu-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+
+.core-plan-index {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.core-plan-create {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.core-plan-view {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}
+.core-plan-update {background: #fff;border: 1px solid #ddd;padding: 15px; clear: both;}

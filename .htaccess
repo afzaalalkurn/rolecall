@@ -1,0 +1,30 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # deal with cpanel first
+  RewriteCond %{REQUEST_URI} ^/(admin)
+  RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+  RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+  RewriteRule ^admin/adminlte/(.*)$ backend/web/adminlte/$1 [L]
+  RewriteRule ^admin/img/(.*)$ backend/web/img/$1 [L]
+
+  RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css|adminlte)/
+  RewriteCond %{REQUEST_URI} ^/(admin)
+  RewriteRule ^.*$ backend/web/index.php [L]
+
+  # deal with cpanel first
+
+  RewriteCond %{REQUEST_URI} !^(\/backend|\/uploads|images)
+  RewriteRule ^(.*)$ frontend/web/$1 [L]
+</IfModule>
+
+# Deny accessing below extensions
+<Files ~ "(.json|.lock|.git)">
+Order allow,deny
+Deny from all
+</Files>
+
+# Deny accessing dot files
+RewriteRule (^\.|/\.) - [F]

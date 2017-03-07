@@ -1,0 +1,110 @@
+body {
+background:#fff;
+font-family:Arial, sans-serif;
+}
+
+p {
+margin-bottom:20px;
+}
+
+.clearout {
+height:20px;
+clear:both;
+}
+
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+display:none;
+}
+
+#flexiselDemo3 { padding-top:25px;}
+.nbs-flexisel-container {
+    position:relative;
+    max-width:100%; padding:0; clear:both;
+}
+.nbs-flexisel-ul {
+    position:relative;
+    width:99999px;
+    margin:0px;
+    padding:0px;
+    list-style-type:none;   
+    text-align:center;  
+}
+
+.nbs-flexisel-inner {
+    position: relative;
+    overflow: hidden;
+    width:100%;
+  
+}
+
+.nbs-flexisel-item {
+    float:left;
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    position:relative;
+    line-height:0px;
+}
+.nbs-flexisel-item img {
+    max-width: 100%;
+    cursor: pointer;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*** Navigation ***/
+
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+    padding:11px 6px;     
+    position: absolute;
+    cursor: pointer;
+    z-index: 4;
+    color: #fff;     
+}
+
+.nbs-flexisel-nav-left {
+  background: rgba(0, 0, 0, 0) url("../images/slider-arrow.png") no-repeat scroll 0 0;
+  bottom: 0;
+  height: 18px;
+  left: 96.5%;
+  top: 0;
+  width: 12px;
+}
+.nbs-flexisel-nav-left:hover { background-position:0 -22px;}
+
+/*.nbs-flexisel-nav-left:before {
+    content: "<"
+}*/
+
+.nbs-flexisel-nav-left.disabled {
+    opacity: 0.4;
+}
+
+.nbs-flexisel-nav-right {
+  background: rgba(0, 0, 0, 0) url("../images/slider-arrow.png") no-repeat scroll -24px 0;
+  height: 18px;
+  right: 8px;
+  width: 12px; top:0;
+}
+.nbs-flexisel-nav-right:hover { background-position:-24px -22px}
+
+/*.nbs-flexisel-nav-right:before {
+    content: ">"
+}*/
+
+.nbs-flexisel-nav-right.disabled {
+    opacity: 0.4;
+}
+@media only screen and (max-width:992px) {
+.nbs-flexisel-nav-right { right:0;}
+}
+
+@media only screen and (max-width:767px) {
+	.nbs-flexisel-nav-left {left: 96%;}
+}
+
+@media only screen and (max-width:479px) {
+	.nbs-flexisel-nav-left {left: 91%;}
+}
