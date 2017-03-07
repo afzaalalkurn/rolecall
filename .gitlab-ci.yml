@@ -1,0 +1,12 @@
+before_script:
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+stages:
+  - deploy
+deploy_to_live:
+  stage: deploy
+  script:
+    - "git push ssh://alkurnin@alkurn.info:7822/home/alkurnin/public_html/clients/rolecall/rolecall.git master"
+  only: [master]
