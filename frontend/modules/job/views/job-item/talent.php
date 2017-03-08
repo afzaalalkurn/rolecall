@@ -43,19 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>-->
         
         <div class="row"><div class="col-sm-12"><div id="msg"></div></div></div>
-
+        <?php if($dataProvider->query->count() > 0){ ?>
         <!--<h3 class="dashtitle">Select Talent(s)</h3>-->
         <div class="row">
-        <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemView' => 'partial/_talent',
-            'itemOptions' => [
-                'tag' => false,
-            ],
-            'layout' => '<div id="pagination-wrap" class="hidden">{sorter}\n{pager}</div>{items}',
-        ]);
-        ?>
-</div>
+            <?= ListView::widget([
+                'dataProvider' => $dataProvider,
+                'itemView' => 'partial/_talent',
+                'itemOptions' => [
+                    'tag' => false,
+                ],
+                'layout' => '<div id="pagination-wrap" class="hidden">{sorter}\n{pager}</div>{items}',
+            ]);?>
+        </div>
+    <?php } ?>
 </div>
 </div>
 </div>

@@ -10,6 +10,7 @@ use backend\modules\user\models\UserField;
 use backend\modules\user\models\UserFieldValue;
 use yii\helpers\Url;
 
+
 $userProfile = $model->userProfile;
 $userAddress = $model->userAddress;
 $userFieldValues = $model->userFieldValues;
@@ -36,6 +37,8 @@ $JobUserMapper = new JobUserMapper();
 $rolecall = $JobUserMapper->getRolecallCount('Booked', $model->id);
 $rolecallBooked = ($rolecall > 0) ? $rolecall : '';
 $unreadMsgCount = UserMsgRecipients::showUnreadMsg($job_id, $model->id);
+
+
 
 ?>
     <div id="msg"></div>

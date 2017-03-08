@@ -419,9 +419,7 @@ class Talent extends User
         $query = User::find()->join('inner join', '`auth_assignment`', '`auth_assignment`.`user_id` = `id`')
             ->where(['`auth_assignment`.`item_name`' => self::ROLE_USER,
                 '`user`.`status`' => '10']);
-        $query->join('INNER JOIN', '`user_profile`', '`user_profile`.`user_id` = `user`.`id`');
-        $query->join('INNER JOIN', '`user_address`', '`user_address`.`user_id` = `user`.`id`');
-
+        $query->join('INNER JOIN', '`user_profile`', '`user_profile`.`user_id` = `user`.`id`'); 
         $sql = "SELECT uf.field_id,  uf.`field`, uf.`name`  FROM `user_field` as `uf`";
         $userFields = Yii::$app->db->createCommand($sql)->queryAll();
 
@@ -435,8 +433,6 @@ class Talent extends User
             }
 
         }
-
-        //pr($jobFieldArray, 0);
 
         if (!empty($this->job_id) && count($jobFieldArray) > 0) {
 
@@ -478,74 +474,86 @@ class Talent extends User
             }
 
             $fldArray = [];
-
+            
             foreach ($userFields as $fld) {
                 if (in_array($fld['field'], array_keys($matchArray))) {
                     $fldArray[$fld['field']] = $fld['field_id'];
                 }
             }
 
-            /*foreach ($matchArray as $fieldIdx => $data) {
+            $ids = $this->getUserIds($query); 
 
-                if (is_array($data) && count($data) == 2) {
+            foreach ($matchArray as $fieldIdx => $data) {
 
-                    list($from, $to) = $data;
+                if(is_array($ids) && count($ids) > 0){
 
-                    $from = $jobFieldArray[$from] ?? null;
-                    $to   = $jobFieldArray[$to] ?? null;
+                    $query = User::find();
+                    $query->addSelect(['`user`.*']);
 
-                    if(!empty($from) && !empty($to) ){
+                    if (is_array($data) && count($data) == 2) {
+
+                        list($from, $to) = $data;
+
+                        $from = $jobFieldArray[$from] ?? null;
+                        $to   = $jobFieldArray[$to] ?? null;
+
+                        if(!empty($from) && !empty($to) ){
+
+                            $query->join('LEFT JOIN', '`user_field_value` as `a' . $fieldIdx . '`', '`a' . $fieldIdx . '`.`user_id` = `user`.`id`');
+                            $query->andFilterWhere([ ' `a' . $fieldIdx . '`.`field_id` ' => $fldArray[$fieldIdx] ]);
+
+
+                            if ($fieldIdx == 'birthday') {
+                                $query->andFilterWhere(['between', 'SELECT TIMESTAMPDIFF( YEAR, STR_TO_DATE(REPLACE(`a' . $fieldIdx . '`.`value`,","," "), "%M %d %Y %h:%i%p") , CURDATE())', (int)$from, (int)$to]);
+                            } else {
+                                $query->andFilterWhere(['between', '`a' . $fieldIdx . '`.`value`', (int)$from, (int)$to]);
+                            }
+                        }
+
+                    } elseif (!empty($jobFieldArray[$data])) {
 
                         $query->join('LEFT JOIN', '`user_field_value` as `a' . $fieldIdx . '`', '`a' . $fieldIdx . '`.`user_id` = `user`.`id`');
                         $query->andFilterWhere([ ' `a' . $fieldIdx . '`.`field_id` ' => $fldArray[$fieldIdx] ]);
 
+                        $jobFieldValue = $jobFieldArray[$data];
+                        ($jobFieldValue = @unserialize($jobFieldValue)) ? $jobFieldValue : $jobFieldValue;
 
-                        if ($fieldIdx == 'birthday') {
-                            $query->andFilterWhere(['between', 'SELECT TIMESTAMPDIFF( YEAR, STR_TO_DATE(REPLACE(`a' . $fieldIdx . '`.`value`,","," "), "%M %d %Y %h:%i%p") , CURDATE())', (int)$from, (int)$to]);
-                        } else {
-                            $query->andFilterWhere(['between', '`a' . $fieldIdx . '`.`value`', (int)$from, (int)$to]);
-                        }
-                    }
+                        if(is_array($jobFieldValue) && count($jobFieldValue) > 0){
 
-                } elseif (!empty($jobFieldArray[$data])) {
+                            $elements = [];                        
+                            if(count($jobFieldValue)){
 
-                    $query->join('LEFT JOIN', '`user_field_value` as `a' . $fieldIdx . '`', '`a' . $fieldIdx . '`.`user_id` = `user`.`id`');
-                    $query->andFilterWhere([ ' `a' . $fieldIdx . '`.`field_id` ' => $fldArray[$fieldIdx] ]);
+                                foreach($jobFieldValue as $jv){
+                                    $elements[] =  $jv;
+                                }
 
-                    $jobFieldValue = $jobFieldArray[$data];
-                    ($jobFieldValue = @unserialize($jobFieldValue)) ? $jobFieldValue : $jobFieldValue;
-
-                    if(is_array($jobFieldValue) && count($jobFieldValue) > 0){
-
-                        $elements = [];                        
-                        if(count($jobFieldValue)){
-
-                            foreach($jobFieldValue as $jv){
-                                $elements[] =  $jv;
+                                if(count($elements) > 1){
+                                    $query->andFilterWhere(['IN', '`a' . $fieldIdx . '`.`value`', $elements]);
+                                }else{
+                                    $query->andFilterWhere(['LIKE', '`a' . $fieldIdx . '`.`value`', current($elements)]);
+                                }
                             }
 
-                            if(count($elements) > 1){
-                                $query->andFilterWhere(['IN', '`a' . $fieldIdx . '`.`value`', $elements]);
-                            }else{
-                                $query->andFilterWhere(['LIKE', '`a' . $fieldIdx . '`.`value`', current($elements)]);
-                            }
+                        }else{
+                            $query->andFilterWhere(['like', '`a' . $fieldIdx . '`.`value`', $jobFieldArray[$data]]);
                         }
 
-                    }else{
-                        $query->andFilterWhere(['like', '`a' . $fieldIdx . '`.`value`', $jobFieldArray[$data]]);
                     }
 
-                }
-            }*/
-        }
+                    $query->andFilterWhere(['IN', '`user`.`id`', $ids]);
+                    $ids = $this->getUserIds($query); 
+                } 
+            } 
+        }  
 
+        
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([ 'query' => $query, ]);
-        $this->load($params);
-        $query->addSelect(['`user`.*']);
+        $this->load($params); 
 
-       if (!empty($this->latitude) && !empty($this->longitude)) {
+        if (!empty($this->latitude) && !empty($this->longitude)) {
 
+            $query->join('INNER JOIN', '`user_address`', '`user_address`.`user_id` = `user`.`id`');
             $query->addSelect(['(
               3959 * ACOS(
                   COS( RADIANS(' . $this->latitude . ')) * COS(RADIANS(latitude)) * COS(
@@ -558,6 +566,9 @@ class Talent extends User
             //for km - 6371
         }
 
+        //echo $query->createCommand()->rawSql;
+        //exit;
+
         //pr($this->radius);
         if (!empty($this->radius)) {
             $query->having(['<', 'distance', $this->radius]);
@@ -569,6 +580,7 @@ class Talent extends User
             // $query->where('0=1');
             return $dataProvider;
         }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -580,18 +592,33 @@ class Talent extends User
         $subQuery = JobUserMapper::find()->select('user_id')
             ->where(['`job_id`' => $this->job_id])
             ->andWhere(['NOT IN', '`status`', ['Passed', 'Pending']]);
-        $query->andFilterWhere(['NOT IN', '`user`.`id`', $subQuery]);
 
+        $query->andFilterWhere(['NOT IN', '`user`.`id`', $subQuery]);
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email]);
 
-        //echo $query->createCommand()->rawSql;
-        //exit;            
-        //pr( $query->createCommand()->rawSql );
-
+         //exit;                   
+         //echo $query->createCommand()->rawSql;
+         //exit;
+         // pr( $query->createCommand()->rawSql ); 
+         //pr($query->all());
         return $dataProvider;
+    }
+
+    public function getUserIds($query)
+    {
+        $users = $query->all(); 
+        $ids = [];
+
+        if(is_array($users) && count($users) > 0){
+
+            foreach($users as $user ){
+                $ids[$user->id] = $user->id;  
+            }  
+        }                    
+        return $ids;
     }
 }

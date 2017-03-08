@@ -335,7 +335,8 @@ class JobItemController extends Controller
 
     public function actionTalents($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id); 
+
         $tpls = [];
 
         if( isset(Yii::$app->user->id) ){
@@ -353,7 +354,7 @@ class JobItemController extends Controller
         $searchModel->radius = $model->radius;
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $modelUserFields = new UserField();
+        $modelUserFields = new UserField(); 
 
         return $this->render('talent', [
             'model'  =>  $model,
