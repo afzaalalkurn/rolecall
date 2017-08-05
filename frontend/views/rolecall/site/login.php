@@ -47,14 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1>Already have an account?</h1>
         <!-- react-text: 47 -->Sign into your existing account below<!-- /react-text -->
         <?= yii\authclient\widgets\AuthChoice::widget([
-        'baseAuthUrl' => ['site/auth'],
+        'baseAuthUrl' => ['site/auth','type' => 'User'],
         'popupMode' => false,
     ]) ?>
     <h4 class="ortxt"><span>OR</span></h4>
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
     <?/*= $form->field($model, 'username')->textInput(['autofocus' => true]) */?>
-    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder'=>"Email Address"])->label('Email Address');?>
-    <?= $form->field($model, 'password')->passwordInput(['autofocus' => true, 'placeholder'=>"Password"])->label('Password');?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder'=>"Email Address"])->label('Email Address *');?>
+    <?= $form->field($model, 'password')->passwordInput(['autofocus' => true, 'placeholder'=>"Password"])->label('Password *');?>
     <? //= $form->field($model, 'rememberMe')->checkbox() ?>
     <div class="submit">
       <?= Html::submitButton(Yii::t('job', 'Log In'),

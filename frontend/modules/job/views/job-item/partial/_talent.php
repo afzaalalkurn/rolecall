@@ -4,9 +4,9 @@ use himiklab\thumbnail\EasyThumbnailImage;
 
 use backend\modules\user\models\UserAddress;
 use backend\modules\user\models\UserProfile;
-use backend\modules\job\models\search\JobUserMapper;
-use backend\modules\user\models\search\UserMsgRecipients;
 use backend\modules\user\models\UserField;
+use backend\modules\job\models\search\JobUserMapper;
+use backend\modules\user\models\search\UserMsgRecipientsSearch;
 use backend\modules\user\models\UserFieldValue;
 use yii\helpers\Url;
 
@@ -36,7 +36,7 @@ $job_id = Yii::$app->request->get('id');
 $JobUserMapper = new JobUserMapper();
 $rolecall = $JobUserMapper->getRolecallCount('Booked', $model->id);
 $rolecallBooked = ($rolecall > 0) ? $rolecall : '';
-$unreadMsgCount = UserMsgRecipients::showUnreadMsg($job_id, $model->id);
+$unreadMsgCount = UserMsgRecipientsSearch::showUnreadMsg($job_id, $model->id);
 
 
 
@@ -45,7 +45,7 @@ $unreadMsgCount = UserMsgRecipients::showUnreadMsg($job_id, $model->id);
     <div class="col-sm-4">
         <div class="jobsbox">
             <?php if ($unreadMsgCount > 0) { ?>
-                <div class="counter"><a href="<?= Url::to('/user/user-notification'); ?>"><?= $unreadMsgCount; ?></a>
+                <div class="counter"><a href="<?= Url::to('/user/user-msg'); ?>"><?= $unreadMsgCount; ?></a>
                 </div>
             <?php } ?>
             <div class="jobsimg">
@@ -99,7 +99,8 @@ $js = <<<JS
                     },
             success: function (json) {             	
                 $('#msg').html("<div class='alert alert-success'>"+ json.msg +"</div>").fadeIn('slow');
-                $('#msg').delay(4000).fadeOut('slow');               
+                $('#msg').delay(4000).fadeOut('slow'); 
+                location.reload();
                 (json.success == true) ? $('#'+id).hide() : null ;
             },
             error: function (exception) {

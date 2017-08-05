@@ -7,7 +7,7 @@ use backend\modules\user\models\UserProfile;
 use backend\modules\user\models\UserFieldValue;
 use himiklab\thumbnail\EasyThumbnailImage;
 use backend\modules\job\models\search\JobUserMapper;
-use backend\modules\user\models\search\UserMsgRecipients;
+use backend\modules\user\models\search\UserMsgRecipientsSearch as UserMsgRecipients;
 use yii\helpers\Url;
 
 $userProfile = $model->user->userProfile;
@@ -47,7 +47,7 @@ $unreadMsgCount = UserMsgRecipients::showUnreadMsg($job_id,$model->user->id);
 <div class="jobsbox">
     <?php if($unreadMsgCount > 0){?>
 <div class="counter">
-<a href="<?=Url::to('/user/user-notification');?>">
+<a href="<?=Url::to('/user/user-msg');?>">
     <?=$unreadMsgCount?></a>
 </div>
     <?php } ?>
@@ -66,9 +66,9 @@ $unreadMsgCount = UserMsgRecipients::showUnreadMsg($job_id,$model->user->id);
 </h3>
 <div class="textcont">
         <span>Location :</span> <?= $userAddress->location; ?><br />
-        <?php if($lastSeen){
+        <?php
             echo "<span>Last Active : " . Html::encode(Yii::$app->user->identity->lastActiveLogin($userProfile->user_id, true))."</span><br />";
-        }
+
         ?>
         <?php echo "<span>Rolecalls Booked :</span> " . $rolecall;?>
 </div>
@@ -110,7 +110,8 @@ $js = <<<JS
                     },
             success: function (json) {             	
                 $('#msg').html("<div class='alert alert-success'>"+ json.msg +"</div>").fadeIn('slow');
-                $('#msg').delay(4000).fadeOut('slow');               
+                $('#msg').delay(4000).fadeOut('slow');
+                location.reload();
                 (json.success == true) ? $('#'+id).hide() : null ;
             },
             error: function (exception) {

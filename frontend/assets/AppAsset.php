@@ -26,7 +26,9 @@ class AppAsset extends AssetBundle
 		'js/jquery.bxslider.js',
 		'js/lightbox.min.js',
 		'js/wow.js',
-        'js/index.js'
+        'js/index.js',
+        'js/jquery.slimscroll.js'
+
 	];
 	
 	

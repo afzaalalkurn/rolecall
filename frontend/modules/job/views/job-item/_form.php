@@ -16,7 +16,6 @@ $initialImagePreview  = [];
 if( $model->logo ){
     $initialImagePreview[] = Html::img('/uploads/'.$model->logo, ['class' => 'file-preview-image']);
 }
-
 ?>
 <div class="job-item-form">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
@@ -52,9 +51,10 @@ if( $model->logo ){
                             'removeLabel'       => ' Delete',
                             'removeIcon'        => '<i'.' class="fa fa-trash"></i>',
                             'previewSettings'   => [
-                                'image' => ['width' => '138px', 'height' => 'auto']
+                                'image' => ['width' => '100px', 'height' => 'auto']
                             ],
-                            'initialPreview' => (!empty($model->logo) ? '/uploads/'.$model->logo : null),
+                            //'initialPreview' => ['/uploads/'.(empty($model->logo) ? 'picture.jpg' : $model->logo)],
+                            'initialPreview' => [(!empty($model->logo) ? '/uploads/'.$model->logo : '')],
                             'layoutTemplates' => ['footer' => '']
                         ],
                     ]);
@@ -72,6 +72,8 @@ if( $model->logo ){
                     'changeYear' => true,
                     'yearRange' => date('Y').':2050',
                     'minDate' => 'today',
+                    'autoclose'=>true,
+                    'format' => 'yyyy/mm/dd',
                 ],]);
             ?>
                </div>

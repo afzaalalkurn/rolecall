@@ -5,13 +5,16 @@ namespace backend\modules\user\models;
 use Yii;
 
 /**
- * This is the model class for table "usermsg_attachments".
+ * This is the model class for table "user_msg_attachments".
  *
- * @property string $attachment_id
- * @property string $message_id
+ * @property integer $attachment_id
+ * @property integer $message_id
+ * @property integer $sender_id
+ * @property integer $seq
  * @property string $attachment
  *
  * @property UserMsg $message
+ * @property User $sender
  */
 class UserMsgAttachments extends \yii\db\ActiveRecord
 {
@@ -23,18 +26,21 @@ class UserMsgAttachments extends \yii\db\ActiveRecord
         return 'user_msg_attachments';
     }
 
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['message_id', 'attachment'], 'required'],
-            [['message_id'], 'integer'],
-            [['attachment'], 'string', 'max' => 250],
+            [['message_id', 'sender_id', 'seq'], 'required'],
+            [['message_id', 'sender_id', 'seq'], 'integer'],
+            [['attachment'],  'file',  'extensions'=>'jpg, jpeg, gif, png',  'maxFiles' => 10],
             [['message_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserMsg::className(), 'targetAttribute' => ['message_id' => 'message_id']],
+            [['sender_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sender_id' => 'id']],
         ];
     }
+
 
     /**
      * @inheritdoc
@@ -42,9 +48,11 @@ class UserMsgAttachments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'attachment_id' => Yii::t('app', 'Attachment ID'),
-            'message_id' => Yii::t('app', 'Message ID'),
-            'attachment' => Yii::t('app', 'Attachment'),
+            'attachment_id' => 'Attachment ID',
+            'message_id' => 'Message ID',
+            'sender_id' => 'Sender ID',
+            'seq' => 'Seq',
+            'attachment' => 'Attachment',
         ];
     }
 
@@ -54,5 +62,13 @@ class UserMsgAttachments extends \yii\db\ActiveRecord
     public function getMessage()
     {
         return $this->hasOne(UserMsg::className(), ['message_id' => 'message_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSender()
+    {
+        return $this->hasOne(User::className(), ['id' => 'sender_id']);
     }
 }

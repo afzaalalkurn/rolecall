@@ -6,7 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use himiklab\recaptcha\ReCaptcha;
+use alkurn\recaptcha\ReCaptcha;
 
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;

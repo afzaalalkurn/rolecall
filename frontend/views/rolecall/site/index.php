@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-use yii\helpers\Url;  
+use yii\helpers\Url;
 ?>  
 
 <!--WhatwedoSec section start here-->
@@ -308,13 +308,11 @@ use yii\helpers\Url;
                     <h2>Newsletter signup</h2>
                     <div class="textdiv">By subscribing to our mailing list you will always be update with the latest news from us</div>
                     <div class="formdiv">
-                        <?//=$this->render('subscribe',['model' => $model,]);?>
-                        <?php /*$form = ActiveForm::begin(['id' => 'newsletter-subscribe-form']);?>
-                        <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder'=>"Enter your Email Address"])->label(false);*/?>
-                        <form action="/admin/user/user-subscriber/create">
-                            <input type="email" placeholder="Enter your Email Address" name="searchtxt">
-                            <button class="search-btn" type="button">Subscribe</button>
-                        </form>
+                    <?=$this->render('subscribe',['model' => $model,]);?>
+                    <!--<form action="/admin/user/user-subscriber/create">
+                        <input type="email" placeholder="Enter your Email Address" name="searchtxt">
+                        <button class="search-btn" type="button">Subscribe</button>
+                    </form>-->
                     </div>
                 </div>
             </div>
@@ -322,3 +320,11 @@ use yii\helpers\Url;
     </div>
 </section>
 <!--SubscribeSec section end here-->
+<?php
+$this->registerJs(
+    '$("document").ready(function(){ 
+         window.scrollTo(0,0);
+     });'
+);
+?>
+

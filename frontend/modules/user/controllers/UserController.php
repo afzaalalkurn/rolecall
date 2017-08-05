@@ -21,6 +21,8 @@ use backend\modules\job\models\search\JobUserMapper;
 use frontend\components\Paypal;
 use backend\modules\core\models\CorePlan;
 use backend\modules\user\models\UserProfile;
+use alkurn\stripe\StripeCharge;
+use yii\web\Response;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -41,6 +43,13 @@ class UserController extends Controller
             ],
         ];
     }
+
+    /* added for stripe*/
+     public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+    /*end*/
 
     /**
      * Lists all User models.
@@ -97,15 +106,27 @@ class UserController extends Controller
         $searchModel = new JobUserMapper();
         $searchModel->status = Yii::$app->request->get('status');
         $searchModel->job_id = Yii::$app->request->get('id');
-        $dataProvider = $searchModel->searchJobUser(Yii::$app->request->queryParams);
+        if($status != "Passed"){
+            $dataProvider = $searchModel->searchJobUser(Yii::$app->request->queryParams);
+            return $this->render('talents', [
+                'searchModel'   => $searchModel,
+                'dataProvider'  => $dataProvider,
+                'status'        => $status,
+                'id'        => $job_id,
+            ]);
+        }
+        else if($status == "Passed"){
+            $dataProviderPass = $searchModel->searchJobUserPass(Yii::$app->request->queryParams);
+            $dataProviderDecline = $searchModel->searchJobUserDecline(Yii::$app->request->queryParams);
+            return $this->render('talents-pass', [
+                'searchModel'   => $searchModel,
+                'dataProviderPass'  => $dataProviderPass,
+                'dataProviderDecline'  => $dataProviderDecline,
+                'status'        => $status,
+                'id'            => $job_id,
+            ]);
 
-        return $this->render('talents', [
-            'searchModel'   => $searchModel,
-            'dataProvider'  => $dataProvider,
-            'status'        => $status,
-            'id'        => $job_id,
-        ]);
-
+        }
     }
 
     public function actionView(){
@@ -114,9 +135,14 @@ class UserController extends Controller
 
        $model   =   $this->findModel($user_id);
        $role    =   $model->getRoleName();
+       $tpls = [];
+        if( isset(Yii::$app->user->id) && (Yii::$app->user->id == $model->id)){
+            $tpls  = $this->_commonButtons();
+        }
 
        return $this->render('partial/_profile-' . strtolower($role), [
             'model'     => $model,
+            'tpls'   =>  $tpls ,
             'role'      => $role,
             'job_id'    => $job_id,
             'sections'  => $this->_userFields($model),
@@ -126,10 +152,10 @@ class UserController extends Controller
 
     protected function _commonButtons(){
         $links  =   [
-                        'Change Password'   => Url::to(['/change-password']),
-                        'Update'            => Url::to(['/update']),
-                        'Profile'           => ( Yii::$app->user->identity->isDirector() ) ? Url::to(['/user/user/view']) : Url::to(['/user/user/view']),
-                        'User Message'      => Url::to(['/user/user-msg'])
+                        //'Change Password'   => Url::to(['/change-password']),
+                        'Edit'            => Url::to(['/update']),
+                        //'Profile'           => ( Yii::$app->user->identity->isDirector() ) ? Url::to(['/user/user/view']) : Url::to(['/user/user/view']),
+                        //'User Message'      => Url::to(['/user/user-msg'])
                     ];
 
         foreach ($links as $name => $path){
@@ -244,15 +270,59 @@ class UserController extends Controller
     {
         $modelTransaction = new \frontend\models\UserTransaction();
 
-        if ($modelTransaction->load(Yii::$app->request->post()) && $modelTransaction->validate()){
+       /* if ($modelTransaction->load(Yii::$app->request->post()) && $modelTransaction->validate()){
             Yii::$app->paypal->payNow($modelTransaction);
-        }
+        }*/
 
         return $this->renderAjax('upgrade', [ 'modelTransaction' => $modelTransaction]);
 
     }
 
+    public function actionExecutePayment($id){
 
+        $model = $this->findModel($id);
+        $token = Yii::$app->request->post();
+        $plan = CorePlan::findOne(['id' => '2']);
+        $cost = $plan->amount * 100;
+        $costRound = floor($cost);
+        $request = [
+            "amount" => ($costRound),
+            "currency" => "usd",
+            "source" => $token['id'], // obtained with Stripe.js
+            "description" => 'Upgrade to Plus'
+        ];
+
+        $stripeCharge = new StripeCharge();
+
+
+        $response = $stripeCharge->createCharge($request);
+        $modelUserTransaction = new UserTransaction();
+        $modelUserTransaction->user_id = Yii::$app->user->id;
+        $modelUserTransaction->plan_id = 2;
+        $modelUserTransaction->first_name = Yii::$app->user->identity->user->userProfile->first_name;
+        $modelUserTransaction->last_name = Yii::$app->user->identity->user->userProfile->last_name;
+        $modelUserTransaction->email = $token['email'] ;
+        $modelUserTransaction->response_data = json_encode($token);
+        $modelUserTransaction->response_data = json_encode($response);
+        $modelUserTransaction->created_at = time();
+        $modelUserTransaction->updated_at = time();
+
+
+        if($modelUserTransaction->save(false)){
+            if($model->save(false)){
+                $userProfile = UserProfile::findOne(Yii::$app->user->id);
+                $userProfile->plan_id = 2;
+                $userProfile->update(false);
+                Yii::$app->session->setFlash('success', 'Congratulations! You have successfully upgraded to Plus.');
+                $this->actionPaymentSuccessMail($token['email']);
+                Yii::$app->response->format = Response::FORMAT_JSON;       
+                $data = ["success" => true];
+                return $data;
+                
+            }
+        }
+
+    }
     /* upgrade */
 
    /* public function actionUpgrade($id)
@@ -313,12 +383,9 @@ class UserController extends Controller
                 try {
 
                         if ( $flag = $model->save(false) ) {
-
                             if($modelUserProfile->load(Yii::$app->request->post())){
-
                                 $modelUserProfile->gender = $modelUserProfile->gender != '' ? $modelUserProfile->gender :'None';
                                 $modelUserProfile->dob = $modelUserProfile->dob != '' ? Yii::$app->formatter->asDate($modelUserProfile->dob, 'php:Y-m-d H:i:s') : '';
-
                                 $modelUpload = new Upload();
                                 $modelUpload->file = UploadedFile::getInstance($modelUserProfile, 'avatar');
                                 $modelUserProfile->avatar = (!is_null($modelUpload->file))
@@ -399,12 +466,15 @@ class UserController extends Controller
                                                     $this->_userFile($model->userFieldValues,  $modelUserFieldValue->field_id);
                                             $modelUserFieldValue->save(false);
 
-                                            if(isset($fv['image_data'])){
-                                                $imageData = json_decode($fv['image_data']);
-                                                $modelUserFieldValue->value = $modelUpload->crop($modelUserFieldValue->value, $imageData);
+                                            if($modelUserFieldValue->field->field == "profile-pic"){
+                                            $modelUserProfile->avatar = $modelUserFieldValue->value;
+                                            $modelUserProfile->save();
                                             }
 
-
+                                            /*if(isset($fv['image_data'])){
+                                                $imageData = json_decode($fv['image_data']);
+                                                $modelUserFieldValue->value = $modelUpload->crop($modelUserFieldValue->value, $imageData);
+                                            }*/
                                         }
                                     }
                                     break;
@@ -415,7 +485,8 @@ class UserController extends Controller
                     $transaction->commit();
                     Yii::$app->session->setFlash('success',
                         'Your profile has been updated successfully.');
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    //return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view']);
                 }
                         }
 
@@ -469,7 +540,20 @@ class UserController extends Controller
         return $fields;
     }
 
+    /**
+     *
+     */
+    public function actionSettings(){
+        return $this->render('settings');
+    }
 
+    public function actionDeleteUser($id){
+        $model = $this->findModel($id);
+        $model->is_deleted = '1';
+        $model->save();
+        Yii::$app->session->setFlash('success','Your account has been deleted successfully');
+        return $this->redirect(['settings']);
+    }
 
     /**
      * Finds the User model based on its primary key value.
@@ -492,6 +576,16 @@ class UserController extends Controller
         }
     }
 
+     protected function actionPaymentSuccessMail($email){
 
+        $res = Yii::$app->mail->compose()
+                    ->setTo($email)
+                    ->setFrom('stbeehler@gmail.com')
+                    ->setSubject('Payment Successful on' . Yii::$app->name)
+                    ->setTextBody('You have been successfully upgraded to Plus on '. Yii::$app->name)
+                    ->setHtmlBody('<b>Hello </b><br/><br/>, You have been successfully upgraded to Plus on '. Yii::$app->name .'. Thank you for connecting with us.<br/><br/><b>Regards,</b><br/><b>' . Yii::$app->name . ' Team</b>')
+                    ->send();
+                    return $res;
+    }
 }
 

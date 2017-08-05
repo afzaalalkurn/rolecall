@@ -16,7 +16,8 @@ class Upload extends Model
 
             $path = Yii::getAlias('@uploads') . '/' . $this->getBaseName();
             $base_name = preg_replace('/[^A-Za-z0-9\-]/', '', $this->file->baseName);
-            $name = $base_name . '.' . $this->file->extension;
+            //$name = $base_name . '.' . $this->file->extension;
+            $name = $base_name ."-".time().rand(0,1000). '.' . $this->file->extension;
             $this->type = exif_imagetype($this->file->tempName);
             if (! is_dir($path)) {
                 mkdir($path, 0777, true);
@@ -99,8 +100,10 @@ class Upload extends Model
 
             $tmp_img_w = $data -> width;
             $tmp_img_h = $data -> height;
-            $dst_img_w = 220;
-            $dst_img_h = 220;
+            /*$dst_img_w = 220;
+            $dst_img_h = 220;*/
+            $dst_img_w = 600;
+            $dst_img_h = 600;
 
             $src_x = $data -> x;
             $src_y = $data -> y;

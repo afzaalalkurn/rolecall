@@ -178,10 +178,12 @@ img{max-width:100%;}
 .SubscribeSec .subscribebox {text-align: center;width: 758px; margin: 115px auto 0;}
 .SubscribeSec .subscribebox h2 {text-align: center;font-size: 50px; color:#fff; padding: 0 0 0 0px; margin: 55px 0 35px 0px; text-transform: uppercase;}
 .SubscribeSec .subscribebox .textdiv {font-size: 13px; padding: 0 0 45px; color: #fff;}
-.SubscribeSec .subscribebox .formdiv input[type="email"]{font-size: 13px;padding: 0 0 0 55px;width: 62%;background: #fff url("../images/mail.png") 20px center no-repeat;height: 58px;border: 1px solid #fff; line-height: 58px;}
-.SubscribeSec .subscribebox .formdiv input[type="email"]:focus {border: 1px solid #25af61; transition: all 0.3s ease-in-out;}
+.SubscribeSec .subscribebox .formdiv input[type="text"]{border-radius: 0;font-size: 13px;padding: 0 0 0 55px;width: 100%;background: #fff url("../images/mail.png") 20px center no-repeat;height: 58px;border: 1px solid #fff; line-height: 58px;}
+.SubscribeSec .subscribebox .formdiv input[type="text"]:focus {border: 1px solid #25af61; transition: all 0.3s ease-in-out;}
 .SubscribeSec .subscribebox .formdiv button {background: #25af61 none repeat;border: medium none;color: #fff;font-size: 17px;height: 58px;padding: 0 45px;text-transform: uppercase;vertical-align: top;}
 .SubscribeSec .subscribebox .formdiv button:hover {box-shadow: 0 0 0 2px #ffffff inset, 0 0 1px rgba(0, 0, 0, 0);background: #313a4a;border-color: #fff; color: #fff;transition: all 0.3s ease-in-out;}
+.SubscribeSec .subscribebox .formdiv .form-group {float: left;margin-right: 10px; width: 73%;}
+.SubscribeSec .subscribebox .formdiv .form-group.submitbtn {width: auto;}
 
 .footer {background: #1d222a url("../images/") center center no-repeat; border-top: 1px solid #242931; min-height: 560px; padding: 0px 0 30px 0;}
 .footer .aboutrollcall {border-bottom: 1px solid #343940; padding: 60px 0;}
@@ -284,8 +286,8 @@ body.site.change-password {background: url("../images/talent-reg-bg.jpg") center
 .file-preview-frame {height: auto;}
 .site.signup .breadcrumb, .site.login .breadcrumb, .site.become-job-owner .breadcrumb, .site.request-password-reset .breadcrumb, .site.change-password .breadcrumb {display: none;}
 .select2-container--krajee .select2-selection {background: none; border-radius: 0px; border: 1px solid #6b6764;}
-.select2-container--krajee .select2-selection {height: 40px; color: #fff;}
-.select2-container--krajee .select2-selection--multiple .select2-selection__rendered {padding: 5px 0 0 0; height: 38px; overflow-y: auto;}
+.select2-container--krajee .select2-selection {color: #fff; min-height: 40px;}
+.select2-container--krajee .select2-selection--multiple .select2-selection__rendered {padding: 5px 0 0 0;}
 .select2-container--krajee .select2-selection--single .select2-selection__arrow {height: 38px;}
 .select2-container--krajee .select2-selection--single .select2-selection__rendered {padding: 4px 0 0 0; color: #fff;}
 .loginregistration .radio, .loginregistration .checkbox {margin-bottom: 0px; margin-top: 0px;}
@@ -344,7 +346,7 @@ input[type="tel"],
 input[type="text"], 
 input[type="url"], 
 select, textarea
-{background-color: #fff;border: 0.1px solid rgba(0, 0, 0, 0.12);border-radius: 0.4rem;box-shadow: none;height: 3.5rem;margin-bottom: 0;padding: 0.6rem 1rem;transition: border-color 0.2s ease-out 0s;width: 100%;}
+{background-color: #fff;border: 0.1px solid rgba(0, 0, 0, 0.12);border-radius: 0.4rem;box-shadow: none;height: 40px;margin-bottom: 0;padding: 0.6rem 1rem;transition: border-color 0.2s ease-out 0s;width: 100%;}
 .login-form form {margin-top: 1.5rem;}
 .login-form .submit {padding: 0 0 15px 0;}
 .login-form .submit .btn-primary {background-color: #25af61;border-color: #25af61;text-align: center; text-transform: uppercase;padding: 10px 12px;}
@@ -355,15 +357,15 @@ select, textarea
 .login-form .auth-clients li:last-child {margin-right: 0px;}
 .login-form h4.ortxt {font-size: 21px;margin: 15px auto 0;text-align: center;width: 100%; background: url("../images/devider.jpg") center center repeat-x;}
 .login-form h4.ortxt span {padding: 0 10px; background: #fff;}
-.select2-container--krajee .select2-selection--multiple .select2-selection__clear {margin: 5px 25px 0;}
+.select2-container--krajee .select2-selection--multiple .select2-selection__clear {margin: -13px 2px 0;}
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {width: 48%;}
 
 /* Talent Profile Page */
 .user.view .container.middlebody {min-height: 600px;background: rgba(0, 0, 0, 0) url("../images/sidebg.jpg") repeat-y scroll 0 0 / 23.6% auto;margin: 0;padding: 0;width: 100%;}
-.directordiv.user.view .container.middlebody {min-height: auto;background: none;margin-left: auto; margin-right: auto;margin-bottom: 40px; margin-top: 40px;padding-left: 15px; padding-right: 15px;width: 1170px;}
+/*.directordiv.user.view .container.middlebody {min-height: auto;background: none;margin-left: auto; margin-right: auto;margin-bottom: 40px; margin-top: 40px;padding-left: 15px; padding-right: 15px;width: 1170px;}*/
 .user.view {background: #f3f3f3 none repeat scroll 0 0;}
 .talentprofile .repesentational img {width: 100%; border: 1px solid #dddddd; padding: 3px;}
-.talentprofile .additional-images img {border: 1px solid #dddddd; padding: 3px;}
+.talentprofile .additional-images img {border: 1px solid #dddddd; padding: 3px; height: 125px; width: 100%;}
 .talentprofile .additional-images .bx-wrapper {padding: 25px 0;}
 .talentprofile .additional-images .bx-wrapper .bx-controls-direction a {top: 44%;}
 .talentprofile .additional-images .bx-wrapper .bx-next {right: 10px; background: url("../images/next-three.png") no-repeat;}
@@ -407,10 +409,22 @@ select, textarea
 .vpicture {margin-top: -20px;}
 .vpicture .sal {background: #25af61;color: #fff;font-family: 'RalewayBold';padding: 8px;position: absolute;text-align: center;text-transform: uppercase;width: 100%; bottom: 0;}
 .vpicture .vimage {position: relative;}
+.vpicture .vimage img {width: 100%; height: 250px;}
 .talentprofile .ribbondiv {background: url("../images/rebbin.png") no-repeat;height: 144px;left: 2px;position: absolute;top: -12px;width: 144px;}
 .user-view.userprofile {padding: 30px 30px 30px 0;}
 .directordiv.user.view .user-view.userprofile {padding: 25px 20px; background: #fff;}
+.directordiv.protalentdiv.user.view .user-view.userprofile {padding: 30px 30px 30px 0; background: none;}
 .directordiv.user.view .talentprofile #RequestToUpgrade.btn-success {margin: -5px 0px 0 0;}
+.directordiv.user.view .wrapper {margin: 0 -15px}
+/*.directordiv.user.view .wrapper .col-sm-9.drictorcol {width: 100%;}*/
+/*.directordiv.user.view .main-sidebar {display: none;}*/
+.directordiv.user.view .wrapper .row.hiderow {margin: 0px;}
+.directordiv.user.view .container.middlebody {width: 1170px; margin: 30px auto; background: none; padding: 0 15px;}
+.directordiv.protalentdiv.user.view .container.middlebody {background: rgba(0, 0, 0, 0) url("../images/sidebg.jpg") repeat-y scroll 0 0 / 23.6% auto; margin: 0; width: 100%; padding: 0;}
+.directordiv.user.view .col-sm-9.drictorcol {width: 100%;}
+.directordiv.protalentdiv.user.view .col-sm-9.drictorcol {width: 75%;}
+.user.view .btn-sequence .btn-edit {border-radius: 4px;font-size: 20px;padding: 10px 30px;margin-bottom: 30px; font-family: 'Lato', sans-serif; font-weight: 700;background-color: #25af61;border-color: #25af61;color: #fff; text-transform: uppercase; transition: all 0.3s ease-in-out;}
+.user.view .btn-sequence .btn-edit:hover { box-shadow: 0 0 0 2px #fff inset, 0 0 1px rgba(0, 0, 0, 0);background-color: #313a4a;border-color: #313a4a;color: #fff;}
 
 /* Job Individual Page */
 body.job-item.view {background: #f3f3f3;}
@@ -429,6 +443,8 @@ body.job-item.view {background: #f3f3f3;}
 .jobindividual .activedate {font-size: 13px; padding-bottom: 20px;}
 .jobindividual .address { float: right;font-size: 14px;margin: -5px 0 0;padding-bottom: 5px;text-align: right;}
 .jobindividual .address i {color: #25af61; padding-right: 5px; margin: 0 0 0 25px;}
+.jobindividual .address .passselbtn {display: inline;margin: 0 0 0 25px;}
+.jobindividual .address .passselbtn a {text-decoration: none;}
 .jobindividual .address.two {}
 .jobindividual .address.two a {color: #494848;}
 .jobindividual .discription {font-size: 14px; line-height: 25px; padding: 0px 0;}
@@ -471,7 +487,7 @@ body.job-item.view {background: #f3f3f3;}
 .site.dashboard .recent-job-postingSec .jobsbox h5 {overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 .site.dashboard .recent-job-postingSec .jobsbox h3 a {color: #3a3a3a;}
 .site.dashboard .recent-job-postingSec .jobsbox h3 a:hover {color: #25af61; text-decoration: none;}
-.site.dashboard .recent-job-postingSec .jobsbox .textcont {padding: 20px 20px; min-height: 195px; word-wrap: break-word; font-size: 15px; line-height: 22px;}
+.site.dashboard .recent-job-postingSec .jobsbox .textcont {padding: 20px 20px; min-height: 220px; word-wrap: break-word; font-size: 15px; line-height: 22px;}
 .site.dashboard .recent-job-postingSec .jobsbox .textcont span {color: #000;}
 .site.dashboard .recent-job-postingSec .jobsbox .jobsimg img {width: 100%; height: 250px;}
 .site.dashboard .recent-job-postingSec .jobsbox .btn-primary {display: block;background-color: #e9e5e5;border-color: #e9e5e5;color: #25af61; border-radius: 0px; font-size: 16px; letter-spacing: 1px;}
@@ -489,10 +505,10 @@ body.job-item.view {background: #f3f3f3;}
 .sidebar .btn-success {background: none;border: 0px;border-radius: 0px;border-left: 3px solid #2b3a41;display: block; width: 100%; text-align: left; padding: 13px 20px; border-bottom: 1px solid #3a494e; font-size: 15px; color: #fff;}
 .sidebar .btn-success:hover {background: #1d222a; border-left: 3px solid #25af61; transition: all 0.3s ease-in-out;}
 .sidebar .dashboardtab {border-bottom: 1px solid #e7e7e7;background: #fff; border-left: 3px solid #25af61; padding: 13px 0px 13px 20px; display: block; color: #8D9494;font-size: 15px;}
-.sidebar .dashboardtab a {text-transform: capitalize;text-decoration: none;color: #333; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 17px; vertical-align: top;}
+.sidebar .dashboardtab a {display: inline-block;text-transform: capitalize;text-decoration: none;color: #333; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 17px; vertical-align: top;}
 .sidebar .dashboardtab a:hover {color: #25af61;}
 .sidebar .dashboardtab span {display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 200px;}
-.sidebar .dashboardtab small {display: block; color: #999999; margin: -20px 0 0 46px; vertical-align: top;}
+.sidebar .dashboardtab small {display: block; color: #999999; margin: -7px 0 0; vertical-align: top;}
 .sidebar .dashboardtab:before {content: "\f15c";font-family: 'FontAwesome'; font-size: 32px; padding: 0 15px 0 0;}
 .sidebar .btn-talent-matches:before {content: "\f24d";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
 .sidebar .btn-talent-passes:before {content: "\f165";font-family: 'FontAwesome'; font-size: 18px; padding: 0 15px 0 0;}
@@ -583,8 +599,8 @@ body.user.update {background: #f3f3f3;}
 .user.update .breadcrumb {}
 .user.update .updateform {padding: 0 0px 30px 0; border-radius: 4px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
 .user.update .updateform h1 {}
-.user.update .updateform h1.secondti {border-top: 0px dotted #d1cdca; margin-top: 0px; margin-bottom: 20px; padding-top: 0px; color: #25af61; font-size: 25px;text-transform: uppercase;}
-.user.update .updateform h1.secondti.two {border-top: 1px dotted #d1cdca; margin-top: 25px; margin-bottom: 20px; padding-top: 25px; color: #25af61; font-size: 25px;text-transform: uppercase;}
+.user.update .updateform h1.secondti {border-top: 0px dotted #d1cdca; margin-top: 0px; margin-bottom: 20px; padding-top: 0px; color: #25af61; font-size: 25px;}
+.user.update .updateform h1.secondti.two {border-top: 1px dotted #d1cdca; margin-top: 25px; margin-bottom: 20px; padding-top: 25px; color: #25af61; font-size: 25px;}
 .user.update .updateform .formicon {font-size: 16px;background: url("../images/form-icon.png") center top no-repeat; height: 62px; width: 62px;margin: -44px -50px 0 0; float: right;}
 .user.update .updateform .form-control {padding-left: 15px;height: 40px; border-radius: 0px; color: #777; background-color: transparent; border-color: #d1cdca;}
 .user.update .updateform textarea.form-control {height: 139px;}
@@ -622,6 +638,7 @@ body.user.update {background: #f3f3f3;}
 .user.update .updateform .col-sm-4.user-field-42,
 .user.update .updateform .col-sm-4.user-field-43
 {width: 18%;}
+.user.update .updateform .close.fileinput-remove {left: 166px;margin: -5px 0 0;position: absolute;}
 .user.update .updateform .file-input {width: 100%;}
 .directordiv.user.update .updateform .file-input {width: 32%;}
 .krajee-default.file-preview-frame .file-thumbnail-footer {height: auto;}
@@ -760,7 +777,7 @@ body.user-msg.all-archive {background: #f3f3f3;}
 /* Create Rolecall Page */
 body.job-item.create {background: #f3f3f3;}
 .job-item.create .breadcrumb {}
-.job-item.create .loginregistration {background-color: transparent;width: 100%; margin: 0px auto; color: #494848; padding: 0 0px 30px 0; border-radius: 0px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
+.job-item.create .loginregistration {text-transform: capitalize;background-color: transparent;width: 100%; margin: 0px auto; color: #494848; padding: 0 0px 30px 0; border-radius: 0px; border-top: 0px solid #25af61; border-bottom: 0px solid #25af61;}
 .job-item.create .loginregistration .submit .btn-primary {padding: 10px 30px;}
 .job-item.create .loginregistration h1 {margin-top: 20px;color: #353636;font-size: 25px;margin-bottom: 20px;text-transform: uppercase;}
 .job-item.create .loginregistration h1.secondti {color: #25af61;border-top: 1px dotted #d1cdca;margin-top: 25px;padding-top: 25px; margin-bottom: 20px; text-transform: capitalize;}
@@ -820,6 +837,7 @@ body.job-item.update {background: #f3f3f3;}
 .ui-widget-content {border: 1px solid #d1cdca;}
 .file-input {width: 32%;}
 .krajee-default.file-preview-frame {margin: 8px 1px;}
+.krajee-default .file-preview-image {height: 100% !important;}
 
 /* Applied By Talent Page */
 .job-user-mapper.index .breadcrumb {}
@@ -869,6 +887,10 @@ body.job-item.update {background: #f3f3f3;}
 .job-item.index .jobsbox .buttondiv .btn-primary {display: block;padding: 7px 17px 3px;background-color: #25af61;border-color: #25af61;color: #fff; border-radius: 0px; text-transform: uppercase; transition: all 0.3s ease-in-out;}
 .job-item.index .jobsbox .buttondiv .btn-primary:hover {background-color: #313a4a;border-color: #313a4a;color: #fff;}
 .job-item.index .list-view .empty {padding: 0 0 0 15px;}
+
+/* Jobs Search Page */
+body.user.settings {background: #f3f3f3;}
+.user.settings .container.middlebody {min-height: 600px;margin: 0;padding: 0;background: url(../images/sidebg.jpg) repeat-y;background-size: 23.6% auto;width: 100%;}
 
 
 /*Modal CSS*/

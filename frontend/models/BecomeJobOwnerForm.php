@@ -2,7 +2,7 @@
 namespace frontend\models;
 
 use common\models\User;
-use himiklab\recaptcha\ReCaptchaValidator;
+use alkurn\recaptcha\ReCaptchaValidator;
 
 
 /**
@@ -83,8 +83,8 @@ class BecomeJobOwnerForm extends SignupForm
     {
         return [
             'plan_id' => 'Plan',
-            'agree' => 'Accept Term & Conditions',
-            'verify_code' => 'Verification Code',
+            'agree' => 'Accept Terms & Conditions',
+            'verify_code' => 'Captcha',
         ];
     }
     

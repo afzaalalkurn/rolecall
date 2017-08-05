@@ -1,9 +1,9 @@
 <?php
 namespace frontend\models;
 
+use alkurn\recaptcha\ReCaptchaValidator;
 use yii\base\Model;
 use common\models\User;
-use himiklab\recaptcha\ReCaptchaValidator;
 use Yii;
 use yii\helpers\Url;
 
@@ -86,7 +86,7 @@ class SignupForm extends Model
     {
         return [
             'instruments' => 'Instruments You Teach',
-            'verify_code' => 'Verification Code',
+            'verify_code' => 'Captcha',
             'agree' => 'Accept Terms & Conditions',
             'is_subscriber' => 'Newsletter Subcription',
             'logo' => 'School Logo',

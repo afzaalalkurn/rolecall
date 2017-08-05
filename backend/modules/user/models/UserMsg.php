@@ -2,39 +2,38 @@
 
 namespace backend\modules\user\models;
 
+use backend\modules\job\models\JobItem as Item;
 use Yii;
-use backend\modules\job\models\JobItem;
 
 /**
  * This is the model class for table "user_msg".
  *
- * @property string $message_id
- * @property string $seq
+ * @property integer $message_id
+ * @property integer $seq
  * @property string $identifier
- * @property string $user_id
- * @property string $job_id
- * @property string $sender_id
+ * @property integer $sender_id
+ * @property integer $item_id
  * @property string $subject
  * @property string $text
  * @property string $status
- * @property string $created_on
+ * @property string $created_at
  *
- * @property UserCompany $director
- * @property JobItem $job
+ * @property User $user
+ * @property Item $item
  * @property User $sender
- * @property UserCompanyMsgAttachments[] $userCompanyMsgAttachments
- * @property UserCompanyMsgRecipients[] $userCompanyMsgRecipients
+ * @property UserMsgAttachments[] $userMsgAttachments
+ * @property UserMsgRecipients[] $userMsgRecipients
  */
+
 class UserMsg extends \yii\db\ActiveRecord
 {
+    const STATUS_READ = "Read";
+    const STATUS_UNREAD = "UnRead";
+    const STATUS_DELETED = "Deleted";
+    const STATUS_SPAN = "Span";
+    const STATUS_ARCHIVED = "Archived";
+    public $attachment;
 
-    const STATUS_READ        = 'Read';
-    const STATUS_UNREAD      = 'UnRead';
-    const STATUS_DELETED     = 'Deleted';
-    const STATUS_SPAN        = 'Span';
-    const STATUS_ARCHIVED    = 'Archived';
-
-    public $attachment = [];
     /**
      * @inheritdoc
      */
@@ -49,15 +48,14 @@ class UserMsg extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['seq', 'identifier', 'user_id', 'job_id', 'sender_id', 'subject', 'text'], 'required'],
-            [['seq', 'user_id', 'job_id', 'sender_id'], 'integer'],
+            [['text'], 'required'],
+            [['seq', 'item_id', 'item_type', 'sender_id'], 'integer'],
             [['text', 'status'], 'string'],
-            [['created_on'], 'safe'],
+            [['created_at'], 'safe'],
             [['identifier'], 'string', 'max' => 25],
             [['subject'], 'string', 'max' => 250],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'user_id']],
-            [['job_id'], 'exist', 'skipOnError' => true, 'targetClass' => JobItem::className(), 'targetAttribute' => ['job_id' => 'job_id']],
             [['sender_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['sender_id' => 'id']],
+            [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Item::className(), 'targetAttribute' => ['item_id' => 'id']],
         ];
     }
 
@@ -67,34 +65,20 @@ class UserMsg extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'message_id' => Yii::t('app', 'Message ID'),
-            'seq' => Yii::t('app', 'Seq'),
-            'identifier' => Yii::t('app', 'Identifier'),
-            'user_id' => Yii::t('app', 'School ID'),
-            'job_id' => Yii::t('app', 'Job ID'),
-            'sender_id' => Yii::t('app', 'Sender ID'),
-            'subject' => Yii::t('app', 'Subject'),
-            'text' => Yii::t('app', 'Text'),
-            'status' => Yii::t('app', 'Status'),
-            'created_on' => Yii::t('app', 'Created On'),
+            'message_id' => 'Message ID',
+            'seq' => 'Seq',
+            'identifier' => 'Identifier',
+            'item_id' => 'Item ID',
+            'item_type' => 'Item Type',
+            'sender_id' => 'Sender ID',
+            'subject' => 'Subject',
+            'text' => 'Message',
+            'category' => 'Category',
+            'status' => 'Status',
+            'created_at' => 'Created At',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJob()
-    {
-        return $this->hasOne(JobItem::className(), ['job_id' => 'job_id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -102,6 +86,14 @@ class UserMsg extends \yii\db\ActiveRecord
     public function getSender()
     {
         return $this->hasOne(User::className(), ['id' => 'sender_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItem()
+    {
+        return $this->hasOne(Item::className(), ['job_id' => 'item_id']);
     }
 
     /**
@@ -120,7 +112,16 @@ class UserMsg extends \yii\db\ActiveRecord
         return $this->hasMany(UserMsgRecipients::className(), ['message_id' => 'message_id']);
     }
 
-
-
+    public function sendEmail($user_id)
+    {
+        $subject = Yii::t('app', 'You have new message from {name}',[ 'name'=> Yii::$app->name]);
+        $email = User::findOne($user_id)->email;
+        return Yii::$app->mailer->compose()
+            ->setTo($email)
+            ->setFrom([$this->sender->email => $this->sender->email])
+            ->setSubject( $subject )
+            ->setTextBody( $this->text )
+            ->send();
+    }
 
 }

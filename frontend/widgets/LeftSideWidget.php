@@ -2,11 +2,12 @@
 namespace frontend\widgets;
 use backend\modules\job\models\search\JobItem;
 use backend\modules\user\models\search\Talent;
-use Yii;use yii\base\Widget;
+use Yii;
+use yii\base\Widget;
 use yii\helpers\Url;
 use backend\modules\job\models\search\JobUserMapper;
-class LeftSideWidget extends Widget
-{
+
+class LeftSideWidget extends Widget{
     public $user_id;
     public function init(){
         parent::init();
@@ -15,6 +16,7 @@ class LeftSideWidget extends Widget
                 Yii::$app->user->id : null;
         }
     }
+
     public function run(){
     if(isset(Yii::$app->user->id)){
         $tpls = (Yii::$app->user->identity->isDirector()) ?
@@ -23,9 +25,11 @@ class LeftSideWidget extends Widget
     }else{
         $tpls[]  =  $this->_guestButtons();
     }
+
     return $this->render('left-sidebar',
         ['user_id' => $this->user_id, 'tpls'=>$tpls]);
     }
+
     protected function _commonButtons(){
         $links  =   [
             'Change Password' => Url::to(['/change-password']),
@@ -33,6 +37,7 @@ class LeftSideWidget extends Widget
             'Update Profile'      => Url::to(['/update']),
             'User Message'        => Url::to(['/user/user-msg'])
         ];
+
         foreach ($links as $name => $path){
             $tpls[] =
                 ['item'      => $name,
@@ -40,9 +45,11 @@ class LeftSideWidget extends Widget
                     'path'      => $path,
                     'id'        => str_replace(' ' ,'-', $name),
                     'class'     => 'btn owner-button btn-'.strtolower(str_replace(' ' ,'-', $name)),];
+
         }
         return $tpls;
     }
+
     protected function _ownerButtons(){
         $job_id = Yii::$app->getRequest()->getQueryParam('id');
         $JobUserMapper = new JobUserMapper();
@@ -52,32 +59,36 @@ class LeftSideWidget extends Widget
         $model = new JobItem();
         $tpls = [];
         $links = [
-            /*'Banner'         => Url::to(['/user/user-ads/']),
-             Selected Talents' => Url::to(['/job-talents', 'status'=>'Pending']),
-               'Approved Talents' => Url::to(['/job-talents', 'status'=>'Approved']),
-                       'My Rolecalls'     => Url::to(['/my-jobs']),*/
             'Talent Matches' => ['url' => Url::to(['/job/job-item/talents', 'id' => $job_id]),
                 'status' => 'Matches'],
             'Talent Selects' => ['url' => Url::to(['/job-talents', 'status' => 'Approved', 'id' => $job_id]),
                 'status' => 'Approved'],
-            'Talent Passes' => ['url' => Url::to(['/job-talents', 'status' => 'Declined', 'id' => $job_id]),
-                'status' => 'Declined'],
+            'Talent Passes' => ['url' => Url::to(['/job-talents', 'status' => 'Passed', 'id' => $job_id]),
+                'status' => 'Passed'],
             'Talent Booked' => ['url' => Url::to(['/job-talents', 'status' => 'Booked', 'id' => $job_id]),
-                'status' => 'Booked'],        ];
+                'status' => 'Booked'],
+        ];
         foreach ($links as $name => $path) {
-            foreach ($path as $key => $value) {
+              $value = $path['status'];
+            /*foreach ($path as $key => $value) {*/
                 if ($value == 'Matches') {
                     $searchModel->job_id = $job_id;
                     $searchModel->latitude = $model->latitude;
                     $searchModel->longitude = $model->longitude;
                     $searchModel->radius = $model->radius;
-                    $count = $searchModel->search(Yii::$app->request->queryParams)->totalCount;
-                } else {
-                    $count = $JobUserMapper->getTalentCount($value, $job_id);
+                    //$searchModel->mapper_status = $model->mapper_status;
+                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                    $count = $dataProvider->query->count();
+                    //pr($dataProvider);
+                } else if($value == "Passed"){
+                    $count = $JobUserMapper->getTalentPassCount($job_id);
+                }
+                else if($value == "Approved" || $value == "Booked"){
+                    $count = $JobUserMapper->getTalentCount($value,$job_id);
                 }
                 $status = $value;
-            }
-            $tpls[] = [ 'item'      => $name,
+            //}
+            $tpls[] = [ 'item' => $name,
                 'title'     => $name,
                 'path'      => $path['url'],
                 'id'        => str_replace(' ' ,'-', $name),
@@ -87,20 +98,26 @@ class LeftSideWidget extends Widget
         }
         return $tpls;
     }
+
     protected function _userButtons(){
         $tpls = [];
         $user_id = Yii::$app->user->id;
         $JobUserMapper = new JobUserMapper();
         $count = null;
-        foreach ([/*'Applied' => 'Applied Rolecall',*/
-        /*'Favorite' => 'Favorite Rolecall',*/
+        foreach ([
                      'Pending' => 'Rolecall Matches',
                      'Approved' => 'Rolecall Selects',
                      'Passed' => 'Rolecall Passes',
                      'Booked' => 'Rolecall Booked',
                  ]
                  as $status => $name ) {
-            $count = $JobUserMapper->getRolecallCount($status,$user_id);
+            if($status == "Passed"){
+                $count = $JobUserMapper->getRolecallPassCount($user_id);
+            }
+            else{
+                $count = $JobUserMapper->getRolecallCount($status,$user_id);
+            }
+
             $tpls[] =   [
                 'item'  => $status,
                 'title' => $name,
@@ -112,9 +129,12 @@ class LeftSideWidget extends Widget
                 'status' => $status,
                 'class' => 'btn user-mapper btn-'.strtolower($status),];
         }
+
         return $tpls;
+
     }
     protected function _guestButtons(){
         $tpls = [];        return $tpls;
     }
 }
+?>

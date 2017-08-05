@@ -69,10 +69,7 @@ class JobItemController extends Controller
             'tpls' => $tpls
         ]);
 
-    }
-
-
-
+    } 
 
     public function actionMyJobs(){
         $tpls = [];
@@ -224,18 +221,17 @@ class JobItemController extends Controller
 
              $links  =   [
                             'Create Rolecall'       => Url::to(['create']),
-                            /*'Talent Messages'    => Url::to(['/user/user-msg/index'])*/
+
                          ]; 
 
         }else{
              $links  =   [
-                            'Edit'            => Url::to(['update', 'id' => $job_id]),
-                            /*'Find Talents'      => Url::to(['talents', 'id' => $job_id]),
-                            'Applied Talent'     => Url::to(['/job/job-user-mapper', 'job_id' => $job_id, 'status'=>'Applied']),*/
-                 /*'Pending Request'     => Url::to(['/job/job-user-mapper', 'job_id' => $job_id, 'status'=>'Pending']),
-                 'Approved Talent'     => Url::to(['/job/job-user-mapper', 'job_id' => $job_id, 'status'=>'Approved']),*/
-
+                            'Edit'         => Url::to(['update', 'id' => $job_id]),
                          ];
+            $model = JobItem::findOne(['job_id' => $job_id]);
+            if($model->is_archive == '0'){
+                $links['Archive'] = Url::to(['archived','id' => $job_id]);
+            }
 
         }
 
@@ -297,17 +293,64 @@ class JobItemController extends Controller
                 $transaction = Yii::$app->db->beginTransaction();
                 try {
                         if ( $flag = $model->save(false) ) {
-                            /*$modelCategoryMapper = new JobCategoryMapper();
-                            $modelCategoryMapper->category_id = 1;
-                            $modelCategoryMapper->job_id = $model->job_id;
-                            $modelCategoryMapper->save();*/
+
                             foreach ($modelJobFieldValues as $modelJobFieldValue){
                                 $modelJobFieldValue->job_id = $model->job_id;
-                                if( is_array( $modelJobFieldValue->value ) && count( $modelJobFieldValue->value ) > 0) {
-                                    $modelJobFieldValue->value  = serialize($modelJobFieldValue->value);
+                                switch($modelJobFieldValue->field->type){
+                                    case 'DropdownRange':
+                                    case 'TextRange':
+                                    if($modelJobFieldValue->value == ''){
+                                        switch($modelJobFieldValue->field->field){
+                                            case "sleeve-from":
+                                            case "waist-from":
+                                            case "inseam-from":
+                                            case "hips-from":
+                                            case "bust-from":
+                                            case "neck-from":
+                                            case "chest-from":
+                                            case "shoulders-from":
+                                            $modelJobFieldValue->value = '38';
+                                            break;
+                                            case "sleeve-to":
+                                            case "waist-to":
+                                            case "inseam-to":
+                                            case "hips-to":
+                                            case "bust-to":
+                                            case "neck-to":
+                                            case "chest-to":
+                                            case "shoulders-to":
+                                            $modelJobFieldValue->value = '60';
+                                                break;
+                                            case "height-from":
+                                                $modelJobFieldValue->value = '130';
+                                                break;
+                                            case "height-to":
+                                                $modelJobFieldValue->value = '175';
+                                                break;
+                                            case "weight-from":
+                                                $modelJobFieldValue->value = '40';
+                                                break;
+                                            case "weight-to":
+                                                $modelJobFieldValue->value = '60';
+                                                break;
+                                            case "age-from":
+                                                $modelJobFieldValue->value = '20';
+                                                break;
+                                            case "age-to":
+                                                $modelJobFieldValue->value = '40';
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                    default:
+                                        if (is_array($modelJobFieldValue->value) && count($modelJobFieldValue->value) > 0) {
+                                            $modelJobFieldValue->value = serialize($modelJobFieldValue->value);
+                                        }
                                 }
+
                                 $modelJobFieldValue->save(false);
                             }
+
                         }
                         if ($flag) {
 
@@ -352,7 +395,6 @@ class JobItemController extends Controller
         $searchModel->latitude = $model->latitude;
         $searchModel->longitude = $model->longitude;
         $searchModel->radius = $model->radius;
-
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $modelUserFields = new UserField(); 
 
@@ -372,10 +414,11 @@ class JobItemController extends Controller
 
         $user_id = Yii::$app->request->post('user_id');
         $job_id  = Yii::$app->request->post('job_id');
+        
         $modelJobUserMapper = JobUserMapper::findOne([
-            'user_id'=>$user_id,
-            'job_id'=>$job_id,
-            'status'=>$status
+            'user_id' => $user_id,
+            'job_id'  => $job_id,
+            'status'  => $status
         ]);
 
         if($modelJobUserMapper){
@@ -384,6 +427,7 @@ class JobItemController extends Controller
 
         $modelJobItem = $this->findModel($job_id);
         $modelTalent = Talent::findOne($user_id);
+
         if(!$modelTalent){
             return ['code' => 'failed','msg' => 'User not exist.'];
         }
@@ -392,30 +436,31 @@ class JobItemController extends Controller
             return ['code' => 'failed','msg' => 'Job not exist.'];
         }
 
-
         $modelJobUserMapper = JobUserMapper::findOne([
             'user_id'=>$user_id,
             'job_id'=>$job_id
         ]);
 
+
         if($modelJobUserMapper)
         {
             $modelJobUserMapper->status = $status;
         }
-        else if($status == "Pending" || $status == "Passed")
+        else if($status == "Pending" || $status == "Passed" || $status == "Selected")
         {
             $modelJobUserMapper = new JobUserMapper();
             $modelJobUserMapper->user_id = $user_id;
             $modelJobUserMapper->job_id = $job_id;
             $modelJobUserMapper->status = $status;
         }
+
         $notifyStatus = ($status == "Pending") ? 'Selected' : $status;
 
         if($modelJobUserMapper->save()){
-
             Yii::$app->modules['job']->trigger('Job',
                 AutoEvent::getNotify( $notifyStatus ,
-                    $modelJobUserMapper->job_id,$user_id));
+                    $modelJobUserMapper->job_id,$user_id)
+            );
 
             switch($status)
             {
@@ -439,14 +484,15 @@ class JobItemController extends Controller
                 $msg = 'You Declined the Rolecall request.';
                 break;
             }
-            return ['code' => 'success','user' =>
-                $modelTalent->userProfile->getName(),
-                'job'=>$modelJobItem->name,
-                'msg'=> $msg];
+            return 
+                [
+                    'code'  =>  'success', 
+                    'user'  =>  $modelTalent->userProfile->getName(),
+                    'job'   =>  $modelJobItem->name,
+                    'msg'   =>  $msg
+                ];
         }
-
         return ['code' => 'failed','msg'=>'Please try again later'];
-
     }
 
     /**
@@ -496,17 +542,6 @@ class JobItemController extends Controller
                         JobFieldValue::deleteAll(
                             ['job_id' => $model->job_id]
                         );
-                    /*foreach ( $modelJobFieldValues as $modelJobFieldValue ){
-                        $modelJobFieldValue->job_id = $model->job_id;
-                        if( is_array( $modelJobFieldValue->value )
-                            && count( $modelJobFieldValue->value ) > 0
-                        ) {
-                            $modelJobFieldValue->value  =
-                                serialize($modelJobFieldValue->value);
-                        }
-                        $modelJobFieldValue->save(false);
-                    }*/
-
                        foreach ( $modelJobFieldValues as $modelJobFieldValue ){
                            $modelJobFieldValue->job_id = $model->job_id;
                            switch ($modelJobFieldValue->field->type){
@@ -514,11 +549,11 @@ class JobItemController extends Controller
                                case 'TextArea':
                                case 'Radio':
                                case 'List':
+                               case 'DatePicker':
                                case 'DropdownRange':
                                case 'TextRange':
-                               case 'DatePicker':
                                $modelJobFieldValue->save(false);
-                                   break;
+                               break;
                                case 'MultiList':
                                    if( is_array( $modelJobFieldValue->value ) && count( $modelJobFieldValue->value ) > 0) {
                                        if($modelJobFieldValue->field->is_serialize == 1){
@@ -650,6 +685,14 @@ class JobItemController extends Controller
     public function actionArchive()
     {
         return $this->render('archive');
+    }
+
+    public function actionArchived($id){
+        $model = $this->findModel($id);
+        $model->is_archive = '1';
+        $model->save();
+        Yii::$app->session->setFlash('success', 'Rolecall added to archive successfully.');
+        return $this->redirect(Url::to(['/job/job-item/view', 'id' => $id]));
     }
 
     /**

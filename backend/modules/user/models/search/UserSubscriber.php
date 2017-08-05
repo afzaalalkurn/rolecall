@@ -19,7 +19,9 @@ class UserSubscriber extends UserSubscriberModel
     {
         return [
             [['subscription_id'], 'integer'],
-            [['email'], 'safe'],
+            [['email'], 'required'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address already exist.'],
         ];
     }
 

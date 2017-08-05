@@ -4,10 +4,10 @@ use yii\helpers\StringHelper;
 use himiklab\thumbnail\EasyThumbnailImage;
 use backend\modules\job\models\JobItem;
 use backend\modules\user\models\search\UserNotification;
-use backend\modules\user\models\search\UserMsgRecipients;
+use backend\modules\user\models\search\UserMsgRecipientsSearch;
 use yii\helpers\Url;
 
-$allUnreadMessage = UserMsgRecipients::showAllUnreadMsg($model->job_id);
+$allUnreadMessage = UserMsgRecipientsSearch::showAllUnreadMsg($model->job_id);
 ?>
 <div class="col-sm-4">
 <div class="jobsbox">
@@ -32,7 +32,7 @@ $allUnreadMessage = UserMsgRecipients::showAllUnreadMsg($model->job_id);
     <br/><span>Role Name :</span> <?= $model->getJobFieldValue('role-name');?>
     <br/><span>Role Type :</span> <?= $model->getJobFieldValue('role-type');?>
     <br/><span>Project Start Date :</span> <?= $create_dated;?>
-    <br><span>Location  :</span><?= $model->location;?>
+    <br><span>Location  :</span> <?= $model->location;?>
     <br/><span>Date Posted :</span>
     <?php echo date("M d, Y", strtotime($model->modified_dated)); ?>
 </div>

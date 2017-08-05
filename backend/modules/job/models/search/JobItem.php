@@ -485,4 +485,12 @@ class JobItem extends JobItemModel
             ->count();
         return $query;
     }
+
+    public static function getRolecall($job_id){
+        $query = JobItemModel::find()
+            ->select(['*'])
+            ->where(['job_id' => $job_id])
+            ->all();
+        return $query;
+    }
 }

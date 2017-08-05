@@ -544,9 +544,7 @@ class Talent extends User
                     $ids = $this->getUserIds($query); 
                 } 
             } 
-        }  
-
-        
+        }
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([ 'query' => $query, ]);
         $this->load($params); 
@@ -591,7 +589,7 @@ class Talent extends User
 
         $subQuery = JobUserMapper::find()->select('user_id')
             ->where(['`job_id`' => $this->job_id])
-            ->andWhere(['NOT IN', '`status`', ['Passed', 'Pending']]);
+            ->andWhere(['NOT IN', '`status`', ['Pending']]);
 
         $query->andFilterWhere(['NOT IN', '`user`.`id`', $subQuery]);
         $query->andFilterWhere(['like', 'username', $this->username])
@@ -600,11 +598,9 @@ class Talent extends User
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email]);
 
-         //exit;                   
          //echo $query->createCommand()->rawSql;
          //exit;
-         // pr( $query->createCommand()->rawSql ); 
-         //pr($query->all());
+         //pr( $query->createCommand()->rawSql );
         return $dataProvider;
     }
 

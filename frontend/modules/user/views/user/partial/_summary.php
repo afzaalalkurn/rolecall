@@ -1,44 +1,62 @@
 <?php
 use yii\helpers\Html;
-
-
-
 ?>
 <div class="usersummary bodyinformation">
     <h3>Talent Overview</h3>
     <div class="row">
-        <?php foreach ($sectionSummary as $i => $userFieldValue){ ?>
-            <div class="col-sm-4">
-                <div class="summery">
-                    <i class="fa cls-<?=$userFieldValue->field->field;?>" aria-hidden="true"></i>
-                    <span class="sal"> <?=$userFieldValue->field->name;?> </span>
+        <?php 
+        $userFieldArray = [];
+        foreach ($sectionSummary as $i => $userFieldValue){ ?>
                     <?php
                     switch($userFieldValue->field->type){
                         case 'MultiList':
                             if($userFieldValue->field->is_serialize == 1){
-                                echo ( $data = @unserialize($userFieldValue->value)) ? implode(', ',$data) : $userFieldValue->value;
+                                $userFieldArray[$userFieldValue->field->field][$userFieldValue->field->name] = @unserialize($userFieldValue->value) ? implode(', ',@unserialize($userFieldValue->value)) : $userFieldValue->value;
                             }else{
-                                echo trim($userFieldValue->value) ?? Yii::t('job', 'Not Given');
+                                $userFieldArray[$userFieldValue->field->field][$userFieldValue->field->name] = trim($userFieldValue->value) ?? Yii::t('job', 'Not Given');
                             }
                             break;
                         case 'List':
-                            if($userFieldValue->value == 'Other'){
-                                foreach ($userFieldValue->field->userFields as $field){
-                                    foreach($field->userFieldValues as $value){
-                                        echo $value->value;
-                                    }
-                                }
-                            }else{
-                                echo $userFieldValue->value;
+                            $userFieldArray[$userFieldValue->field->field][$userFieldValue->field->name] = $userFieldValue->value;
+                            break;
+                            case 'Text':
+                            switch($userFieldValue->field->field){
+                                case "other-exp":
+                                $userFieldArray['real-world-experience']['Real World Experience'] = str_replace('Other', $userFieldValue->value, $userFieldArray['real-world-experience']['Real World Experience']);
+                                    break;
+                                case "other-lang":
+                                $userFieldArray['spoken-languages']['Spoken Languages'] = str_replace('Other', $userFieldValue->value, $userFieldArray['spoken-languages']['Spoken Languages']);
+                                    break;
+                                case "other-skill":
+                                $userFieldArray['special-skills']['Special Skills'] =  str_replace('Other', $userFieldValue->value, $userFieldArray['special-skills']['Special Skills']);
+                                    break;
+                                case "role-name":
+                                $userFieldArray[$userFieldValue->field->field][$userFieldValue->field->name] = $userFieldValue->value;
+                                    break;
                             }
                             break;
                         default:
                     }
 
                     ?>
-                </div>
+                
+        <?php }
+        foreach ($userFieldArray as $userFieldKey => $userFieldval) {
+             ?>
+        <div class="col-sm-4">
+        <div class="summery">
+            <i class="fa cls-<?=$userFieldKey;?>" aria-hidden="true"></i>
+            <?php foreach($userFieldval as $key => $val){?>
+                    <span class="sal"><?=$key?>:
+                    </span>
+                    <?php
+                    echo $val;
+                    } ?>
+                    </div>
             </div>
-        <?php } ?>
+             <?php
+        }
+        ?>
         <?php ?>
     </div>
 </div>

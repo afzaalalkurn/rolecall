@@ -18,18 +18,22 @@
         "yiisoft/yii2": "~2.0.6",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "himiklab/yii2-recaptcha-widget": "*",
         "himiklab/yii2-easy-thumbnail-image-helper": "*",
         "yiisoft/yii2-authclient": "^2.1",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "yiisoft/yii2-jui": "^2.0",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "ruskid/yii2-stripe": "dev-master",
+        "alkurn/yii2-stripe": "dev-master",
+        "wbraganca/yii2-dynamicform": "*",
+        "alkurn/yii2-upload": "dev-master",
+        "alkurn/yii2-recaptcha": "dev-master",
+        "alkurn/yii2-websocket": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",
         "yiisoft/yii2-faker": "~2.0.0",
-
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1"
     },

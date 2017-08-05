@@ -27,6 +27,7 @@ return [
             'class' => 'frontend\modules\user\Module',
             'on Payment'    => ['frontend\event\Notification','handler'],
             'on Applied'    => ['frontend\event\Notification','handler'],
+            'on Send'    => ['frontend\event\Notification','handler'],
         ],
         'cms' => [
                     'class' => 'frontend\modules\cms\Module',
@@ -53,8 +54,8 @@ return [
                 ],*/
                 'facebook' => [
                     'class' => 'yii\authclient\clients\Facebook',
-                    'clientId' => '938892096243287',
-                    'clientSecret' => 'b6bdd01a10dcdfb74654b55d8247aa69',
+                    'clientId' => '1858821357666641',
+                    'clientSecret' => '40f713d410a14faf0ae92aa4f367d959',
                     'attributeNames' => ['name', 'email', 'first_name', 'last_name'],
                 ],
                 // etc.
@@ -65,6 +66,7 @@ return [
             'name' => '_frontendPHPBACKSESSID',
             'savePath' => __DIR__ . '/../runtime',
         ],
+
         'request' => [
             'baseUrl' => $baseUrl,
             'cookieValidationKey' => 'ey6xob0W0u9VYImBCsui-rMJxDBDHSuz',
@@ -127,6 +129,17 @@ return [
                 'director'  => 'site/director',
 
                 'ads'  => 'user/user-ads',
+
+                /* Start Messaging Section */
+                'messages' => 'user/user-msg/index',
+                'message' => 'user/user-msg/message',
+                'message-send' => 'user/user-msg/create',
+                'download-attachment' => 'user/user-msg/download-attachment',
+                'messenger' => 'user/user-msg/message',
+                'msg-validate' => 'user/user-msg/validate',
+                'attachment-upload' => 'user/user-msg/attachment-upload',
+
+                /* End Messaging Section */
 
                 'my-jobs'  => '/job/job-item/my-jobs',
                 'job-talents'  => '/user/user/job-talents',

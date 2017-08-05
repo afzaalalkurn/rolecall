@@ -50,15 +50,29 @@ class JobUserMapperController extends Controller
             $searchModel->user_id = Yii::$app->request->get('user_id');
         }
         if(Yii::$app->request->get('status')){
+            $status = Yii::$app->request->get('status');
             $searchModel->status = Yii::$app->request->get('status');
         }
-        
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-       
-        return $this->render('index', [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+
+        if($status != "Passed")
+        {
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel'  => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        else if($status == "Passed"){
+            $dataProviderPass = $searchModel->searchPass(Yii::$app->request->queryParams);
+            $dataProviderDecline = $searchModel->searchDecline(Yii::$app->request->queryParams);
+
+            return $this->render('passes', [
+                'searchModel'  => $searchModel,
+                'dataProviderPass' => $dataProviderPass,
+                'dataProviderDecline' => $dataProviderDecline,
+            ]);
+        }
     }
  
     /**

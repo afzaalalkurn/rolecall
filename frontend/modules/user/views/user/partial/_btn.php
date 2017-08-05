@@ -6,7 +6,7 @@ use yii\helpers\Html;
     <div class="row">
         <div class="btn-sequence">
             <div class="btndiv">
-                <?= ( isset(Yii::$app->user->id) && Yii::$app->user->identity->isUser()) ? $this->render('_mailbtn', [ 'model' => $model, 'job_id' => $model->job_id,]) : null; ?>
+                <?/*= ( isset(Yii::$app->user->id) && Yii::$app->user->identity->isUser()) ? $this->render('_mailbtn', [ 'model' => $model, 'job_id' => $model->job_id,]) : null; */?>
 
                 <?php /* ( isset(Yii::$app->user->id) && Yii::$app->user->identity->isDirectorUserId($model->user_id)) ? $this->render('_sponsorbtn', [ 'job_id' => $model->job_id,]) : null; */?>
 

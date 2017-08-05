@@ -2,6 +2,8 @@
 
 namespace backend\modules\job\models;
 
+    use backend\modules\user\models\UserMsg;
+    use backend\modules\user\models\UserNotification;
     use Yii;
 
 use backend\modules\user\models\User;
@@ -29,7 +31,7 @@ use backend\modules\user\models\User;
  * @property JobCategory[] $categories
  * @property JobFieldValue[] $jobFieldValues
  * @property User $user
- * @property JobItemFr $jobItemFr
+
  * @property JobTransaction[] $jobTransactions
  * @property JobUserMapper[] $jobUserMappers
  * @property UserMsg[] $userMsgs
@@ -59,7 +61,7 @@ class JobItem extends \yii\db\ActiveRecord
                 [['user_id', 'name','location'], 'required'],
                 [['create_dated'], 'required','message' => 'Start Date cannot be blank'],
                 [['expire_date'], 'required','message' => 'End Date cannot be blank'],
-                [['user_id', 'is_featured', 'status','radius'], 'integer'],
+                [['user_id', 'is_featured', 'status','radius','is_archive'], 'integer'],
                 [['latitude', 'longitude'], 'number'],
                 [['requirement', 'description', 'location'], 'string'],
                 [['expire_date', 'create_dated', 'modified_dated'], 'safe'],
@@ -165,13 +167,6 @@ class JobItem extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJobItemFr()
-    {
-        return $this->hasOne(JobItemFr::className(), ['job_id' => 'job_id']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

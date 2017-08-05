@@ -9,7 +9,7 @@ use yii\captcha\Captcha;
 use backend\modules\core\models\CorePlan;
 use yii\helpers\ArrayHelper;
 use kartik\file\FileInput;
-use himiklab\recaptcha\ReCaptcha;
+use alkurn\recaptcha\ReCaptcha;
 
 $this->title = 'ReGister as Casting Director';
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,7 +27,7 @@ foreach(CorePlan::find()->where(['status'=>1])->all() as $data){
 <div class="formicon"></div>
 <h1><?= Html::encode($this->title) ?></h1>
 	<?= yii\authclient\widgets\AuthChoice::widget([
-        'baseAuthUrl' => ['site/auth'],
+        'baseAuthUrl' => ['site/auth','type' => 'Director'],
         'popupMode' => false,
     ]) ?>
     
@@ -41,16 +41,15 @@ foreach(CorePlan::find()->where(['status'=>1])->all() as $data){
  ['prompt' => 'Select Membership Plan']); */
     ?>
     <?php /* $form->field($model, 'school_name')->textInput(['autofocus' => true]) */ ?>
-
-    <?= $form->field($model, 'first_name')->textInput(['autofocus' => true, 'placeholder'=>"First Name"])->label(false);?>
+    <?= $form->field($model, 'first_name')->textInput(['autofocus' => true, 'placeholder'=>"First Name *"])->label(false);?>
     
-    <?= $form->field($model, 'last_name')->textInput(['autofocus' => true, 'placeholder'=>"Last Name"])->label(false);?>
+    <?= $form->field($model, 'last_name')->textInput(['autofocus' => true, 'placeholder'=>"Last Name *"])->label(false);?>
     
     <?/*= $form->field($model, 'username')->textInput()*/?>
    
-    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder'=>"Email Address"])->label(false);?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder'=>"Email Address *"])->label(false);?>
     
-    <?= $form->field($model, 'password')->passwordInput(['autofocus' => true, 'placeholder'=>"Password"])->label(false);?>
+    <?= $form->field($model, 'password')->passwordInput(['autofocus' => true, 'placeholder'=>"Password *"])->label(false);?>
     <?php /* $form->field($model, "avatar")->widget(FileInput::classname(), [
         'options' => [
             'multiple'  => false,
@@ -102,7 +101,7 @@ foreach(CorePlan::find()->where(['status'=>1])->all() as $data){
 
     <?= $form->field($model, 'is_subscriber')->radioList(['1'=>'Yes', '0'=>'No']); ?>
     <?= $form->field($model, 'verify_code')
-        ->widget(ReCaptcha::className()) ?>
+        ->widget(ReCaptcha::className())->label("Captcha *"); ?>
     <?= $form->field($model,'agree')->checkbox(); ?>
     <div class="submit">
         <?= Html::submitButton('REGISTER',

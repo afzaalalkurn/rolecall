@@ -20,14 +20,14 @@ use backend\modules\job\models\JobItem;
                         <?= ( $data = @unserialize($jobFieldValue->value)) ? implode(', ',$data) : $jobFieldValue->value; ?>
                         <?php //implode(', ', unserialize($jobFieldValue->value)); ?>
                     <?php
-                        if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "No"))
+                        if(($vehicleField == "car") && ($vehicleVal == "No"))
                         {
                             break;
                         }
                     } else { ?>
                         <?= trim($jobFieldValue->value) ?? Yii::t('job', 'Not Given'); ?>
                     <?php
-                        if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "No"))
+                        if(($vehicleField == "car") && ($vehicleVal == "No"))
                         {
                             break;
                         }

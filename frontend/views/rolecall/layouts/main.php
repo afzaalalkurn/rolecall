@@ -8,23 +8,40 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert; 
+use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
 //pr(Yii::$app->controller->id,false);
 //pr(Yii::$app->controller->action->id);
 
+$currentPage = Yii::t('app', '{ctrl}/{action}', ['ctrl'=>Yii::$app->controller->id,'action' => Yii::$app->controller->action->id]);
+
 $param = '';
 $class = '';
+$homeUrl = '';
+$talentClass = '';
 if(!Yii::$app->user->isGuest){
     $role = Yii::$app->user->identity->getRoleName();
     if($role == "Director")
     {
         $class = 'directordiv';
         $job_id = Yii::$app->request->get('id');
-        if(!$job_id){$param = 'user/view';}
+        $user_id = Yii::$app->request->get('user_id');
+        if(!$job_id){
+            $param = 'user/view';
+        }
+        if($user_id && $currentPage == 'user/view'){
+            $talentClass = 'protalentdiv';
+        }
+        $homeUrl = Url::to(['/site/dashboard']);
 
+    }
+    else{
+        $homeUrl = Url::to(['/job/job-user-mapper/index',
+            'user_id'=>Yii::$app->user->id,
+            'status' => 'Pending']);
     }
 }
 
@@ -48,11 +65,13 @@ $pages = ['site/index',
     'user-msg/view',
     'user-msg/all-archive',
     'user-notification/view',
+    'user/settings',
+    'user/delete-user',
 ];
 
 $staticPages = ['site/index','site/terms','cms-item/view','site/policy','site/contact'];
-$currentPage = Yii::t('app', '{ctrl}/{action}', ['ctrl'=>Yii::$app->controller->id,'action' => Yii::$app->controller->action->id]);
 
+$seetingsPages = ['user/settings'];
 ?>
 
 <?php $this->beginPage() ?>
@@ -71,7 +90,7 @@ $currentPage = Yii::t('app', '{ctrl}/{action}', ['ctrl'=>Yii::$app->controller->
 </script> 
 <?= Html::cssFile('@web/css/animate.min.css', ['id' => 'pe_theme_animate_css-css', 'type' => 'text/css', 'media' => 'all']);?>
 </head>
-<body class="<?=$class;?> <?= $this->context->id ?> <?= $this->context->action->id ?>">
+<body class="<?=$class;?> <?=$talentClass;?> <?= $this->context->id ?> <?= $this->context->action->id ?>">
 <?php $this->beginBody() ?>
 <div class="wrap">
     <section class="pe-main-section">
@@ -85,14 +104,22 @@ $currentPage = Yii::t('app', '{ctrl}/{action}', ['ctrl'=>Yii::$app->controller->
       </div>
     </section>
     <?= Breadcrumbs::widget([
+        'homeLink' => [
+            'label' => Yii::t('yii', 'Home'),
+            'url' => $homeUrl,
+        ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
     <div class="container middlebody">
         <div class="wrapper">
           
-            <?php if (!Yii::$app->user->isGuest && !in_array($currentPage, $pages)){ ?>
+            <?php if (!Yii::$app->user->isGuest && !in_array($currentPage, $pages)){?>
                 <?= $this->render('left.php'); ?>
-            <? } ?>
+            <? } else if(!Yii::$app->user->isGuest && (in_array($currentPage,$seetingsPages))){
+                ?>
+                <?= $this->render('left-settings.php'); ?>
+                <?php
+            }?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>

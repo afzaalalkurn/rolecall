@@ -18,6 +18,10 @@ return [
                 'encryption' => 'tls',
             ],*/
         ],
+        'upload' => [
+            'class' => 'alkurn\upload\Upload',
+            'uploadsAlias'  => Yii::getAlias('@uploads/'),
+        ],
         'thumbnail' => [
             'class' => 'himiklab\thumbnail\EasyThumbnail',
             'cacheAlias'    => Yii::getAlias('@cache/'),
@@ -27,32 +31,41 @@ return [
         ],
         'reCaptcha' => [
             'name' => 'reCaptcha',
-            'class' => 'himiklab\recaptcha\ReCaptcha',
+            'class' => 'alkurn\recaptcha\ReCaptcha',
             'siteKey' => '6Lf2qwcUAAAAAPvcvuKqEAzeEcMe7Rd7dOD3bS3r',
             'secret' =>  '6Lf2qwcUAAAAAMdB5jZPNQdiXo_7BNNZXMTH0qZW',
 
             /*'siteKey' => '6LfDIQgUAAAAAOB3-cc4q9xwFyxIaW9PoE8LFA6P',
             'secret' =>  '6LfDIQgUAAAAAM_wn8XM-J8BGQ_S7bVnhiEcJ2lg',*/
         ],
-        'paypal'=> [
+        /*'paypal'=> [
             'class'        =>  Yii::getAlias('@app') . '\components\Paypal',
             'clientId'     => 'ATzmjUkutlWc3iJQbdbmCiR1O8k7ZThTTsGBBFHxwTcoImHsGseBTV0Vu-ZIckObhLD3jWka9jh75gyd',
             'clientSecret' => 'EA69fQ3oT0fle87L1AqIpoOlZwugadDvOqChdqcIv0-eSsJtTV4-nqX5WiTr3Q7DPY1Bpl4gn3wjbsH5',
             'mode'         => 'sandbox',
             'currency'     => 'USD',
             'businessEmail'=> 'ganesh@alkurn.info',
-        ],
+        ],*/
         'stripe' => [
-            'class' => 'ruskid\stripe\Stripe',
-            'publicKey' => "pk_test_jFzYT5fynCopeUVXWtKYC0l6",
-            'privateKey' => "sk_test_4sEbGo83tvc8tgtEd56NbB72",
+            'class' => 'alkurn\stripe\Stripe',
+            'publicKey' => "pk_test_H0KVdrI3kBVzqNyTwowus7Ov",
+            'privateKey' => "sk_test_CJ2YIxKxqH2PpeeeBiVqVEYH",
+        ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            'writeCallback' => function ($session) {
+                return [
+                    'user_id' => Yii::$app->user->id,
+                    'last_write' => time(),
+                ];
+            },
         ],
     ],
-    'bootstrap' => [
+    /*'bootstrap' => [
         [
             'class' => 'common\components\LanguageSelector',
             'supportedLanguages' => ['en_US'],
         ],
-    ],
+    ],*/
 ];
 

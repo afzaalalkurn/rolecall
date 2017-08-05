@@ -38,6 +38,7 @@ use backend\modules\job\models\search\JobItem as JobItemSearch;
 use backend\modules\user\models\UserInstruments;
 use backend\modules\user\models\search\UserProfile as UserProfileSearch;
 use frontend\models\UserTransaction;
+use frontend\components\AuthHandler;
 
 /*
  * about-us
@@ -114,6 +115,7 @@ class SiteController extends Controller
     public function onAuthSuccess($client)
     {
         (new AuthHandler($client))->handle();
+        //$userAttributes = $client->getUserAttributes();
     }
 
 
@@ -269,11 +271,11 @@ class SiteController extends Controller
                         'Congrats! you have been resgistered successfully...! 
                         Activation link has been sent to your registered email ID.');
 
-                        $modelPlan = CorePlan::findOne($model->plan_id);
+                        /*$modelPlan = CorePlan::findOne($model->plan_id);
                         $url = ( $modelPlan->amount > 0) ? '/payment' : '/dashboard';
-                        return $this->redirect($url);
+                        return $this->redirect($url);*/
 
-                    /*return $this->goHome();*/
+                    return $this->goHome();
                 }
             } catch (Exception $e) {
                 $transaction->rollBack();
@@ -596,6 +598,29 @@ class SiteController extends Controller
 
     public function actionSubscribe(){
         $model = new UserSubscriber();
+        if ($model && $model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($model->validate()) {
+                        $transaction->commit();
+                        $model->save(false);
+                    Yii::$app->session->setFlash('success',
+                        'You have successfully subscribed for newsletter');
+                }
+                else{
+                    Yii::$app->session->setFlash('danger',
+                        'Newsletter subscription failed.');
+                }
+            }
+            catch (Exception $e) {
+                $transaction->rollBack();
+                if($e->getCode() == 23000) {
+                    Yii::$app->session->setFlash('danger',
+                        'This email address already exist.');
+                }
+            }
+            return $this->goHome();
+        }
         return $this->render('subscribe', ['model' => $model]);
     }
 }

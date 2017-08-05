@@ -24,9 +24,10 @@ $jobFieldList = JobField::find()->where(['status' => '1'])->orderBy(['order_by' 
 $fieldRange = [];
 $optionListRange = [];
 $modelJFValueRange = [];
+$modelJFValueRangeVal = [];
+$modelJFValueFileds = [];
 $valueI = [];
-
-
+$dModelRang = [];
 foreach ($jobFieldList as $i => $modelJF) {
 
     // necessary for update action.
@@ -34,6 +35,7 @@ foreach ($jobFieldList as $i => $modelJF) {
         $form->field($modelJFValue, "[{$i}]job_id")->hiddenInput(['value' => $model->job_id])->label(false);
         $modelJFValue = JobFieldValue::findOne(['job_id' => $model->job_id, 'field_id' => $modelJF->field_id]) ?? $modelJFValue;
     }
+
     echo $form->field($modelJFValue, "[{$i}]field_id")->hiddenInput(['value' => $modelJF->field_id])->label(false);
 
     $param = [];
@@ -45,6 +47,9 @@ foreach ($jobFieldList as $i => $modelJF) {
             'depended-field_id' => $idxDepend,
             'depends' => 'jobfieldvalue-' . $idxDepend . '-value'];
     }
+
+
+
 
     switch ($modelJF->type) {
         case 'Text':
@@ -103,26 +108,26 @@ foreach ($jobFieldList as $i => $modelJF) {
             break;
         case 'DropdownRange':
         case 'TextRange':
-
             list($name, $sufix) = explode('-', $modelJF->field);
             $fieldRanges[$name][$sufix] = $modelJF;
             $optionListRange[$modelJF->field] = ArrayHelper::map($modelJF->jobFieldOptions, 'value', 'name');
-            $modelJFValueRange[$modelJF->field] = $modelJFValue;
             $valueI[$name][$sufix] = "[{$i}]value";
             $value = (is_array($modelJFValue->value)) ? current($modelJFValue->value) : $modelJFValue->value;
+
             echo $form->field($modelJFValue, "[{$i}]value")->hiddenInput(['value' => $value])->label(false);
+
+        $modelJFValueRange[$modelJF->field] = $modelJFValue;
+        $dModelRang[$modelJF->field] = $modelJFValue->value;
             break;
-        default:
     }
 }
+
 
 foreach ($fieldRanges as $name => $fieldRange) {
 
     $range = [];
 
     foreach ($fieldRange as $sufix => $modelJF) {
-
-
 
         switch ($sufix) {
             case 'from':
@@ -138,19 +143,19 @@ foreach ($fieldRanges as $name => $fieldRange) {
         switch ($modelJF->field) {
             case "age-from":
             case "age-to":
-            $range[$sufix] = $modelJFValue->value . ' yrs';
+            $range[$sufix] = $dModelRang[$modelJF->field] . ' yrs';
                 break;
             case "height-from":
             case "height-to":
-                if ($modelJFValue->value > 0) {
-                    $inches = ceil($modelJFValue->value / 2.54);
+                if ($dModelRang[$modelJF->field] > 0) {
+                    $inches = ceil($dModelRang[$modelJF->field] / 2.54);
                     $feet = floor(($inches / 12));
                     $range[$sufix] = $feet . " ft. " . ($inches % 12) . ' in.';
                 }
                 break;
             case "weight-from":
             case "weight-to":
-            $range[$sufix] = $modelJFValue->value . ' lbs.';
+            $range[$sufix] = $dModelRang[$modelJF->field] . ' lbs.';
                 break;
             case 'waist-from':
             case 'waist-to':
@@ -168,18 +173,31 @@ foreach ($fieldRanges as $name => $fieldRange) {
             case 'hips-to':
             case 'chest-from':
             case 'chest-to':
-                if ($modelJFValue->value > 0) {
-                    $range[$sufix] = ceil($modelJFValue->value / 2.54) . " in.";
+                if ($dModelRang[$modelJF->field] > 0 ) {
+                    $range[$sufix] = ceil($dModelRang[$modelJF->field] / 2.54) . " in.";
                 }
                 break;
             default:
-                $range[$sufix] = $modelJFValue->value;
+                $range[$sufix] = $dModelRang[$modelJF->field];
         }
 
+        switch ($modelJF->type) {
+            case 'DropdownRange':
+            case 'TextRange':
+                if (!$model->isNewRecord) {
+                    $modelJFValueNew = JobFieldValue::findOne(['job_id' => $model->job_id, 'field_id' => $modelJF->field_id]) ?? $modelJFValue;
+                    $modelJFValueFileds[$modelJF->field] = $modelJFValueNew;
+                    break;
+                }
+                else{
+                    $modelJFValueFileds[$modelJF->field] = $modelJFValue;
+                    break;
+                }
+        }
     }
 
-    $modelFromJFValue = $modelJFValueRange[$fromField->field];
-    $modelToJFValue = $modelJFValueRange[$toField->field];
+    $modelFromJFValue = $modelJFValueFileds[$fromField->field];
+    $modelToJFValue = $modelJFValueFileds[$toField->field];
     $options = array_keys($optionListRange[$toField->field]);
 
     $fromId = Html::getInputId($modelFromJFValue, $valueI[$name]['from']);
@@ -213,6 +231,7 @@ foreach ($fieldRanges as $name => $fieldRange) {
                         data-to-value="' . $modelToJFValue->value . '"
                         ></div> 
                     </div>';
+
         $flds[$fromField->section][$fromField->layout][$fromField->order_by] = $content;
             break;
     }
@@ -249,6 +268,9 @@ $js = <<<JS
  
 $( function() {
   
+    var url = window.location.href;
+    var param = url.substring(url.lastIndexOf('/') + 1);
+    
     // setup 
     $( ".slider" ).each(function() {
         
@@ -267,11 +289,40 @@ $( function() {
         var fromInput = slider.attr('data-from-id'); 
         var toInput = slider.attr('data-to-id'); 
         
+        var values = '';
+        if(param == "create"){
+            var range = $('#range-'+name);
+            switch(name){
+                case "sleeve":                
+                case "waist":                
+                case "inseam":                
+                case "hips":                
+                case "bust":  
+                case "neck":                
+                case "chest":                
+                case "shoulders": 
+                values = [ '38',' 60' ];
+                break;
+                case "height":
+                values = [ '130',' 175' ];
+                break;
+                case "weight":
+                values = [ '40',' 60' ];
+                break;
+                case "age":
+                values = [ '20',' 40' ];
+                break;
+            }
+        }
+        else{
+               values = [ fromVal, toVal ];
+        }
+    
         $( slider ).slider({
           range: true,
           min: fromRg,
           max: toRg,
-          values: [ fromVal, toVal ],
+          values: values,
           slide: function( event, ui ) {
               
             from = ui.values[ 0 ];  
@@ -280,14 +331,13 @@ $( function() {
             $( "#"+fromInput ).val(  from  );
             $( "#"+toInput ).val( to );
             var range = $('#range-'+name);
-            console.log(range);
-            
+           
             switch(name){
                 case "sleeve":                
                 case "waist":                
                 case "inseam":                
                 case "hips":                
-                case "bust":                
+                case "bust":  
                 case "neck":                
                 case "chest":                
                 case "shoulders":  

@@ -2,55 +2,114 @@
 
 namespace frontend\modules\user\controllers;
 
-use backend\modules\job\models\JobItem;
-use backend\modules\job\models\JobUserMapper;
-use backend\modules\user\models\User;
-use backend\modules\user\models\UserMsgAttachments;
-use backend\modules\user\models\UserMsgRecipients as UserMsgRecipients;
-use backend\modules\user\models\search\UserMsgRecipients as UserMsgRecipientsSearch;
 
-use common\models\Upload;
-use frontend\event\AutoEvent;
+use backend\modules\user\models\search\UserMsgAttachmentsSearch;
+use backend\modules\user\models\UserMsgAttachments;
 use Yii;
 use backend\modules\user\models\UserMsg;
-use backend\modules\user\models\search\UserMsg as UserMsgSearch;
+use backend\modules\user\models\search\UserMsgSearch;
 use yii\web\Controller;
+
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use common\models\User as CommonUser;
+use backend\modules\user\models\User;
+use backend\modules\user\models\search\UserSearch;
+
+use backend\modules\user\models\UserMsgRecipients as UserMsgRecipients;
+use backend\modules\user\models\search\UserMsgRecipientsSearch;
+
 use yii\web\Response;
-use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
+
 
 /**
  * UserMsgController implements the CRUD actions for UserMsg model.
- * user-msg
  */
 class UserMsgController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     public function actionIndex()
     {
-        $searchModel = new UserMsgRecipientsSearch();
-        $searchModel->recipient_id  = Yii::$app->user->id;
-        $searchModel->job_id        = Yii::$app->request->get('job_id');
-        $dataProvider = $searchModel->searchMsg(Yii::$app->request->queryParams);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $message_id = Yii::$app->request->get('message_id');
+        $item_id = Yii::$app->request->get('id');
+        $user_id = Yii::$app->request->get('user_id');
+
+        if (empty($message_id) && empty($item_id)) {
+            $searchModel = new UserMsgRecipientsSearch();
+            $searchModel->recipient_id = Yii::$app->user->id;
+            $current = current($searchModel->searchReceipents(Yii::$app->request->queryParams));
+            $message_id = $current['message_id'];
+        }
+
+        if (!empty($message_id)) {
+            $this->_readMsg($message_id);
+        }
+
+        return $this->render('index', ['message_id' => $message_id, 'item_id' => $item_id, 'user_id' => $user_id]);
+    }
+
+    public function _readMsg($message_id)
+    {
+        $msgs = UserMsgRecipients::findAll(['message_id' => $message_id, 'recipient_id' => Yii::$app->user->id]);
+
+        foreach ($msgs as $msg) {
+            if ($msg) {
+                $msg->status = UserMsg::STATUS_READ;
+                $msg->save(false);
+            }
+        }
+
+        return ['code' => 'failed', 'msg' => "Failed to mark the status as (Read)."];
+    }
+
+    public function actionDownloadAttachment($attachment_id)
+    {
+        $download = UserMsgAttachments::findOne($attachment_id);
+        $file = Yii::getAlias("@uploads/$download->attachment");
+
+        if (file_exists($file)) {
+            return Yii::$app->response->sendFile($file);
+        }
+    }
+
+    public function actionDownloadAttachments($message_id, $seq)
+    {
+        //$download = UserMsgAttachments::findOne($attachment_id);
+        $downloads = UserMsgAttachments::findAll(['message_id'=>$message_id, 'seq'=>$seq]);
+
+        $zip = new \ZipArchive();
+        if (!$downloads && count($downloads) == 0) {  return $this->redirect(['/dashboard']); }
+
+
+        $files = [];
+        foreach($downloads as $download){
+            $files[] = Yii::getAlias("@uploads/$download->attachment");
+        }
+
+        $path = $this->_createZip($files);
+
+        if (file_exists($path)) {
+            return Yii::$app->response->sendFile($path);
+        }
+    }
+
+    private function _createZip($files)
+    {
+        $currentTime = time().'.zip';
+
+        $zipFile = Yii::getAlias("@uploads/zip/$currentTime");
+
+        $zip = new \ZipArchive();
+        if ($zip->open($zipFile, \ZipArchive::CREATE) !== TRUE) {
+            throw new \Exception('Cannot create a zip file');
+        }
+
+        foreach($files as $file){
+            $zip->addFile($file, basename($file));
+        }
+
+        $zip->close();
+        return $zipFile;
     }
 
     /**
@@ -58,210 +117,309 @@ class UserMsgController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView($message_id, $seq)
+
+    public function actionView($message_id, $seq = null)
     {
         $searchModel = new UserMsgRecipientsSearch();
         $searchModel->recipient_id = Yii::$app->user->id;
-        //$searchModel->identifier = $identifier;
         $searchModel->message_id = $message_id;
-        $searchModel->seq = $seq;
+        $searchModel->seq = is_null($seq) ? 0 : $seq;
+
         $dataProvider = $searchModel->viewMsg(Yii::$app->request->queryParams);
-        $modelIdentifier = (empty($identifier)) ? $this->findModel($message_id, $seq) : $this->findModelByIdentifier($identifier, $seq);
-        if ($modelIdentifier) {
-            $identifier = $modelIdentifier->identifier;
+
+        $receipents = $searchModel->searchMessageReceipents();
+        if (Yii::$app->request->get('page') == 'off') {
+            $dataProvider->setPagination(false);
         }
 
-        return $this->render('view', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'message_id' => $message_id,
-            'identifier' => $identifier,
-        ]);
-
+        $seq = $this->_currentSeq($dataProvider->getModels());
+        $result = ['code' => 'success', 'message_id' => $message_id, 'seq' => $seq, 'result' => $dataProvider->getModels(), 'receipents' => $receipents->all(),];
+        return array_merge($result, $this->_pagination($dataProvider));
     }
 
-    public function actionReadMessage()
+
+    /*
+    * --- Message ---
+    * /v1/user-msg/view?message_id=<message_id>&seq=<seq>
+    */
+
+    protected function _currentSeq($result)
     {
-        if (Yii::$app->request->isAjax) {
-
-            $message_id = Yii::$app->request->post('message_id');
-            $seq = Yii::$app->request->post('seq');
-            $cnd = sprintf('message_id=%d and recipient_id=%d and seq=%d', $message_id, Yii::$app->user->id, $seq);
-            UserMsgRecipients::updateAll(['status' => UserMsgRecipients::STATUS_READ], $cnd);
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['success' => true,];
+        $seq = [];
+        foreach ($result as $row) {
+            $seq[$row['seq']] = $row['seq'];
         }
+        return count($seq) > 0 ? max($seq) : 0;
     }
+
+    private function _pagination($dataProvider)
+    {
+
+        if ($dataProvider->pagination == false) return [];
+        return [
+            'pagination' => [
+                'pageCount' => $dataProvider->getPagination()->getPageCount(),
+                'page' => $dataProvider->getPagination()->getPage(),
+                'totalCount' => $dataProvider->totalCount,
+                'pageSize' => $dataProvider->getPagination()->getPageSize(),
+                'links' => $dataProvider->getPagination()->getLinks(),
+            ]
+        ];
+    }
+
+    /*
+    * --- Message ---
+    * /v1/user-msg/read-message?message_id=<message_id>&seq=<seq>
+    *
+    **/
+
+    public function actionReadMessage($message_id, $seq)
+    {
+        $cnd = sprintf('message_id=%d and recipient_id=%d and seq=%d', $message_id, Yii::$app->user->id, $seq);
+        UserMsgRecipients::updateAll(['status' => UserMsgRecipients::STATUS_READ], $cnd);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ['code' => 'success', 'msg' => 'Message successfully readed.'];
+    }
+
+    /*
+    * --- Message ---
+    * /v1/user-msg/create
+    **/
 
     /**
      * Creates a new UserMsg model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
     public function actionCreate()
     {
-        $identifier = Yii::$app->request->get('identifier');
-        $message_id = Yii::$app->request->get('message_id');
-        $seq = Yii::$app->request->get('seq') ?? 1;
-        $sender_id = Yii::$app->user->id;
-        $user_id = Yii::$app->request->get('user_id');
-        $job_id = Yii::$app->request->get('job_id');
-        $is_success = false;
         $model = new UserMsg();
 
-        if (!empty($message_id) || !empty($identifier)) {
+        if (Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
 
-            $modelIdentifier = empty($identifier) ?
-                $this->findModel($message_id, $seq) :
-                $this->findModelByIdentifier($identifier, $seq);
+            $identifier = Yii::$app->request->get('identifier');
+            $message_id = Yii::$app->request->get('message_id');
 
-            if ($modelIdentifier) {
-                $identifier = $modelIdentifier->identifier;
-                $job_id = $modelIdentifier->job_id;
-                $user_id = $modelIdentifier->user_id;
+            $item_id = Yii::$app->request->get('item_id');
+            $user_id = Yii::$app->request->get('user_id');
+
+            $seq = Yii::$app->request->get('seq') ?? 1;
+
+            $sender_id = Yii::$app->user->id;
+            $users = [];
+
+            $userMsgRecipientsSearch = new UserMsgRecipientsSearch();
+            if (empty($message_id)) {
+                $message_id = $userMsgRecipientsSearch->findMessageId($item_id, [$user_id, $sender_id]);
             }
-        }
 
-        if ($model->load(Yii::$app->request->post())) {
+            /*
+                if (!empty($item_id) && empty($message_id)) {
+                    $modelUserMsg = UserMsg::findOne(['item_id' => $item_id, 'sender_id' => $sender_id, 'seq' => $seq,]);
+                    if (!is_null($modelUserMsg)) {
+                        $message_id = $modelUserMsg->message_id;
+                    }
+                }
+            */
 
-            $is_success = false;
-            
-            /*if ((JobUserMapper::findOne(['job_id' => $job_id, 'user_id' => $sender_id, 'status' => 'Applied'])) == null) {
-                $this->_applyNow();
-            }*/
+            $model->sender_id = $sender_id;
+
+            if (!empty($message_id) || !empty($identifier)) {
+
+                $modelIdentifier = empty($identifier) ?
+                    $this->findModel($message_id, $seq) :
+                    $this->findModelByIdentifier($identifier, $seq);
+                if ($modelIdentifier) {
+                    $identifier = $modelIdentifier->identifier;
+                }
+                if (empty($item_id)) {
+                    $item_id = $modelIdentifier->item_id;
+                }
+
+            }
 
             if (!empty($identifier)) {
 
                 /** get the recips first **/
-                $modelRecipients = new UserMsgRecipientsSearch();
-                $modelRecipients->message_id = $model->message_id;
-                $recipientProvider = $modelRecipients->searchRecipients(Yii::$app->request->queryParams);
-
-                $users = [];
-
-                foreach ($recipientProvider->all() as $user) {
+                $modelMessage = UserMsg::findOne(['message_id' => $message_id, 'seq' => 1]);
+                foreach ($modelMessage->userMsgRecipients as $user) {
                     $users[$user->recipient_id] = $user->recipient_id;
                 }
 
-                /** get seq # **/
-                $maxSeq = (new UserMsgSearch())->searchMaxSeqId($identifier)->one()->seq;
+            } else {
 
-                } else {
-                    
-                    $modelJobItem = JobItem::findOne(['job_id' => $job_id]);
-                    $maxSeq = 1;
-                    $users[$sender_id] = $sender_id;
-                    $users[$modelJobItem->user_id] = $modelJobItem->user_id;
+                $users[$sender_id] = $sender_id;
+                if (is_array($user_id)) {
+                    foreach ($user_id as $user) {
+                        $users[$user] = $user;
+                    }
+                } elseif (!empty($user_id)) {
+                    $users[$user_id] = $user_id;
                 }
-
-            if(!empty($user_id)){ $users[$user_id] = $user_id; } 
+            }
 
             /** get message_id # **/
-
             if (!empty($message_id)) {
                 $model->message_id = $message_id;
             }
 
             $model->identifier = $identifier ?? Yii::$app->getSecurity()->generateRandomString(8);
-            $model->job_id = $job_id;
-            $model->user_id = $user_id;
-            $model->seq = $maxSeq;
-            $model->sender_id = $sender_id;
-            $model->status = UserMsg::STATUS_READ;
 
-            if ($users && $model->save(false)) { 
-                
-                foreach ($users as $user) { 
-                   
+            /** get seq # **/
+            $model->seq = UserMsgSearch::searchMaxSeqId($message_id);
+
+            $model->item_id = $item_id;
+            $model->sender_id = $sender_id;
+            $model->subject = '';
+            $model->status = UserMsg::STATUS_READ;
+            $model->created_at = time();
+
+            if ($users && $model->save(false)) {
+
+                $modelAttachments = new UserMsgAttachments();
+                $images = Yii::$app->upload->uploadMultiple($modelAttachments, 'attachment');
+
+                if (isset($images) && count($images) > 0) {
+                    foreach ($images as $image) {
+                        $modelAttachment = clone $modelAttachments;
+                        $modelAttachment->message_id = $model->message_id;
+                        $modelAttachment->seq = $model->seq;
+                        $modelAttachment->sender_id = $model->sender_id;
+                        $modelAttachment->attachment = $image;
+                        $modelAttachment->save(false);
+                    }
+                }
+
+                foreach ($users as $user) {
                     $modelRecipients = new UserMsgRecipients();
                     $modelRecipients->message_id = $model->message_id;
                     $modelRecipients->seq = $model->seq;
                     $modelRecipients->recipient_id = $user;
                     $modelRecipients->status = (($user == $sender_id) ? $model->status : UserMsg::STATUS_UNREAD);
                     $modelRecipients->save();
-                    if ($sender_id !== $user) {
-                        $modelRecipient = User::findOne(['id' => $user]);
-                        $this->_send($modelRecipient->email, '', 'message', $modelRecipient);
+
+                    if (Yii::$app->user->id != $user) {
+                        //send mail
+                        $model->sendEmail($user);
                     }
                 }
-
-                foreach (UploadedFile::getInstances($model, 'attachment') as $file) {
-                    $modelAttachment = new UserMsgAttachments();
-                    $modelAttachment->message_id = $model->message_id;
-                    $modelAttachment->seq = $model->seq;
-                    $modelAttachment->sender_id = $model->sender_id;
-                    $modelUpload = new Upload();
-                    $modelUpload->file = $file;
-                    $modelAttachment->attachment = $modelUpload->upload();
-                    $modelAttachment->save();
+                if(Yii::$app->request->isAjax){
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ['code' => 'success', 'msg' => 'You are successfully sent the message.', 'message_id' => $model->message_id, 'seq' => $model->seq, 'text' => $model->text,];
+                }else{
+                    return $this->redirect(['/messages', 'message_id' => $model->message_id,]);
                 }
-
-                $is_success = true;
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Message sent successfully.' ) );
-
-                return $this->renderAjax('partial/_success', [
-                    'success' => $is_success,
-                ]);
             }
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'There was an error sending email.'));
+            return ['code' => 'failed', 'msg' => 'There was an error sending message.', 'errors' => $model->errors];
+        }
+        return ['code' => 'failed', 'msg' => 'There was an error sending message.', 'errors' => $model->errors];
+    }
 
-        } else {
+    protected function findModel($id, $seq)
+    {
+        if (($model = UserMsg::findOne($id, $seq)) !== null) {
+            return $model;
+        }
 
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'job_id' => $job_id,
-                'user_id' => $user_id,
-                'sender_id' => $sender_id,
-                'identifier' => $identifier,
-                'message_id' => $message_id,
-            ]);
+        return null;
+    }
+
+    protected function findModelByIdentifier($identifier, $seq)
+    {
+        if (($model = UserMsg::findOne(['identifier' => $identifier, 'seq' => $seq])) !== null) {
+            return $model;
+        }
+        return null;
+    }
+
+    public function actionValidate()
+    {
+        $model = new UserMsg();
+        if (Yii::$app->request->isAjax && Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
+            $model->message_id = Yii::$app->request->get('message_id');
+            $model->sender_id = Yii::$app->user->getId();
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
         }
     }
 
-    protected function _send($email, $body, $tpl = null, $model = null)
+    public function actionAttachmentUpload()
     {
-        /* @var $user User */
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return Yii::$app
-            ->mail
-            ->compose(
-                ['html' => $tpl . '-html', 'text' => $tpl . '-text'],
-                ['model' => $model]
-            )
-            ->setTextBody($body)
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($email)
-            ->setSubject(Yii::t('app', sprintf('You Have new message %s.', Yii::$app->name)))
-            ->send();
-    }
+        $code = 'failed';
+        $modelAttachments = new UserMsgAttachments();
+        $item_id = Yii::$app->request->get('item_id');
+        $user_id = Yii::$app->request->get('user_id');
+        $message_id = Yii::$app->request->get('message_id');
 
-    public function actionDownload($seq,$sender_id)
-    {
-
-        $model = UserMsgAttachments::findOne(['seq' => $seq, 'sender_id' => $sender_id]);
-        $file = Yii::getAlias('@uploads/') . $model->attachment;
-        if (file_exists($file)) {
-            return Yii::$app->response->sendFile($file);
+        $userMsgRecipientsSearch = new UserMsgRecipientsSearch();
+        if (empty($message_id)) {
+            $message_id = $userMsgRecipientsSearch->findMessageId($item_id, [$user_id, Yii::$app->user->id]);
         }
-    }
 
-    private function _applyNow()
-    {
+        $modelUserMsgSearch = new UserMsgSearch();
+        $seq = $modelUserMsgSearch->findLastSeqId($message_id);
 
-        $model = new JobUserMapper();
-        $model->job_id = Yii::$app->request->get('job_id');
-        $model->status = JobUserMapper::STATUS_APPLIED;
-        $model->user_id = Yii::$app->user->id;
+        $images = Yii::$app->upload->uploadMultiple($modelAttachments, 'attachment');
 
-        $success = false;
-        if ($model->validate() && $model->save()) {
-            Yii::$app->modules['user']->trigger($model->status, AutoEvent::generate($model->status, $model->job_id));
-            $success = true;
-            Yii::$app->session->addFlash('success', Yii::t('app', 'You are successfully applied to job.'));
+        if (isset($images) && count($images) > 0) {
+
+            foreach ($images as $image) {
+                $modelAttachment = clone $modelAttachments;
+                $modelAttachment->message_id = $message_id;
+                $modelAttachment->seq = $seq;
+                $modelAttachment->sender_id = Yii::$app->user->getId();
+                $modelAttachment->attachment = $image;
+                $modelAttachment->save(false);
+            }
+            $code = 'success';
         }
-        return $success;
+
+        $info = ['type' => 'upload', 'code' => $code, 'message_id' => $message_id, 'seq' => $seq, 'text' => Yii::t('app', 'Your file uploading code: {code}', ['code'=>$code]), 'attachment_id' => $modelAttachment->attachment_id];
+        return $info;
+
     }
+
+    /**
+     * --- Message ---
+     * /v1/user-msg/delete?message_id=<message_id>&seq=<seq>
+     *
+     */
+
+    public function actionAppendRecent()
+    {
+        $message_id = Yii::$app->request->get('message_id');
+        $seq = Yii::$app->request->get('seq');
+
+        $searchModel = new UserMsgRecipientsSearch();
+        $searchModel->message_id = $message_id;
+        $searchModel->seq = $seq - 1;
+        $searchModel->recipient_id = Yii::$app->user->id;
+        $dataProvider = $searchModel->viewMsg(Yii::$app->request->queryParams);
+        $dataProvider->pagination = false;
+
+        return $this->renderAjax('partial/_chat', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAppendAttachment()
+    {
+        $message_id = Yii::$app->request->get('message_id');
+        $seq = Yii::$app->request->get('seq');
+
+        $searchModel = new UserMsgAttachmentsSearch();
+        $searchModel->message_id = $message_id;
+        $searchModel->seq = $seq;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = false;
+        return $this->renderAjax('partial/_attachment', [ 'dataProvider' => $dataProvider,]);
+    }
+
 
     /**
      * Deletes an existing UserMsg model.
@@ -269,58 +427,33 @@ class UserMsgController extends Controller
      * @param string $id
      * @return mixed
      */
+
     public function actionDelete($message_id, $seq = null)
     {
-        $cnd = sprintf('message_id=%d and status != "%s" and recipient_id=%d', $message_id, UserMsgRecipients::STATUS_DELETED, Yii::$app->user->id);
+        $cnd = [];
+        if ($message_id) {
+            $cnd['message_id'] = $message_id;
+        }
+        if ($seq) {
+            $cnd['seq'] = $seq;
+        }
+        $cnd['recipient_id'] = Yii::$app->user->id;
+
         UserMsgRecipients::updateAll(['status' => UserMsgRecipients::STATUS_DELETED], $cnd);
-        Yii::$app->session->setFlash('success', Yii::t('app', 'Message deleted successfully.'));
-        return $this->redirect(['index']);
+        return ['code' => 'success', 'msg' => 'Message successfully deleted.'];
     }
 
+    public function actionMessage(){
 
-    public function actionArchive($message_id, $seq = null)
-    {
-        $cnd = sprintf('message_id=%d and status != "%s" and recipient_id=%d', $message_id, UserMsgRecipients::STATUS_ARCHIVED, Yii::$app->user->id);
-        UserMsgRecipients::updateAll(['status' => UserMsgRecipients::STATUS_ARCHIVED], $cnd);
-        Yii::$app->session->setFlash('success', Yii::t('app', 'Message successfully moved to archive.'));
-        return $this->redirect(['index']);
-    }
+        $item_id = Yii::$app->request->get('item_id');
+        $user_id = Yii::$app->request->get('user_id');
 
-    public function actionAllArchive(){
+        $userMsgRecipientsSearch = new UserMsgRecipientsSearch();
+        $message_id = $userMsgRecipientsSearch->findMessageId($item_id, [$user_id, Yii::$app->user->id]);
 
-        $searchModel = new UserMsgRecipientsSearch();
-        $searchModel->recipient_id  = Yii::$app->user->id;
-        $searchModel->job_id        = Yii::$app->request->get('job_id');
-        $dataProvider = $searchModel->archiveMsg(Yii::$app->request->queryParams);
-        return $this->render('archive', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+        $model = new UserMsg();
+        return $this->renderAjax('partial/_frm-message', ['model' => $model, 'item_id' => $item_id, 'user_id' => $user_id, 'message_id' => $message_id]);
 
-    /**
-     * Finds the UserMsg model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return UserMsg the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id, $seq)
-    {
-        if (($model = UserMsg::findOne($id, $seq)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    protected function findModelByIdentifier($identifier, $seq)
-    {
-        if (($model = UserMsg::findOne(['identifier' => $identifier, 'seq' => $seq])) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 
 

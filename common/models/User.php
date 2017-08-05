@@ -295,18 +295,74 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function lastActiveLogin($user_id = null, $show_first=false){
 
+        $connection = Yii::$app->getDb();
+        $command = $connection->createCommand("SELECT * FROM `session` WHERE (last_write - 3600) < NOW() AND user_id = '".$user_id."'");
+
+        $result = $command->queryAll();
+        $count = count($result);
+
         $model = (empty($user_id)) ? $this : User::findOne($user_id);
 
-        $currentTime =  Yii::$app->formatter->asDatetime(time(), "php:d M Y");
-        $lastLoginTime = isset($model->last_login) ? Yii::$app->formatter->asDatetime($model->last_login, "php:H:i:s") : '';
-
+        $currentTime =  Yii::$app->formatter->asDatetime(time(), "php:d M Y H:i:s");
+        $lastLoginTime = isset($model->last_login) ? Yii::$app->formatter->asDatetime($model->last_login, "php:d M Y H:i:s") : '';
+        if(empty($lastLoginTime)){ return false;}
         $intervals = ['y'=>'yr(s)',  'm'=> 'month(s)', 'd'=>'day(s)', 'h'=>'hr(s)', 'i'=>'min(s)', 's'=>'sec(s)',];
 
         $interval = date_diff(new \DateTime($currentTime), new \DateTime($lastLoginTime));
-        $lastActive = [];
-        foreach($interval as $key => $element){
+
+        //$lastActive = [];
+        $lastActive = '';
+
+        /*foreach($interval as $key => $element){
             if($element > 0) {
                 if($show_first == true ){
+                    return sprintf('%s %s ago', $element, $intervals[$key]);
+                }
+                $lastActive[] = sprintf('%s %s', $element, $intervals[$key]);
+            }
+        }*/
+
+        if($interval->y !== 0) {
+            $lastActive = sprintf('%s %s', $interval->y, $intervals['y']);
+        }
+        else if($interval->m !== 0) {
+            $lastActive = sprintf('%s %s', $interval->m, $intervals['m']);
+        }
+        else if($interval->d !== 0) {
+            $lastActive = sprintf('%s %s', $interval->d, $intervals['d']);
+        }
+        else if($interval->h !== 0) {
+            $lastActive = sprintf('%s %s', $interval->h, $intervals['h']);
+        }
+        else if($interval->i !== 0) {
+            $lastActive = sprintf('%s %s', $interval->i, $intervals['i']);
+        }
+        else if($interval->s !== 0) {
+            $lastActive = sprintf('%s %s', $interval->s, $intervals['s']);
+        }
+
+        if($count > 0){
+            return "Online";
+        }
+        else{
+            //return implode(" ", $lastActive) . ' ago';
+            return $lastActive . ' ago';
+        }
+
+    }
+
+    public static function timeElapsed($last_time, $show_first = false)
+    {
+
+        $currentTime = date_create( date("Y-m-d H:i:s", time()));
+        $lastTime = date_create( date("Y-m-d H:i:s", $last_time));
+
+        $intervals = ['y' => 'yr(s)', 'm' => 'month(s)', 'd' => 'day(s)', 'h' => 'hr(s)', 'i' => 'min(s)', 's' => 'sec(s)',];
+        $interval = date_diff($currentTime, $lastTime);
+        $lastActive = [];
+        foreach ($interval as $key => $element) {
+            if ($element > 0) {
+                if ($show_first == true) {
                     return sprintf('%s %s ago', $element, $intervals[$key]);
                 }
                 $lastActive[] = sprintf('%s %s', $element, $intervals[$key]);

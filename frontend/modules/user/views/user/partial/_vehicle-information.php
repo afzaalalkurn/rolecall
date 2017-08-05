@@ -23,14 +23,14 @@ use yii\helpers\Html;
                     <?= ( $data = @unserialize($userFieldValue->value)) ? implode(', ',$data) : $userFieldValue->value; ?>
                     <?php //implode(', ', unserialize($userFieldValue->value)); ?>
                     <?php
-                    if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "no"))
+                    if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "No"))
                     {
                         break;
                     }
                 } else { ?>
                     <?= trim($userFieldValue->value); ?>
                     <?php
-                    if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "no"))
+                    if(($vehicleField == "do-you-own-vehicle") && ($vehicleVal == "No"))
                     {
                         break;
                     }

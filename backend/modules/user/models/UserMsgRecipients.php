@@ -7,28 +7,21 @@ use Yii;
 /**
  * This is the model class for table "user_msg_recipients".
  *
- * @property string $message_id
- * @property string $seq
- * @property string $recipient_id
+ * @property integer $message_id
+ * @property integer $seq
+ * @property integer $recipient_id
  * @property string $status
- * @property string $time
+ * @property integer $time
  *
  * @property UserMsg $message
  * @property User $recipient
  */
 class UserMsgRecipients extends \yii\db\ActiveRecord
 {
-    const STATUS_READ        = 'Read';
-    const STATUS_UNREAD      = 'UnRead';
-    const STATUS_DELETED     = 'Deleted';
-    const STATUS_ARCHIVED    = 'Archived';
+    const STATUS_READ = "Read";
+    const STATUS_UNREAD = "UnRead";
+    const STATUS_DELETED = "Deleted";
 
-    public $sender_id ;
-    public $subject ;
-    public $attachment ;
-    public $text ;
-    public $created_on ;
-    public $job_id ;
     /**
      * @inheritdoc
      */
@@ -57,11 +50,11 @@ class UserMsgRecipients extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'message_id' => Yii::t('app', 'Message ID'),
-            'seq' => Yii::t('app', 'Seq'),
-            'recipient_id' => Yii::t('app', 'Recipient ID'),
-            'status' => Yii::t('app', 'Status'),
-            'time' => Yii::t('app', 'Time'),
+            'message_id' => 'Message ID',
+            'seq' => 'Seq',
+            'recipient_id' => 'Recipient ID',
+            'status' => 'Status',
+            'time' => 'Time',
         ];
     }
 
@@ -79,13 +72,5 @@ class UserMsgRecipients extends \yii\db\ActiveRecord
     public function getRecipient()
     {
         return $this->hasOne(User::className(), ['id' => 'recipient_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSender()
-    {
-        return $this->hasOne(User::className(), ['id' => 'sender_id']);
     }
 }

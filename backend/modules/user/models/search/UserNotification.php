@@ -79,7 +79,7 @@ class UserNotification extends UserNotificationModel
     {
         $query = UserNotificationModel::find();
 
-        $query->select(['user_notification.message_id', 'user_notification.seq', 'user_notification.created_on','user_notification.sender_id', 'user_notification.text','user_notification_recipients.status'])
+        $query->select(['user_notification.message_id', 'user_notification.seq', 'user_notification.created_on','user_notification.sender_id', 'user_notification.text','user_notification.category','user_notification_recipients.status'])
             ->innerJoin('user_notification_recipients', 'user_notification_recipients.message_id = user_notification.message_id');
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([

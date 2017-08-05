@@ -7,11 +7,14 @@ use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 use common\models\Auth;
 use common\models\User;
+use frontend\controllers\SiteController;
+use backend\modules\user\models\UserProfile;
+use yii\web\HttpException;
 
 /**
  * AuthHandler handles successful authentication via Yii auth component
  */
-class AuthHandler
+class AuthHandler extends SiteController
 {
     /**
      * @var ClientInterface
@@ -25,10 +28,14 @@ class AuthHandler
 
     public function handle()
     {
+        $type = $_GET['type'];
         $attributes = $this->client->getUserAttributes();
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
-        $nickname = ArrayHelper::getValue($attributes, 'login');
+        $name = ArrayHelper::getValue($attributes, 'name');
+        $first_name = ArrayHelper::getValue($attributes, 'first_name');
+        $last_name = ArrayHelper::getValue($attributes, 'last_name');
+        $username = $this->getUsernameFromEmail($email);
 
         /* @var Auth $auth */
         $auth = Auth::find()->where([
@@ -41,7 +48,20 @@ class AuthHandler
                 /* @var User $user */
                 $user = $auth->user;
                 $this->updateUserInfo($user);
-                Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+                /*Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);*/
+                Yii::$app->getUser()->login($user); // autologin
+                $user->last_login = time();
+                $user->save(false, ["last_login"]);
+                if(Yii::$app->user->identity->isDirector())
+                {
+                    return $this->redirect('/dashboard');
+                }
+                else
+                {
+                    return $this->redirect(['/job/job-user-mapper/index',
+                        'user_id'=>Yii::$app->user->id,
+                        'status' => 'Pending']);
+                }
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [
@@ -50,8 +70,7 @@ class AuthHandler
                 } else {
                     $password = Yii::$app->security->generateRandomString(6);
                     $user = new User([
-                        'username' => $nickname,
-                        'github' => $nickname,
+                        'username' => $username,
                         'email' => $email,
                         'password' => $password,
                     ]);
@@ -61,6 +80,10 @@ class AuthHandler
                     $transaction = User::getDb()->beginTransaction();
 
                     if ($user->save()) {
+                        $this->_assignAuth($user->id, $type);
+                        $this->saveUserProfile($user->id, $first_name,$last_name);
+                        $this->_saveAddress($user->id, $user);
+
                         $auth = new Auth([
                             'user_id' => $user->id,
                             'source' => $this->client->getId(),
@@ -68,7 +91,21 @@ class AuthHandler
                         ]);
                         if ($auth->save()) {
                             $transaction->commit();
-                            Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+                            Yii::$app->getUser()->login($user); // autologin
+                            $user->last_login = time();
+                            $user->save(false, ["last_login"]);
+                            $this->sendWelcomeMail($email,$username,$password); // send welcome mail
+                            if(Yii::$app->user->identity->isDirector())
+                            {
+                                return $this->redirect('/dashboard');
+                            }
+                            else
+                            {
+                                return $this->redirect(['/job/job-user-mapper/index',
+                                    'user_id'=>Yii::$app->user->id,
+                                    'status' => 'Pending']);
+                            }
+                            /*Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);*/
                         } else {
                             Yii::$app->getSession()->setFlash('error', [
                                 Yii::t('app',  'Unable to save {client} account: {errors}', [
@@ -87,6 +124,7 @@ class AuthHandler
                     }
                 }
             }
+
         } else { // user already logged in
             if (!$auth) { // add auth provider
                 $auth = new Auth([
@@ -127,10 +165,56 @@ class AuthHandler
     private function updateUserInfo(User $user)
     {
         $attributes = $this->client->getUserAttributes();
-        $github = ArrayHelper::getValue($attributes, 'login');
-        if ($user->github === null && $github) {
-            $user->github = $github;
+        $email = ArrayHelper::getValue($attributes, 'email');
+        $username = $this->getUsernameFromEmail($email);
+        if ($user->username === null && $username) {
+            $user->username = $username;
             $user->save();
         }
+    }
+
+    /**
+     * @param $email
+     * @return string
+     */
+    private function getUsernameFromEmail($email){
+        $pos = strpos($email, '@');
+        $username = substr($email, 0, $pos);
+        return $username;
+    }
+
+    private function saveUserProfile($user_id,$first_name,$last_name)
+    {
+        $modelProfile = new UserProfile();
+        $modelProfile->user_id = $user_id;
+        $modelProfile->first_name = $first_name;
+        $modelProfile->last_name = $last_name;
+
+        if ($modelProfile->save(false)) {
+            return true;
+        }
+        throw new HttpException(405, 'Error saving model modelProfile');
+    }
+
+    private function sendWelcomeMail($email,$username,$password){
+        $subject = Yii::t('app','You have been successfully registered on {name}',
+            ['name' => Yii::$app->name]
+        );
+        return Yii::$app->mail->compose()
+            ->setTo($email)
+            ->setFrom([$email => 'RoleCall'])
+            ->setSubject($subject)
+            ->setHtmlBody(Yii::t(
+                'app','<b>Hello '.$username.',</b><br/><br/>Welcome to {name} , You have been successfully registered on {name}. <br/><br/>Below are the login details:<br/>
+                email : {email}<br/>
+                password : {password}<br/>
+                <br/> Thank you for connecting with us.
+                <br/><br/><b>Regards,</b><br/>
+                <b>{name} Team</b>',
+                ['email' => $email,
+                    'name' => Yii::$app->name ,
+                    'password' => $password,
+                ]))
+            ->send();
     }
 }

@@ -34,8 +34,6 @@ foreach ($userFieldList as $i => $modelUF) {
 
     $param = [];
     $indxFlds[$modelUF->field_id] = $i;
-
-
     if (!is_null($modelUF->depend) && isset($indxFlds[$modelUF->depend])) {
         $idxDepend = $indxFlds[$modelUF->depend];
         $param = ['class' => 'depended-field', 'depended-field_id' => $idxDepend, 'depends' => 'userfieldvalue-' . $idxDepend . '-value'];
@@ -47,12 +45,13 @@ foreach ($userFieldList as $i => $modelUF) {
         case 'Text':
             $flds[$modelUF->section][$modelUF->layout][$modelUF->order_by]
                 = $form->field($modelUFValue,
-                "[{$i}]value")->textInput()
+                "[{$i}]value")->textInput($param)
                 ->label($modelUF->name);
             break;
         case "DatePicker":
             $flds[$modelUF->section][$modelUF->layout][$modelUF->order_by]
-                = $form->field($modelUFValue, "[{$i}]value")->widget(DatePicker::className(), ['name' => "[{$i}]value", 'clientOptions' => [
+                = $form->field($modelUFValue, "[{$i}]value")->widget(DatePicker::className(), ['name' => "[{$i}]value",
+                'clientOptions' => [
                 'changeMonth' => true,
                 'yearRange' => '1960:' . date('Y'),
                 'changeYear' => true,
@@ -119,7 +118,8 @@ foreach ($userFieldList as $i => $modelUF) {
                         'removeLabel' => ' Delete',
                         'removeIcon' => '<i' . ' class="fa fa-trash"></i>',
                         'previewSettings' => ['image' => ['width' => '138px', 'height' => 'auto']],
-                        'initialPreview' => ['/uploads/' . (empty($modelUFValue->value) ? 'picture.jpg' : $modelUFValue->value)],
+                        //'initialPreview' => ['/uploads/' . (empty($modelUFValue->value) ? 'picture.jpg' : $modelUFValue->value)],
+                        'initialPreview' => [(!empty($modelUFValue->value) ? '/uploads/' .$modelUFValue->value : '')],
                         'layoutTemplates' => ['footer' => $this->render('_footer')],
                     ],
                     'pluginEvents' => [
@@ -164,7 +164,8 @@ foreach ($userFieldList as $i => $modelUF) {
                         'previewSettings' => [
                             'image' => ['width' => '138px', 'height' => 'auto']
                         ],
-                        'initialPreview' => '/uploads/' . (empty($modelUFValue->value) ? 'picture.jpg' : $modelUFValue->value),
+                        //'initialPreview' => '/uploads/' . (empty($modelUFValue->value) ? 'picture.jpg' : $modelUFValue->value),
+                        'initialPreview' => (!empty($modelUFValue->value) ? '/uploads/' .$modelUFValue->value : ''),
                         'layoutTemplates' => ['footer' => '']
                     ]
                 ])->label($modelUF->name);
@@ -186,12 +187,22 @@ foreach ($flds as $section => $layout_array) {
     <div class="">
         <?php foreach ($layout_array as $layout => $fld_array) { ?>
             <?php reset($fld_array); ?>
-            <h1 class="secondti two"><?php if ($layout != "Talent Overview") {
+            <?php if($layout == "Vehicle Pictures"){
+                $adclass = 'carpics';
+                }else{$adclass = '';}?>
+            <h1 class="secondti two <?=$adclass;?>"><?php if ($layout != "Talent Overview") {
                     echo $layout;
                 } ?></h1>
-            <div class="row">
-                <?php foreach ($fld_array as $key => $fld) { ?>
-                    <div class="<?= ($role == "Director") ? "col-sm-12" : "col-sm-4" ?> user-field-<?= $key ?>"><?= $fld; ?></div>
+            <div class="row <?=$adclass;?>">
+                <?php foreach ($fld_array as $key => $fld) {
+                    if($key == "8"){
+                        ?>
+                        </div>
+                        <div class="row <?=$adclass;?>">
+                        <?php
+                    }
+                    ?>
+                    <div class="<?= ($role == "Director") ? "col-sm-12" : "col-sm-3" ?> user-field-<?= $key ?>"><?= $fld; ?></div>
                 <?php } ?>
             </div>
         <?php } ?>
@@ -248,6 +259,15 @@ $js = <<<JS
                 image.cropper('destroy');           
             }); 
     });
+
+$(document).ready(function () {
+    var date = $('#userfieldvalue-17-value').datepicker({}).val();
+    if( date == "Dec 31, 1969"){
+            $('#userfieldvalue-17-value').datepicker({ 
+            }).val('');
+    }
+
+});
 JS;
 
 $this->registerJs($js);

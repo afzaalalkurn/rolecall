@@ -69,7 +69,8 @@ use common\widgets\GooglePlacesAutoComplete;
         'previewSettings'   => [
             'image' => ['width' => '138px', 'height' => 'auto']
         ],
-        'initialPreview' => ['/uploads/'.$modelUserProfile->avatar,],
+        //'initialPreview' => ['/uploads/'.(empty($modelUserProfile->avatar) ? 'picture.jpg' : $modelUserProfile->avatar)],
+        'initialPreview' => [(!empty($modelUserProfile->avatar) ? '/uploads/'.$modelUserProfile->avatar : '')],
         'layoutTemplates' => ['footer' => '']
     ],
 ]); ?>
