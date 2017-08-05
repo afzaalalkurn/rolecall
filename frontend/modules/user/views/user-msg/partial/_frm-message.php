@@ -111,7 +111,7 @@ $js = <<<JS
 		var seq = msg.seq; //message seq
 		var text = msg.text; //user message 
 		var attachment_id = msg.attachment_id; //user message
-		
+				
 		if(msg.message_id != "$message_id"){
 		    return false;
 		}
