@@ -114,7 +114,7 @@ class TalentController extends Controller
         $user = CommonUser::findIdentity($model->id);
         $user->username = $model->username;
         $user->email = $model->email;
-        if(!empty($model->password)){
+        if( !empty($model->password) ){
             $user->setPassword($model->password);
         }
 
@@ -137,40 +137,33 @@ class TalentController extends Controller
         $modelUserProfile = $model->userProfile ?? new UserProfile;
         $modelUserInstruments = $model->userInstruments ?? new UserInstruments;
 
+        if ($model->load(Yii::$app->request->post())){
 
+            $modelUserProfile->load(Yii::$app->request->post());
+            $modelUserAddress->load(Yii::$app->request->post()) ;
+            $modelUserInstruments->load(Yii::$app->request->post());
 
-        if (
-            $model->load(Yii::$app->request->post()) &&
-            $modelUserProfile->load(Yii::$app->request->post()) &&
-            $modelUserAddress->load(Yii::$app->request->post()) &&
-            $modelUserInstruments->load(Yii::$app->request->post())
-        ){
-            if($model->validate() && $model = $this->_signup($model)){
+            if( $model = $this->_signup($model)){
 
-                $modelUserInstruments->user_id = $model->id;
-                if( $modelUserInstruments->validate()) {
-                    $modelUserInstruments->save();
-                }
+                $modelUserProfile->user_id = $model->id;
+                $modelUserProfile->dob = date('Y-m-d', strtotime($modelUserProfile->dob));
+                $modelUpload = new Upload();
+                $modelUpload->file = UploadedFile::getInstance($modelUserProfile, 'avatar');
+                $modelUserProfile->avatar = (!is_null($modelUpload->file)) ? $modelUpload->upload() : $modelUserProfile->oldAttributes['avatar'];
 
-                if( $modelUserProfile->validate()) {
-                    $modelUserProfile->user_id = $model->id;
+                $modelUpload = new Upload();
+                $modelUpload->file = UploadedFile::getInstance($modelUserProfile, 'cover_photo');
+                $modelUserProfile->cover_photo = (!is_null($modelUpload->file)) ? $modelUpload->upload() :
+                    $modelUserProfile->oldAttributes['cover_photo'];
+                $modelUserProfile->save(false);
 
-                    $modelUserProfile->dob = date('Y-m-d', strtotime($modelUserProfile->dob));
-                    $modelUpload = new Upload();
-                    $modelUpload->file = UploadedFile::getInstance($modelUserProfile, 'avatar');
-                    $modelUserProfile->avatar = (!is_null($modelUpload->file)) ? $modelUpload->upload() : $modelUserProfile->oldAttributes['avatar'];
-
-                    $modelUpload = new Upload();
-                    $modelUpload->file = UploadedFile::getInstance($modelUserProfile, 'cover_photo');
-                    $modelUserProfile->cover_photo = (!is_null($modelUpload->file)) ? $modelUpload->upload() :
-                        $modelUserProfile->oldAttributes['cover_photo'];
-                    $modelUserProfile->save();
-                }
+                /*
+                 * $modelUserInstruments->user_id = $model->id;
+                $modelUserInstruments->save(false);
+                */
 
                 $modelUserAddress->user_id = $model->id;
-                if($modelUserAddress->validate()) {
-                    $modelUserAddress->save();
-                }
+                $modelUserAddress->save(false);
             }
 
             return $this->redirect(['view', 'id' => $model->id]);

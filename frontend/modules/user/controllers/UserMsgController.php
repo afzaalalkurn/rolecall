@@ -5,6 +5,7 @@ namespace frontend\modules\user\controllers;
 
 use backend\modules\user\models\search\UserMsgAttachmentsSearch;
 use backend\modules\user\models\UserMsgAttachments;
+use frontend\event\AutoEvent;
 use Yii;
 use backend\modules\user\models\UserMsg;
 use backend\modules\user\models\search\UserMsgSearch;
@@ -292,6 +293,7 @@ class UserMsgController extends Controller
                 }
 
                 foreach ($users as $user) {
+
                     $modelRecipients = new UserMsgRecipients();
                     $modelRecipients->message_id = $model->message_id;
                     $modelRecipients->seq = $model->seq;
@@ -299,10 +301,13 @@ class UserMsgController extends Controller
                     $modelRecipients->status = (($user == $sender_id) ? $model->status : UserMsg::STATUS_UNREAD);
                     $modelRecipients->save();
 
-                    if (Yii::$app->user->id != $user) {
+                    $this->module->trigger('Message', AutoEvent::generate('Message', $model->message_id, ['model' => $model]));
+
+                    /*if (Yii::$app->user->id != $user) {
                         //send mail
                         $model->sendEmail($user);
-                    }
+                    }*/
+
                 }
                 if(Yii::$app->request->isAjax){
                     Yii::$app->response->format = Response::FORMAT_JSON;

@@ -23,7 +23,11 @@ $user_id = Yii::$app->request->get('user_id');
     'id' => 'chat-form']); ?>
 
     <div class="message_write">
-        <?= $form->field($model, 'text')->textarea(['rows' => 3, 'class' => 'form-control input-sm chat_input', 'placeholder' => 'Write your message here...', 'id' => 'msg-text', 'onkeydown' => "if (event.keyCode == 13) $('#chat-form').trigger('beforeSubmit')"])->label(false) ?>
+        <?php if(Yii::$app->request->isAjax){?>
+            <?= $form->field($model, 'text')->textarea(['class' => 'form-control input-sm chat_input', 'placeholder' => 'Write your message here...'])->label(false) ?>
+    <?php } else { ?>
+            <?= $form->field($model, 'text')->textInput(['class' => 'form-control input-sm chat_input', 'placeholder' => 'Write your message here...', 'id' => 'msg-text'])->label(false) ?>
+        <?php } ?>
         <div class="clearfix"></div>
         <div class="chat_bottom">
             <?php
@@ -58,7 +62,13 @@ $js = <<<JS
  $(document).ready(function(){    
     var message_id = "$message_id";
 	//create a new WebSocket object.
-	 var websocket = new WebSocket("ws://$host:$port",'echo-protocol');
+	
+	if (!window.WebSocket) {
+	    alert("WebSocket not supported by this browser");
+	    return false;
+	}
+	
+	 var websocket = new WebSocket("ws://$host:$port");
 	 
 	websocket.onopen = function(ev) { // connection is open 
 		$('#chat-error').html("Connected!"); //notify user
@@ -75,10 +85,27 @@ $js = <<<JS
                websocket.send(JSON.stringify({type:'upload', message_id:response.message_id, seq:response.seq, text:response.text}));
            }         
     });
-
-	$('#chat-form').on('beforeSubmit', function(e) { //use clicks message send button 
+	
+	$('#msg-text').keypress(function(e) {
+	    $(':input[type="submit"]').prop('disabled', false);
+	    
+        if(e.which == 13 && $(this).val() != '') {
+            e.preventDefault();
+	        e.stopPropagation();
+            $(this).blur();
+            $('#chat-form').trigger('beforeSubmit');
+            return false;
+        }
+    }); 
  
-	    e.preventDefault();
+	$('#chat-form').on('beforeSubmit', function(e) { //use clicks message send button
+	   
+	    if($('#msg-text').val() == ''){
+	        alert('Please enter the message.');
+	        $(this).blur();
+	        return false;
+	    }
+	    
         var form = $(this);
         var formData = form.serialize();   
         
@@ -100,7 +127,13 @@ $js = <<<JS
                 error: function () {  alert("Something went wrong"); }
             });
         
-        }).on('submit', function(e){ e.preventDefault(); });	
+        }).on('submit', function(e){ 
+            //alert('Wait...');
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        $('#btn-submit').prop('disabled', true);
+                                        return false; 
+                                   });	
 	
 	//#### Message received from server?
 	websocket.onmessage = function(ev) {
@@ -111,8 +144,9 @@ $js = <<<JS
 		var seq = msg.seq; //message seq
 		var text = msg.text; //user message 
 		var attachment_id = msg.attachment_id; //user message
-				
+		
 		if(msg.message_id != "$message_id"){
+		    $("#chat-receipents").load(" #chat-receipents");
 		    return false;
 		}
 		

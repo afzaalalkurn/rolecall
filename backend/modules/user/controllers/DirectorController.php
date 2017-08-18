@@ -127,7 +127,7 @@ class DirectorController extends Controller
         if ($model->load(Yii::$app->request->post()) && $modelUserProfile->load(Yii::$app->request->post()) && $modelUserAddress->load(Yii::$app->request->post()) &&  $modelUserSchool->load(Yii::$app->request->post())){
 
 
-            if($model->validate() && $model = $this->_signup($model)){
+            if($model = $this->_signup($model)){
 
 
                 if( $modelUserProfile->validate()) {

@@ -15,7 +15,6 @@ use yii\helpers\Url;
 ?>
 
 
-
 <!--header section start here-->
 
 <section class="header">
@@ -29,47 +28,14 @@ use yii\helpers\Url;
                 <div class="logo wow bounceInLeft">
 
                     <?php
-
-                    if(Yii::$app->user->isGuest)
-
-                    {
-
-                        $homeUrl = Yii::$app->homeUrl;
-
-                    }
-
-                    else
-
-                    {
-
-                        if(Yii::$app->user->identity->isDirector())
-
-                        {
-
-                            $homeUrl = Url::to(['/site/dashboard']);
-
+                        if (Yii::$app->user->isGuest) {
+                            $homeUrl = Yii::$app->homeUrl;
+                        } else {
+                            $homeUrl = (Yii::$app->user->identity->isDirector())  ? Url::to(['/site/dashboard']):Url::to(['/job/job-user-mapper/index','status' => 'Pending']);
                         }
-
-                        else if(Yii::$app->user->identity->isUser())
-
-                        {
-
-                            $homeUrl = Url::to(['/job/job-user-mapper/index',
-
-                                'user_id'=>Yii::$app->user->id,
-
-                                'status' => 'Pending']);
-
-                        }
-
-                    }
-
                     ?>
-
-                    <a href="<?=$homeUrl;?>">
-
-                        <?php echo Html::img('@web/images/logo.png');?>
-
+                    <a href="<?= $homeUrl; ?>">
+                        <?php echo Html::img('@web/images/logo.png'); ?>
                     </a>
 
                 </div>
@@ -80,97 +46,43 @@ use yii\helpers\Url;
 
                 <div class="headerbottom wow bounceInRight">
 
-                    <?php  if (Yii::$app->user->isGuest) { ?>
-
+                    <?php if (Yii::$app->user->isGuest) { ?>
                         <div class="userlink">
-
-                            <!--<a href="mailto:info@rolecall.com" class="login-link">Contact</a> -->
-
-                            <?= Html::a('Login/Sign Up',['/login',],[ 'class'=>'btn-tasker']);?>
-
-                            <?= Html::a('Become a Talent', ['/talent',],[ 'class'=>'btn-tasker']);?>
-
-                            <? //= Html::a('Become a Director', ['/become-job-owner',],[ 'class'=>'btn-tasker'])?>
-
+                            <?= Html::a('Login/Sign Up', ['/login',], ['class' => 'btn-tasker']); ?>
+                            <?= Html::a('Become a Talent', ['/talent',], ['class' => 'btn-tasker']); ?>
                         </div>
-
                     <?php } else {
 
-                        $logout = '<div class="logout">'. Html::beginForm(['/logout'], 'post'). Html::submitButton('Logout',['class' => 'btn btn-link'] ). Html::endForm(). '</div>';
+                        $logout = '<div class="logout">' . Html::beginForm(['/logout'], 'post') . Html::submitButton('Logout', ['class' => 'btn btn-link']) . Html::endForm() . '</div>';
 
-                        ?>
-
-
-
+                        $first_name = Yii::$app->user->identity->userProfile->first_name;
+                        $avatar = Yii::$app->user->identity->userProfile->avatar;
+                        $avatar = !empty($avatar) ? '@web/uploads/' . $avatar : '@web/images/profile-img.jpg';                        ?>
                         <div class="dropdown profilesetting">
-
-            <span class="welcome">
-
-                <?php
-
-                if(Yii::$app->user->identity->userProfile->avatar) {
-
-                    echo Html::img('@web/uploads/' . Yii::$app->user->identity->userProfile->avatar);
-
-                }else
-
-                {
-
-                    echo Html::img('@web/images/profile-img.jpg');
-
-                }?>
-
-            </span>
-
+                            <span class="welcome"> <?= Html::img($avatar); ?> </span>
                             <a href="#" class="dropdown-link" data-toggle="dropdown">
-                                <?=Yii::$app->user->identity->userProfile->first_name?>
-
+                                <?= $first_name ?>
                                 <i class="fa fa-angle-down"></i>
-
                             </a>
 
                             <ul class="dropdown-menu">
+                                <li><?= Html::a('Dashboard', $homeUrl);?></li>
+                                <!-- //general -->
+                                <?= RightTopWidget::widget([]); ?>
+                                <!-- //general -->
 
-                                <li><?php if(Yii::$app->user->identity->isDirector()){?>
+                                <!-- //setting -->
+                                <li role="separator" class="divider"></li>
+                                <?= RightTopWidget::widget(['type' => 'setting']); ?>
+                                <!-- //setting -->
 
-                                        <?= Html::a('Dashboard', ['/site/dashboard']);}
-
-                                    else if(Yii::$app->user->identity->isUser()){?>
-
-                                        <?= Html::a('Dashboard',
-
-                                            ['/job/job-user-mapper/index',
-
-                                                'user_id'=>Yii::$app->user->id,
-
-                                                'status' => 'Pending']);
-
-                                    }?>
-
-                                </li>
-                                <?php if(isset( Yii::$app->user->id ) && (Yii::$app->user->identity->userProfile->plan_id == 1))
-                                {
-                                    ?>
-                                <li><?= Html::a('Upgrade to Plus', ['/user/user/upgrade','id'=>Yii::$app->user->id,]); ?>
-                                    <?php
-                                }
-                                ?>
-                                <?= RightTopWidget::widget([]);?>
-
-                            <li><?=$logout?></li>
-
+                                <li role="separator" class="divider"></li>
+                                <li><?= $logout ?></li>
                             </ul>
-
                         </div>
 
-                        <!--<div class="log-hr-top"><div class="ds-txt"><i class="fa fa-tachometer" aria-hidden="true"></i> <? //= Html::a('Dashboard', ['/site/dashboard'])?> </div>
-
-            </div>-->
-
                         <!-- notifications -->
-
                         <?php echo $this->render('partial/_notification'); ?>
-
                         <!-- notifications -->
 
                     <?php } ?>
@@ -187,7 +99,6 @@ use yii\helpers\Url;
 </section>
 
 <!--header section end here-->
-
 
 
 <!--banner section start here-->
@@ -247,15 +158,9 @@ use yii\helpers\Url;
                 </div>-->
 
                 <div class="bannertext wow fadeInUp">
-
                     <div class="headdiv">RoleCall</div>
-
-                    <span>A Casting Management System</span><br />
-
+                    <span>A Casting Management System</span><br/>
                     Discover . Connect . Manage
-
-                    <!--<div class="wow bounceInUp"><a class="btn btn-primary">Learn More</a></div>-->
-
                 </div>
 
             </div>

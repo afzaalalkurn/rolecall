@@ -46,12 +46,13 @@ class JobUserMapperController extends Controller
         if(Yii::$app->request->get('job_id')){
             $searchModel->job_id = Yii::$app->request->get('job_id');
         }
-        if(Yii::$app->request->get('user_id')){
-            $searchModel->user_id = Yii::$app->request->get('user_id');
-        }
+
+        $searchModel->user_id = (Yii::$app->request->get('user_id')) ?
+            Yii::$app->request->get('user_id') : Yii::$app->user->id;
+
         if(Yii::$app->request->get('status')){
             $status = Yii::$app->request->get('status');
-            $searchModel->status = Yii::$app->request->get('status');
+            $searchModel->status = $status;
         }
 
         if($status != "Passed")

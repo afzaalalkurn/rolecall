@@ -8,6 +8,7 @@ use backend\modules\user\models\UserField;
 use kartik\file\FileInput;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use kartik\depdrop\DepDrop;
 
 $this->registerJsFile('@web/js/custom-user.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -34,6 +35,7 @@ foreach ($userFieldList as $i => $modelUF) {
 
     $param = [];
     $indxFlds[$modelUF->field_id] = $i;
+
     if (!is_null($modelUF->depend) && isset($indxFlds[$modelUF->depend])) {
         $idxDepend = $indxFlds[$modelUF->depend];
         $param = ['class' => 'depended-field', 'depended-field_id' => $idxDepend, 'depends' => 'userfieldvalue-' . $idxDepend . '-value'];
@@ -65,13 +67,34 @@ foreach ($userFieldList as $i => $modelUF) {
             break;
         case 'List':
             $optionList = ArrayHelper::map($modelUF->userFieldOptions, 'value', 'name');
-            $flds[$modelUF->section][$modelUF->layout][$modelUF->order_by] =
-                $form->field($modelUFValue,
-                    "[{$i}]value")->widget(Select2::classname(),
-                    ['data' => $optionList,
-                        'options' => ['placeholder' => 'Select ...'],
-                        'pluginOptions' => ['allowClear' => true],])
-                    ->label($modelUF->name);
+
+            // Dependent Dropdown
+            if(!is_null($modelUF->depend)){
+
+                $flds[$modelUF->section][$modelUF->layout][$modelUF->order_by] =
+                    $form->field($modelUFValue, "[{$i}]value")->widget(DepDrop::classname(), [
+                        'options' => ['id'=>'depend-id-'.$modelUF->field_id],
+                        'pluginOptions'=>[
+                            'depends'=>['userfieldvalue-' . $indxFlds[$modelUF->depend] . '-value'],
+                            'placeholder' => 'Select...',
+                            'url' => Url::to(['/user-fields'])
+                        ]
+                    ])->label($modelUF->name);
+
+            }else{
+
+                $flds[$modelUF->section][$modelUF->layout][$modelUF->order_by] =
+                    $form->field($modelUFValue,
+                        "[{$i}]value")->widget(Select2::classname(),
+                        ['data' => $optionList,
+                            'options' => ['placeholder' => 'Select ...'],
+                            'pluginOptions' => ['allowClear' => true],])
+                        ->label($modelUF->name);
+            }
+
+
+
+
             break;
         case 'MultiList':
             $optionList = ArrayHelper::map($modelUF->userFieldOptions, 'value', 'name');

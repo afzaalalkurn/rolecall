@@ -23,25 +23,21 @@ $class = '';
 $homeUrl = '';
 $talentClass = '';
 if(!Yii::$app->user->isGuest){
+
     $role = Yii::$app->user->identity->getRoleName();
+
     if($role == "Director")
     {
         $class = 'directordiv';
         $job_id = Yii::$app->request->get('id');
         $user_id = Yii::$app->request->get('user_id');
-        if(!$job_id){
-            $param = 'user/view';
-        }
-        if($user_id && $currentPage == 'user/view'){
-            $talentClass = 'protalentdiv';
-        }
+        if(!$job_id){  $param = 'user/view'; }
+        if($user_id && $currentPage == 'user/view'){ $talentClass = 'protalentdiv'; }
         $homeUrl = Url::to(['/site/dashboard']);
 
     }
     else{
-        $homeUrl = Url::to(['/job/job-user-mapper/index',
-            'user_id'=>Yii::$app->user->id,
-            'status' => 'Pending']);
+        $homeUrl = Url::to(['/job/job-user-mapper/index','status' => 'Pending']);
     }
 }
 
@@ -69,8 +65,7 @@ $pages = ['site/index',
     'user/delete-user',
 ];
 
-$staticPages = ['site/index','site/terms','cms-item/view','site/policy','site/contact'];
-
+$staticPages = ['site/index','site/terms','cms-item/view','site/policy','site/contact','site/talent','site/director'];
 $seetingsPages = ['user/settings'];
 ?>
 

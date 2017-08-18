@@ -55,7 +55,6 @@ if (Yii::$app->request->get('user_id')) {
     <div class="col-sm-9 drictorcol">
         <div id="msg"></div>
         <div class="user-view userprofile">
-
             <div class="talentprofile">
                 <div class="row">
                     <div class="col-sm-6">
@@ -71,11 +70,8 @@ if (Yii::$app->request->get('user_id')) {
                             } ?>
                         </div>
                         <div class="additional-images">
-
                             <?= ($sectionPhotos) ? $this->render('_photos', ['model' => $model, 'sectionPhotos' => $sectionPhotos]) : null; ?>
-
                         </div>
-
                     </div>
 
                     <div class="col-sm-6">
@@ -91,9 +87,17 @@ if (Yii::$app->request->get('user_id')) {
                     <?php if (isset(Yii::$app->user->id) && Yii::$app->user->identity->isDirector()) { ?>
 
                         <?php if (!empty($job_id)) { ?>
+                            <?php
+                            /*
+                                $user_id = Yii::$app->request->get('user_id');
+                                $job_id
 
-                            <?= empty($message_id) ? $this->render('_mailbtn', ['model' => $model, 'user_id' => Yii::$app->request->get('user_id'), 'item_id' => $job_id]) : Html::a('', ['/user/user-msg', 'message_id' => $message_id], ['class' => 'fa fa-envelope-o',]); ?>
+                            */
+                            $jobStatus = JobUserMapper::userJobStatus(Yii::$app->request->get('user_id'), $job_id);
+                            if ($jobStatus && in_array($jobStatus->status, ['Approved', 'Booked', 'Selected'])) {?>
+                                <?= (empty($message_id) && $jobStatus) ? $this->render('_mailbtn', ['model' => $model, 'user_id' => Yii::$app->request->get('user_id'), 'item_id' => $job_id]) : Html::a('', ['/user/user-msg', 'message_id' => $message_id], ['class' => 'fa fa-envelope-o',]); ?>
 
+                            <?php } ?>
                         <?php } ?>
 
                         <?= Html::a('', ['/job/job-item/talent-status', 'status' => 'Passed'],
@@ -120,16 +124,9 @@ if (Yii::$app->request->get('user_id')) {
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="activedate">
-                                    <?php
-                                    $lastLogin = Yii::$app->user->identity->lastActiveLogin($user_id);
-                                    if ($lastLogin == "Online") {
-                                        echo "<span class='sal'>Online</span>";
-                                    } else {
-                                        ?>
-                                        <span class="sal">Last Active</span>
-                                        <?php echo Html::encode(Yii::$app->user->identity->lastActiveLogin($user_id));
-                                    }
-                                    ?>
+                                    <span class='sal'>
+                                        <?= Html::encode(Yii::$app->user->identity->lastActiveLogin($user_id)); ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>

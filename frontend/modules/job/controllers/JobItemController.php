@@ -353,15 +353,14 @@ class JobItemController extends Controller
 
                         }
                         if ($flag) {
-
-                            Yii::$app->modules['job']
-                                ->trigger('Job', AutoEvent::generate( 'Rolecall', $model->job_id ));
-
                             $transaction->commit();
+
+                            $this->module->trigger('Job', AutoEvent::generate( 'Rolecall', $model->job_id ));
                             Yii::$app->session->setFlash('success', 'Successfully posted Rolecall.');
+
                             return $this->redirect(['talents', 'id' => $model->job_id]);
 
-                            return $this->redirect(['view', 'id' => $model->job_id]);
+                            //return $this->redirect(['view', 'id' => $model->job_id]);
                         }
                     }catch (Exception $e) {
                         $transaction->rollBack();
@@ -615,7 +614,7 @@ class JobItemController extends Controller
         if ( $categories && !empty($job_id) ) {
             
             JobCategoryMapper::deleteAll([
-                            'job_id' => $model->job_id
+                            'job_id' => $job_id
                         ]);
 
             foreach($categories as $category_id){

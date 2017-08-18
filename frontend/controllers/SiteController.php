@@ -1,9 +1,12 @@
 <?php
+
 namespace frontend\controllers;
 
+use backend\modules\job\models\JobFieldOption;
 use backend\modules\user\models\search\UserAddress;
 
 use backend\modules\user\models\search\UserSubscriber;
+use backend\modules\user\models\UserFieldOption;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Exception;
@@ -12,6 +15,7 @@ use yii\web\HttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\web\Cookie;
 
@@ -127,24 +131,28 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new UserSubscriber();
-        return $this->render('index',[
+        return $this->render('index', [
             'model' => $model,
         ]);
     }
 
-    public function actionPolicy(){
+    public function actionPolicy()
+    {
         return $this->render('policy');
     }
 
-    public function actionTerms(){
+    public function actionTerms()
+    {
         return $this->render('terms');
     }
 
-     public function actionDirector(){
+    public function actionDirector()
+    {
         return $this->render('director');
     }
 
-    public function actionTalent(){
+    public function actionTalent()
+    {
         return $this->render('talent');
     }
 
@@ -176,14 +184,11 @@ class SiteController extends Controller
             $user = User::findOne(Yii::$app->user->id);
             $user->last_login = time();
             $user->save(false, ["last_login"]);
-            if(Yii::$app->user->identity->isDirector())
-            {
+            if (Yii::$app->user->identity->isDirector()) {
                 return $this->redirect('/dashboard');
-            }
-            else
-            {
+            } else {
                 return $this->redirect(['/job/job-user-mapper/index',
-                    'user_id'=>Yii::$app->user->id,
+                    'user_id' => Yii::$app->user->id,
                     'status' => 'Pending']);
             }
 
@@ -203,7 +208,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
         Yii::$app->session->setFlash('success',
-                'You have logged out successfully.');
+            'You have logged out successfully.');
         return $this->goHome();
     }
 
@@ -231,10 +236,10 @@ class SiteController extends Controller
         }
     }
 
-     public function actionPayment()
+    public function actionPayment()
     {
         $modelTransaction = new UserTransaction();
-        if ( $modelTransaction->load(Yii::$app->request->post()) && $modelTransaction->validate() ){ 
+        if ($modelTransaction->load(Yii::$app->request->post()) && $modelTransaction->validate()) {
             Yii::$app->paypal->payNow($modelTransaction);
         }
         return $this->render('transaction', [
@@ -262,7 +267,7 @@ class SiteController extends Controller
                     $this->_saveAddress($user_id, $model);
 
                     $transaction->commit();
-                   /* $this->_payNow($user_id, $model); */
+                    /* $this->_payNow($user_id, $model); */
                     $model->sendEmail();
                     $user->status = 0;
                     $user->save();
@@ -271,9 +276,9 @@ class SiteController extends Controller
                         'Congrats! you have been resgistered successfully...! 
                         Activation link has been sent to your registered email ID.');
 
-                        /*$modelPlan = CorePlan::findOne($model->plan_id);
-                        $url = ( $modelPlan->amount > 0) ? '/payment' : '/dashboard';
-                        return $this->redirect($url);*/
+                    /*$modelPlan = CorePlan::findOne($model->plan_id);
+                    $url = ( $modelPlan->amount > 0) ? '/payment' : '/dashboard';
+                    return $this->redirect($url);*/
 
                     return $this->goHome();
                 }
@@ -288,7 +293,64 @@ class SiteController extends Controller
         ]);
     }
 
-    
+    protected function _assignAuth($user_id, $role)
+    {
+        // the following three lines were added:
+        $auth = Yii::$app->authManager;
+        $authorRole = $auth->getRole($role);
+
+        if ($auth->assign($authorRole, $user_id)) {
+            return true;
+        }
+
+        throw new HttpException(405, 'Error saving model authorRole');
+
+    }
+
+    protected function _saveProfile($user_id, $model)
+    {
+
+        $modelProfile = new UserProfile();
+        $modelProfile->user_id = $user_id;
+        $modelProfile->is_subscriber = $model->is_subscriber;
+
+
+        $modelProfile->first_name = $model->first_name;
+        $modelProfile->last_name = $model->last_name;
+
+        /*$modelProfile->is_subscriber = $model->is_subscriber;
+
+        $modelProfile->language = 0;
+        $modelProfile->gender = 'None';
+        $modelProfile->about_us = '';
+        $modelProfile->dob = '';
+        $modelProfile->is_free = 0;
+        $modelProfile->mobile = '';
+        $modelProfile->telephone = '';
+
+        $modelUpload = new Upload();
+        if ($modelUpload->file = UploadedFile::getInstance($model, 'avatar')) {
+            $modelProfile->avatar = $modelUpload->upload();
+        }
+
+        $modelUpload = new Upload();
+        if ($modelUpload->file = UploadedFile::getInstance($model, 'cover_photo')) {
+            $modelProfile->cover_photo = $modelUpload->upload();
+        }
+    */
+
+        if ($modelProfile->save(false)) {
+            return true;
+        }
+        throw new HttpException(405, 'Error saving model modelProfile');
+    }
+
+    protected function _saveAddress($user_id, $model)
+    {
+        $modelAddress = new UserAddress();
+        $modelAddress->user_id = $user_id;
+        $modelAddress->save(false);
+    }
 
     /**
      * Signs user up.
@@ -301,7 +363,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
+
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -330,101 +392,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
-    protected function _assignAuth($user_id, $role)
-    {
-        // the following three lines were added:
-        $auth = Yii::$app->authManager;
-        $authorRole = $auth->getRole($role);
-
-        if ($auth->assign($authorRole, $user_id)) {
-            return true;
-        }
-
-        throw new HttpException(405, 'Error saving model authorRole');
-
-    }
-
-    protected function _saveProfile($user_id, $model)
-    {
-
-        $modelProfile = new UserProfile();
-        $modelProfile->user_id = $user_id;
-        $modelProfile->is_subscriber = $model->is_subscriber;
-
-
-            $modelProfile->first_name = $model->first_name;
-            $modelProfile->last_name = $model->last_name;
-
-            /*$modelProfile->is_subscriber = $model->is_subscriber;
-
-            $modelProfile->language = 0;
-            $modelProfile->gender = 'None';
-            $modelProfile->about_us = '';
-            $modelProfile->dob = '';
-            $modelProfile->is_free = 0;
-            $modelProfile->mobile = '';
-            $modelProfile->telephone = '';
-
-            $modelUpload = new Upload();
-            if ($modelUpload->file = UploadedFile::getInstance($model, 'avatar')) {
-                $modelProfile->avatar = $modelUpload->upload();
-            }
-
-            $modelUpload = new Upload();
-            if ($modelUpload->file = UploadedFile::getInstance($model, 'cover_photo')) {
-                $modelProfile->cover_photo = $modelUpload->upload();
-            } 
-        */
-
-        if ($modelProfile->save(false)) {
-            return true;
-        }
-        throw new HttpException(405, 'Error saving model modelProfile');
-    }
-
-    protected function _saveAddress($user_id, $model)
-    {
-        $modelAddress = new UserAddress();
-        $modelAddress->user_id = $user_id;
-        $modelAddress->save(false);
-    }
-
-    protected function _saveInstruments($user_id, $model)
-    {
-        $modelUserInstruments = new UserInstruments;
-        $modelUserInstruments->user_id = $user_id;
-        $modelUserInstruments->title = $model->instruments;
-
-        if ($modelUserInstruments->save()){
-            return true;
-        }
-
-        throw new HttpException(405, 'Error saving model UserJobCategoryMapper');
-    }
-
-    protected function _saveCategory($user_id, $model)
-    {
-        $UserJobCategoryMapper = new UserJobCategoryMapper;
-        $UserJobCategoryMapper->category_id = 1;
-        $UserJobCategoryMapper->user_id = $user_id;
-        if ($UserJobCategoryMapper->save(false)) {
-            return true;
-        }
-        throw new HttpException(405, 'Error saving model UserJobCategoryMapper');
-    }
-
-    protected function _saveSubscription($model)
-    {
-        $modelUserSubscriptionMapper = new UserSubscriptionMapper();
-        $modelUserSubscriptionMapper->email = $model->email;
-        if ($modelUserSubscriptionMapper->save(false)) {
-            return true;
-        }
-        throw new HttpException(405, 'Error saving model modelUserSubscriptionMapper');
-
-
-    } 
 
     /**
      * Requests password reset.
@@ -467,7 +434,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())
             && $model->validate() && $model->resetPassword()
-        ){
+        ) {
             Yii::$app->session->setFlash(
                 'success',
                 'New password was saved.'
@@ -520,7 +487,7 @@ class SiteController extends Controller
             $modelUpload = new Upload();
             $modelUpload->file = UploadedFile::getInstance($model, 'avatar');
             $model->avatar = !is_null($modelUpload->file) ?
-            $modelUpload->upload() : $model->getOldAttribute('avatar');
+                $modelUpload->upload() : $model->getOldAttribute('avatar');
 
             if ($model->validate()) {
                 if ($model->save(false)) {
@@ -556,8 +523,7 @@ class SiteController extends Controller
             //throw new InvalidParamException('Invalid token.');
             Yii::$app->session->setFlash('danger', 'Invalid token.');
             return $this->goHome();
-        }
-        else {
+        } else {
             $user->removePasswordResetToken();
             $user->status = 10;
             if ($user->save(false)) {
@@ -569,14 +535,11 @@ class SiteController extends Controller
                     Yii::$app->session->setFlash('success',
                         'Congrats! Your account has been activated 
                     successfully...!');
-                    if(Yii::$app->user->identity->isDirector())
-                    {
+                    if (Yii::$app->user->identity->isDirector()) {
                         return $this->redirect('/dashboard');
-                    }
-                    else
-                    {
+                    } else {
                         return $this->redirect(['/job/job-user-mapper/index',
-                            'user_id'=>Yii::$app->user->id,
+                            'user_id' => Yii::$app->user->id,
                             'status' => 'Pending']);
                     }
                 }
@@ -585,36 +548,36 @@ class SiteController extends Controller
         }
     }
 
-    public function actionTestmail(){
+    public function actionTestmail()
+    {
 
         $res = Yii::$app->mail->compose()
-                    ->setTo('vasundhara.alkurn@gmail.com')
-                    ->setFrom('app.alkurn@gmail.com')
-                    ->setSubject('Registered On ' . Yii::$app->name)
-                    ->setTextBody('You have been successfully registered on '. Yii::$app->name)
-                    ->setHtmlBody('<b>Hello </b><br/><br/>Welcome to Site , You have been successfully registered on '. Yii::$app->name .'. Thank you for connecting with us.<br/><br/><b>Regards,</b><br/><b>' . Yii::$app->name . ' Team</b>')
-                    ->send();
+            ->setTo('vasundhara.alkurn@gmail.com')
+            ->setFrom('app.alkurn@gmail.com')
+            ->setSubject('Registered On ' . Yii::$app->name)
+            ->setTextBody('You have been successfully registered on ' . Yii::$app->name)
+            ->setHtmlBody('<b>Hello </b><br/><br/>Welcome to Site , You have been successfully registered on ' . Yii::$app->name . '. Thank you for connecting with us.<br/><br/><b>Regards,</b><br/><b>' . Yii::$app->name . ' Team</b>')
+            ->send();
     }
 
-    public function actionSubscribe(){
+    public function actionSubscribe()
+    {
         $model = new UserSubscriber();
         if ($model && $model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 if ($model->validate()) {
-                        $transaction->commit();
-                        $model->save(false);
+                    $transaction->commit();
+                    $model->save(false);
                     Yii::$app->session->setFlash('success',
                         'You have successfully subscribed for newsletter');
-                }
-                else{
+                } else {
                     Yii::$app->session->setFlash('danger',
                         'Newsletter subscription failed.');
                 }
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $transaction->rollBack();
-                if($e->getCode() == 23000) {
+                if ($e->getCode() == 23000) {
                     Yii::$app->session->setFlash('danger',
                         'This email address already exist.');
                 }
@@ -623,5 +586,84 @@ class SiteController extends Controller
         }
         return $this->render('subscribe', ['model' => $model]);
     }
+
+    protected function _saveInstruments($user_id, $model)
+    {
+        $modelUserInstruments = new UserInstruments;
+        $modelUserInstruments->user_id = $user_id;
+        $modelUserInstruments->title = $model->instruments;
+
+        if ($modelUserInstruments->save()) {
+            return true;
+        }
+
+        throw new HttpException(405, 'Error saving model UserJobCategoryMapper');
+    }
+
+    protected function _saveCategory($user_id, $model)
+    {
+        $UserJobCategoryMapper = new UserJobCategoryMapper;
+        $UserJobCategoryMapper->category_id = 1;
+        $UserJobCategoryMapper->user_id = $user_id;
+        if ($UserJobCategoryMapper->save(false)) {
+            return true;
+        }
+        throw new HttpException(405, 'Error saving model UserJobCategoryMapper');
+    }
+
+    protected function _saveSubscription($model)
+    {
+        $modelUserSubscriptionMapper = new UserSubscriptionMapper();
+        $modelUserSubscriptionMapper->email = $model->email;
+        if ($modelUserSubscriptionMapper->save(false)) {
+            return true;
+        }
+        throw new HttpException(405, 'Error saving model modelUserSubscriptionMapper');
+
+
+    }
+
+    public function actionUserCustomeFields(){
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = [];
+        $depdropParents = Yii::$app->request->post('depdrop_parents');
+        if ($depdropParents) {
+
+            if ($depdropParents != null && !empty($depdropParents[0])) {
+
+                $parent = UserFieldOption::findOne(['value' => $depdropParents[0]]);
+
+                foreach($parent->userFieldOptions as $fieldOption){
+                    $out[] = ['id'=>$fieldOption->value, 'name'=>$fieldOption->name];
+                }
+                return ['code'=> 'success', 'output' => $out,'selected' => ''];
+            }
+        }
+
+        return ['code' => 'failed', 'output'=>'', 'selected'=>''];
+    }
+
+    public function actionJobCustomeFields(){
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = [];
+        $depdropParents = Yii::$app->request->post('depdrop_parents');
+        if ($depdropParents) {
+
+            if ($depdropParents != null && !empty($depdropParents[0])) {
+
+                $parent = JobFieldOption::findOne(['value' => $depdropParents[0]]);
+
+                foreach($parent->jobFieldOptions as $fieldOption){
+                    $out[] = ['id'=>$fieldOption->value, 'name'=>$fieldOption->name];
+                }
+                return ['code'=> 'success', 'output' => $out,'selected' => ''];
+            }
+        }
+
+        return ['code' => 'failed', 'output'=>'', 'selected'=>''];
+    }
+
 }
 

@@ -21,7 +21,7 @@ use himiklab\thumbnail\EasyThumbnailImage;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-
+                <?php /* ?>
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -228,6 +228,7 @@ use himiklab\thumbnail\EasyThumbnailImage;
                         </li>
                     </ul>
                 </li>
+                <?php */ ?>
                 <!-- User Account: style can be found in dropdown.less -->
 
                 <?= $this->render('account.php');?>

@@ -28,7 +28,8 @@
         "wbraganca/yii2-dynamicform": "*",
         "alkurn/yii2-upload": "dev-master",
         "alkurn/yii2-recaptcha": "dev-master",
-        "alkurn/yii2-websocket": "dev-master"
+        "alkurn/yii2-websocket": "dev-master",
+        "kartik-v/yii2-widget-depdrop": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

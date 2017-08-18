@@ -342,7 +342,7 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         if($count > 0){
-            return "Online";
+            return "Online Now";
         }
         else{
             //return implode(" ", $lastActive) . ' ago';

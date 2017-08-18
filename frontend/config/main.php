@@ -118,6 +118,10 @@ return [
                 'request-password-reset'    => 'site/request-password-reset',
                 'become-job-owner'    => 'site/become-job-owner',
                 'change-password'  => 'site/change-password',
+
+                'job-fields'  => 'site/user-custome-fields',
+                'user-fields'  => 'site/job-custome-fields',
+
                 'update'  => 'user/user/update',
                 'rolecalls'  => 'job/job-item',
                 'payment'    => 'site/payment',
@@ -138,6 +142,8 @@ return [
                 'messenger' => 'user/user-msg/message',
                 'msg-validate' => 'user/user-msg/validate',
                 'attachment-upload' => 'user/user-msg/attachment-upload',
+                'append-recent' => 'user/user-msg/append-recent',
+                'append-attachment' => 'user/user-msg/append-attachment',
 
                 /* End Messaging Section */
 

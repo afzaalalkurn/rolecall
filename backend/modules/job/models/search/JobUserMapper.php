@@ -337,4 +337,15 @@ class JobUserMapper extends JobUserMapperModel
             ->count();
         return $query;
     }
+
+    public static function userJobStatus($user_id, $job_id){
+
+        $query = JobUserMapperModel::find()
+            ->where(['user_id'=>$user_id,'job_id'=>$job_id])
+            ->andWhere(['!=', 'status', 'Pending'])->one();
+        return $query;
+
+    }
+
+
 }

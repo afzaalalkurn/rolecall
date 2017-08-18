@@ -23,50 +23,19 @@ use frontend\widgets\JobUserWidget;
 /* @var $this yii\web\View */
 
 /* @var $model backend\modules\user\models\User */
-
-
-
 $this->title = $model->userProfile->getName();
-
-
-
 $userProfile    = Yii::$app->user->identity->userProfile;
-
 $joining_date = isset($userProfile) ? Yii::$app->formatter->asDatetime($userProfile->joining_date, "php:d M Y") : '';
-
 $location = null;
-
 $role = Yii::$app->user->identity->getRolename();
-
 ?>
 
 <header class="entry-header">
-
-    <?php if($role == "Director"){?>
-
-        <a href="/job/job-item/create" class="btn owner-button btn-start-new-rolecall" id="Start-New-Rolecall">Start New Rolecall</a>
-
-        <!--<a href="/job/job-item/archive" class="btn owner-button btn-archive-rolecall" id="Archive-Rolecall">Archive Rolecall</a>-->
-
-    <?php }?>
-
+    <?php if(Yii::$app->user->identity->isDirector()){?>
+        <?= Html::a('Start New Rolecall',['/job/job-item/create'],['class'=>'btn owner-button btn-start-new-rolecall', 'id' => 'Start-New-Rolecall']);?>
+        <a href="" ></a>
+    <?php } ?>
 </header>
-
-
-
-<?php if(Yii::$app->user->identity->isDirector()){?>
-
-    <?=JobWidget::widget();?>
-
-<?php }else{ ?>
-
-    <?=JobUserWidget::widget();?>
-
-<?php }
-
-?>
-
-
-
+<?= (Yii::$app->user->identity->isDirector()) ? JobWidget::widget() : JobUserWidget::widget(); ?>
 </div>
 

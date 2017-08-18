@@ -4,7 +4,9 @@ namespace frontend\modules\user\controllers;
 
 use backend\modules\user\models\search\UserField;
 use backend\modules\user\models\UserAddress;
+use backend\modules\user\models\UserFieldOption;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -11,6 +11,8 @@ use kartik\select2\Select2;
 use yii\jui\DatePicker;
 use backend\modules\job\models\JobFieldValue;
 use backend\modules\job\models\JobField;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
 
 $this->registerJsFile('@web/js/custom-job.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -49,8 +51,6 @@ foreach ($jobFieldList as $i => $modelJF) {
     }
 
 
-
-
     switch ($modelJF->type) {
         case 'Text':
             $flds[$modelJF->section][$modelJF->layout][$modelJF->order_by] =
@@ -78,14 +78,29 @@ foreach ($jobFieldList as $i => $modelJF) {
             break;
         case 'List':
             $optionList = ArrayHelper::map($modelJF->jobFieldOptions, 'value', 'name');
-            $flds[$modelJF->section][$modelJF->layout][$modelJF->order_by] =
-                $form->field($modelJFValue, "[{$i}]value")->widget(Select2::classname(), [
-                    'data' => $optionList,
-                    'options' => ['placeholder' => 'Select ...', $param],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-                ])->label($modelJF->name);
+
+            if (!is_null($modelJF->depend)) {
+
+                $flds[$modelJF->section][$modelJF->layout][$modelJF->order_by] =
+                    $form->field($modelJFValue, "[{$i}]value")->widget(DepDrop::classname(), [
+                        'options' => ['id' => 'depend-id-' . $modelJF->field_id],
+                        'pluginOptions' => [
+                            'depends' => ['userfieldvalue-' . $indxFlds[$modelJF->depend] . '-value'],
+                            'placeholder' => 'Select...',
+                            'url' => Url::to(['/job-fields'])
+                        ]
+                    ])->label($modelJF->name);
+            } else {
+                $flds[$modelJF->section][$modelJF->layout][$modelJF->order_by] =
+                    $form->field($modelJFValue, "[{$i}]value")->widget(Select2::classname(), [
+                        'data' => $optionList,
+                        'options' => ['placeholder' => 'Select ...', $param],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label($modelJF->name);
+            }
+
             break;
         case 'MultiList':
             $optionList = ArrayHelper::map($modelJF->jobFieldOptions, 'value', 'name');
@@ -116,8 +131,8 @@ foreach ($jobFieldList as $i => $modelJF) {
 
             echo $form->field($modelJFValue, "[{$i}]value")->hiddenInput(['value' => $value])->label(false);
 
-        $modelJFValueRange[$modelJF->field] = $modelJFValue;
-        $dModelRang[$modelJF->field] = $modelJFValue->value;
+            $modelJFValueRange[$modelJF->field] = $modelJFValue;
+            $dModelRang[$modelJF->field] = $modelJFValue->value;
             break;
     }
 }
@@ -141,10 +156,7 @@ foreach ($fieldRanges as $name => $fieldRange) {
         $modelJFValue = $modelJFValueRange[$modelJF->field];
 
         switch ($modelJF->field) {
-            case "age-from":
-            case "age-to":
-            $range[$sufix] = $dModelRang[$modelJF->field] . ' yrs';
-                break;
+
             case "height-from":
             case "height-to":
                 if ($dModelRang[$modelJF->field] > 0) {
@@ -155,7 +167,11 @@ foreach ($fieldRanges as $name => $fieldRange) {
                 break;
             case "weight-from":
             case "weight-to":
-            $range[$sufix] = $dModelRang[$modelJF->field] . ' lbs.';
+                $range[$sufix] = $dModelRang[$modelJF->field] . ' lbs.';
+                break;
+            case "age-from":
+            case "age-to":
+                $range[$sufix] = $dModelRang[$modelJF->field] . ' yrs';
                 break;
             case 'waist-from':
             case 'waist-to':
@@ -173,7 +189,7 @@ foreach ($fieldRanges as $name => $fieldRange) {
             case 'hips-to':
             case 'chest-from':
             case 'chest-to':
-                if ($dModelRang[$modelJF->field] > 0 ) {
+                if ($dModelRang[$modelJF->field] > 0) {
                     $range[$sufix] = ceil($dModelRang[$modelJF->field] / 2.54) . " in.";
                 }
                 break;
@@ -188,8 +204,7 @@ foreach ($fieldRanges as $name => $fieldRange) {
                     $modelJFValueNew = JobFieldValue::findOne(['job_id' => $model->job_id, 'field_id' => $modelJF->field_id]) ?? $modelJFValue;
                     $modelJFValueFileds[$modelJF->field] = $modelJFValueNew;
                     break;
-                }
-                else{
+                } else {
                     $modelJFValueFileds[$modelJF->field] = $modelJFValue;
                     break;
                 }
@@ -216,12 +231,12 @@ foreach ($fieldRanges as $name => $fieldRange) {
     switch ($modelJF->type) {
         case 'DropdownRange':
         case 'TextRange':
-        $content ='<div class="form-group ' . $name . '-' . $sufix . '">';
-        $content .= '<label for="label">' . ucwords($name) . ': ';
-
-        $content .= '<span id="range-' . $name . '">' . $slider_range . '</span>';
-        $content .= '</label>';
-        $content .= '<div class="slider" 
+            reset($options);
+            $content = '<div class="form-group ' . $name . '-' . $sufix . '">';
+            $content .= '<label for="label">' . ucwords($name) . ': ';
+            $content .= '<span id="range-' . $name . '">' . $slider_range . '</span>';
+            $content .= '</label>';
+            $content .= '<div class="slider" 
                         data-name ="' . $name . '"
                         data-from ="' . current($options) . '"  
                         data-to ="' . end($options) . '"  
@@ -232,7 +247,7 @@ foreach ($fieldRanges as $name => $fieldRange) {
                         ></div> 
                     </div>';
 
-        $flds[$fromField->section][$fromField->layout][$fromField->order_by] = $content;
+            $flds[$fromField->section][$fromField->layout][$fromField->order_by] = $content;
             break;
     }
 }
@@ -291,8 +306,11 @@ $( function() {
         
         var values = '';
         if(param == "create"){
-            var range = $('#range-'+name);
+            var range = $('#range-'+name); 
             switch(name){
+                case "age":
+                values = [ '20',' 40' ];
+                break;
                 case "sleeve":                
                 case "waist":                
                 case "inseam":                
@@ -308,10 +326,7 @@ $( function() {
                 break;
                 case "weight":
                 values = [ '40',' 60' ];
-                break;
-                case "age":
-                values = [ '20',' 40' ];
-                break;
+                break;               
             }
         }
         else{
@@ -322,7 +337,7 @@ $( function() {
           range: true,
           min: fromRg,
           max: toRg,
-          values: values,
+          values: values,          
           slide: function( event, ui ) {
               
             from = ui.values[ 0 ];  
@@ -358,22 +373,18 @@ $( function() {
                     break;
                 case "weight": 
                     from = from + 'lbl.';
-                    to = to+ 'lbl.';
+                    to = to + 'lbl.';
                     range.html( from + ' - '+ to) ;       
                     break;
                 case "age":
                     from = from + 'yrs.';
-                    to = to+ 'yrs.'; 
+                    to = to + 'yrs.'; 
                     range.html( from + ' - '+ to) ;       
-                    break;
-                    
-            }  
-            
+                    break;                   
+            }              
           }
-        }); 
-        
-    });
-    
+        });         
+    });    
   } );
       
     
