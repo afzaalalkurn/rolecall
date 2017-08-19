@@ -9,6 +9,7 @@ use backend\modules\core\models\CorePlan;
  * This is the model class for table "user_profile".
  *
  * @property string $user_id
+ * @property string $plan_id
  * @property string $language
  * @property string $avatar
  * @property string $cover_photo
@@ -22,6 +23,7 @@ use backend\modules\core\models\CorePlan;
  * @property string $telephone
  * @property integer $is_free
  * @property integer $is_subscriber
+ * @property integer $is_deleted
  *
  * @property User $user
  * @property CorePlan $plan
@@ -45,8 +47,8 @@ class UserProfile extends \yii\db\ActiveRecord
             [['first_name', 'last_name'], 'required'],
             [['gender', 'about_us'], 'string'],
             [['dob', 'joining_date'], 'safe'],
-            [['is_free', 'plan_id'], 'integer'],
-            [['is_subscriber'], 'integer'],
+            [['is_free', 'plan_id',], 'integer'],
+            [['is_subscriber','is_deleted'], 'integer'],
             [['language'], 'string', 'max' => 25],
             [['avatar'], 'string', 'max' => 250],
             [['cover_photo'], 'string', 'max' => 250],

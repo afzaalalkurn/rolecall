@@ -300,15 +300,14 @@ class UserMsgController extends Controller
                     $modelRecipients->recipient_id = $user;
                     $modelRecipients->status = (($user == $sender_id) ? $model->status : UserMsg::STATUS_UNREAD);
                     $modelRecipients->save();
-
-                    $this->module->trigger('Message', AutoEvent::generate('Message', $model->message_id, ['model' => $model]));
-
-                    /*if (Yii::$app->user->id != $user) {
+                    if (Yii::$app->user->id != $user) {
                         //send mail
                         $model->sendEmail($user);
-                    }*/
-
+                    }
                 }
+
+                $this->module->trigger('Send', AutoEvent::getNotifyMessage('Send',  $model->item_id, $model->message_id, ['model' => $model]));
+
                 if(Yii::$app->request->isAjax){
                     Yii::$app->response->format = Response::FORMAT_JSON;
                     return ['code' => 'success', 'msg' => 'You are successfully sent the message.', 'message_id' => $model->message_id, 'seq' => $model->seq, 'text' => $model->text,];
@@ -348,6 +347,7 @@ class UserMsgController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
+
     }
 
     public function actionAttachmentUpload()
@@ -361,6 +361,7 @@ class UserMsgController extends Controller
         $message_id = Yii::$app->request->get('message_id');
 
         $userMsgRecipientsSearch = new UserMsgRecipientsSearch();
+
         if (empty($message_id)) {
             $message_id = $userMsgRecipientsSearch->findMessageId($item_id, [$user_id, Yii::$app->user->id]);
         }

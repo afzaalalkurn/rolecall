@@ -52,7 +52,7 @@ class RightTopWidget extends Widget
         }
 
         if ($plan_id > 1) {
-            $links['Downgrade Account'] = Url::to(['/user/user/upgrade', 'id' => Yii::$app->user->id,]);
+            $links['Downgrade Account'] = Url::to(['/downgrade-account', 'id' => Yii::$app->user->id,]);
         }
 
         $links['Change Password'] = Url::to(['/change-password']);
@@ -81,7 +81,7 @@ class RightTopWidget extends Widget
         }
 
         if ($plan_id > 1) {
-            $links['Downgrade Account'] = Url::to(['/user/user/upgrade', 'id' => Yii::$app->user->id,]);
+            $links['Downgrade Account'] = Url::to(['/downgrade-account', 'id' => Yii::$app->user->id,]);
         }
 
         $links['Change Password'] = Url::to(['/change-password']);

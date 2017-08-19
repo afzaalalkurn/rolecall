@@ -115,7 +115,8 @@ $seetingsPages = ['user/settings'];
                 <?= $this->render('left-settings.php'); ?>
                 <?php
             }?>
-            <?= Alert::widget() ?>
+
+            <div id="msg"><?= Alert::widget() ?></div>
             <?= $content ?>
         </div>
     </div> 

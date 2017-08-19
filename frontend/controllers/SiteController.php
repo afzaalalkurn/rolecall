@@ -318,8 +318,8 @@ class SiteController extends Controller
         $modelProfile->first_name = $model->first_name;
         $modelProfile->last_name = $model->last_name;
 
-        /*$modelProfile->is_subscriber = $model->is_subscriber;
-
+        /*
+        $modelProfile->is_subscriber = $model->is_subscriber;
         $modelProfile->language = 0;
         $modelProfile->gender = 'None';
         $modelProfile->about_us = '';

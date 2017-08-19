@@ -20,51 +20,27 @@ $costRound = floor($cost);
 
 <h3><?= Html::encode($this->title) ?></h3>
     <a href="<?php echo Yii::$app->user->returnUrl; ?>">Back</a>
-<?= StripeCheckoutCustom::widget([
 
+<?= StripeCheckoutCustom::widget([
     'action' => 'execute-payment?id='.$model->user_id,
     'id' => 'payment',
-
     'name' =>  $model->name,
-
     'description' => 'Upgrade to Plus',
-
     'amount' => $costRound ,
-
     'image' => '/uploads/128x128.png',
-
-    'buttonOptions' => [
-
-        'class' => 'btn btn-lg btn-success',
-
-    ],
-
-    'tokenFunction' => new JsExpression('function(token){ 
-
-                
-
+    'buttonOptions' => ['class' => 'btn btn-lg btn-success',],
+    'tokenFunction' => new JsExpression('function(token){
                 $.ajax({
-
                             url: "execute-payment?id='.$model->user_id.'",
-
                             type: "post",
-
                             data:token,
-
                             dataType: "json",
-
                             success: function(data) {  
-                                 if(data.success == true)
-                                 {
-                                    history.go(-1);
+                                 if(data.success == true){
+                                    window.location = "/job/job-user-mapper/index";
                                  }
-                                 }
-
-                      });
-
-
-
-                 
+                            }
+                      });               
 
     }'),
 

@@ -26,6 +26,7 @@ use backend\modules\user\models\UserProfile;
 use alkurn\stripe\StripeCharge;
 use yii\web\Response;
 
+
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -271,11 +272,6 @@ class UserController extends Controller
     public function actionUpgrade($id)
     {
         $modelTransaction = new \frontend\models\UserTransaction();
-
-       /* if ($modelTransaction->load(Yii::$app->request->post()) && $modelTransaction->validate()){
-            Yii::$app->paypal->payNow($modelTransaction);
-        }*/
-
         return $this->renderAjax('upgrade', [ 'modelTransaction' => $modelTransaction]);
 
     }
@@ -287,6 +283,7 @@ class UserController extends Controller
         $plan = CorePlan::findOne(['id' => '2']);
         $cost = $plan->amount * 100;
         $costRound = floor($cost);
+
         $request = [
             "amount" => ($costRound),
             "currency" => "usd",
@@ -301,10 +298,11 @@ class UserController extends Controller
         $modelUserTransaction = new UserTransaction();
         $modelUserTransaction->user_id = Yii::$app->user->id;
         $modelUserTransaction->plan_id = 2;
+        $modelUserTransaction->agreement_id = 2;
         $modelUserTransaction->first_name = Yii::$app->user->identity->user->userProfile->first_name;
         $modelUserTransaction->last_name = Yii::$app->user->identity->user->userProfile->last_name;
         $modelUserTransaction->email = $token['email'] ;
-        $modelUserTransaction->response_data = json_encode($token);
+        $modelUserTransaction->request_data = json_encode($token);
         $modelUserTransaction->response_data = json_encode($response);
         $modelUserTransaction->created_at = time();
         $modelUserTransaction->updated_at = time();
@@ -320,7 +318,6 @@ class UserController extends Controller
                 Yii::$app->response->format = Response::FORMAT_JSON;       
                 $data = ["success" => true];
                 return $data;
-                
             }
         }
 
@@ -549,8 +546,48 @@ class UserController extends Controller
         return $this->render('settings');
     }
 
+    public function actionRequestDeleteAccount(){
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = UserProfile::findOne(Yii::$app->user->id);
+        if($model->is_deleted == 1){
+            //Yii::$app->session->setFlash('success','Your account deleted request already submited');
+            return ['code'=>'error', 'msg'=>'Your account deleted request already submited'];
+        }
+
+        $model->is_deleted = '1';
+        if($model->save()){
+            //Yii::$app->session->setFlash('error','Your account has been deleted successfully');
+            return ['code'=>'success', 'msg'=>'Your account has been deleted successfully'];
+        }
+
+        return ['code'=>'error', 'msg'=>'Error in proccess, Please try again later'];
+    }
+
+    public function actionDowngradeAccount(){
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = UserProfile::findOne(Yii::$app->user->id);
+
+        if($model->plan_id == 1){
+            //Yii::$app->session->setFlash('success','Your account deleted request already submited');
+            return ['code'=>'error', 'msg'=>'Your account already free'];
+        }
+
+        $model->is_free = 1;
+        $model->plan_id = 1;
+
+        if($model->save()){
+            //Yii::$app->session->setFlash('error','Your account has been deleted successfully');
+            return ['code'=>'success', 'msg'=>'Your account has successfully downgrade'];
+        }
+
+        return ['code'=>'error', 'msg'=>'Error in proccess, Please try again later'];
+    }
+
     public function actionDeleteUser($id){
         $model = $this->findModel($id);
+
         $model->is_deleted = '1';
         $model->save();
         Yii::$app->session->setFlash('success','Your account has been deleted successfully');
@@ -566,7 +603,6 @@ class UserController extends Controller
      */
     public function findModel($id = null)
     {
-
         if($id == null || empty($id)){
             $id = Yii::$app->user->getId();
         }

@@ -15,7 +15,7 @@ $initialCoverPhotoPreview = [];
 
 
 if( $model->avatar ){
-    $initialImagePreview[] = Html::img('/uploads/'.$model->avatar, ['class' => 'file-preview-image']);
+    $initialImagePreview[] = Html::img('/uploads/'.$model->avatar, ['class' => 'file-preview-image', 'width' => '100', 'height' => '100']);
 }
 
 if( $model->cover_photo ){
@@ -45,10 +45,12 @@ if( $model->cover_photo ){
         'removeClass'       => 'btn btn-danger btn-sm',
         'removeLabel'       => ' Delete',
         'removeIcon'        => '<i class="fa fa-trash"></i>',
-        'previewSettings'   => [  'image' => ['width' => '100px', 'height' => '100px'] ],
+        'previewSettings'   => [  'image' => ['width' => '100', 'height' => '100'] ],
         'initialPreview' => $initialImagePreview,
         'layoutTemplates' => ['footer' => '']
     ]
 ]);?>
 <?= $form->field($model, 'dob')->widget(DatePicker::className()) ?>
+
+<?=$form->field($model,  'is_deleted')->radioList(['1' => 'Yes', '0' => 'No']);?>
 

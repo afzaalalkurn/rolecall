@@ -24,6 +24,7 @@ class NotificationEvent extends Event {
     const NOTIFICATION_BOOKED        = 'Booked';
     const NOTIFICATION_DECLINED      = 'Declined';
     const NOTIFICATION_SEND	        = 'Send';
+    const NOTIFICATION_MESSAGE	    = 'Message';
 
     const TYPE_NOTIFY               = 'Notification';
     const TYPE_EMAIL 		        = 'Email';

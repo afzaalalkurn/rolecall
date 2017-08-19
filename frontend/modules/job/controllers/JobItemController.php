@@ -377,7 +377,7 @@ class JobItemController extends Controller
 
     public function actionTalents($id)
     {
-        $model = $this->findModel($id); 
+        $model = $this->findModel($id);
 
         $tpls = [];
 
@@ -388,14 +388,14 @@ class JobItemController extends Controller
         }else{
             $tpls[]  = $this->_guestButtons($id);
         }
+        $modelUserFields = new UserField();
 
         $searchModel = new Talent();
-        $searchModel->job_id = $id;
+        $searchModel->job_id = Yii::$app->request->get('id');
         $searchModel->latitude = $model->latitude;
         $searchModel->longitude = $model->longitude;
         $searchModel->radius = $model->radius;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $modelUserFields = new UserField(); 
 
         return $this->render('talent', [
             'model'  =>  $model,
@@ -403,7 +403,7 @@ class JobItemController extends Controller
             'dataProvider' => $dataProvider,
             'modelUserFields' => $modelUserFields,
             'tpls'   =>  $tpls ,
-            'job_id' =>  $id,
+            'job_id' =>  Yii::$app->request->get('id')
         ]);
 
     }
@@ -439,7 +439,6 @@ class JobItemController extends Controller
             'user_id'=>$user_id,
             'job_id'=>$job_id
         ]);
-
 
         if($modelJobUserMapper)
         {

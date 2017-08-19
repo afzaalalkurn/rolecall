@@ -42,18 +42,13 @@ class JobUserMapperController extends Controller
     public function actionIndex()
     { 
         $searchModel = new JobUserMapperSearch();
+        $status = Yii::$app->request->get('status');
+        $user_id = Yii::$app->request->get('user_id');
+        $job_id = Yii::$app->request->get('job_id');
 
-        if(Yii::$app->request->get('job_id')){
-            $searchModel->job_id = Yii::$app->request->get('job_id');
-        }
-
-        $searchModel->user_id = (Yii::$app->request->get('user_id')) ?
-            Yii::$app->request->get('user_id') : Yii::$app->user->id;
-
-        if(Yii::$app->request->get('status')){
-            $status = Yii::$app->request->get('status');
-            $searchModel->status = $status;
-        }
+        if(!empty($job_id)){  $searchModel->job_id = $job_id; }
+        $searchModel->status = (!empty($status)) ? $status : 'Pending';
+        $searchModel->user_id = (!empty($user_id)) ?$user_id : Yii::$app->user->id;
 
         if($status != "Passed")
         {
@@ -67,7 +62,6 @@ class JobUserMapperController extends Controller
         else if($status == "Passed"){
             $dataProviderPass = $searchModel->searchPass(Yii::$app->request->queryParams);
             $dataProviderDecline = $searchModel->searchDecline(Yii::$app->request->queryParams);
-
             return $this->render('passes', [
                 'searchModel'  => $searchModel,
                 'dataProviderPass' => $dataProviderPass,

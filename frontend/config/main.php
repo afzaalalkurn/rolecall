@@ -27,7 +27,7 @@ return [
             'class' => 'frontend\modules\user\Module',
             'on Payment'    => ['frontend\event\Notification','handler'],
             'on Applied'    => ['frontend\event\Notification','handler'],
-            'on Send'    => ['frontend\event\Notification','handler'],
+            'on Send'       => ['frontend\event\Notification','handler'],
         ],
         'cms' => [
                     'class' => 'frontend\modules\cms\Module',
@@ -126,6 +126,8 @@ return [
                 'rolecalls'  => 'job/job-item',
                 'payment'    => 'site/payment',
                 'execute-agreement'    => 'user/user/execute-agreement',
+                'request-delete-account'    => 'user/user/request-delete-account',
+                'downgrade-account'    => 'user/user/downgrade-account',
 
                 'policy'  => 'site/policy',
                 'terms'  => 'site/terms',

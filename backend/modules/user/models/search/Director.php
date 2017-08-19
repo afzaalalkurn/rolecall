@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
  */
 class Director extends User
 {
+    public $is_deleted;
     /**
      * @inheritdoc
      */
@@ -18,7 +19,7 @@ class Director extends User
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'is_deleted'], 'safe'],
         ];
     }
 
@@ -40,10 +41,9 @@ class Director extends User
      */
     public function search($params)
     {
-        $query = User::find();
-
-          $query = User::find()->join('inner join','auth_assignment','auth_assignment.user_id = id')->where([
-                        'auth_assignment.item_name' => self::ROLE_DIRECTOR]);
+          $query = User::find();
+          $query->join('inner join', 'user_profile', 'user_profile.user_id = id');
+          $query->join('inner join','auth_assignment','auth_assignment.user_id = id')->where(['auth_assignment.item_name' => self::ROLE_DIRECTOR]);
 
         // add conditions that should always apply here
 
@@ -65,6 +65,7 @@ class Director extends User
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            '`user_profile`.`is_deleted`' => $this->is_deleted,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
@@ -74,5 +75,13 @@ class Director extends User
             ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
+    }
+
+    public function getCount()
+    {
+        $query = User::find();
+        $query->join('inner join', 'auth_assignment', 'auth_assignment.user_id = id')->where(['auth_assignment.item_name' => self::ROLE_DIRECTOR]);
+
+        return $query->count();
     }
 }

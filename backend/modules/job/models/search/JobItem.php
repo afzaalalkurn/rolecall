@@ -759,4 +759,12 @@ class JobItem extends JobItemModel
 
         return $dataProvider;
     }
+
+
+    public function getCount()
+    {
+        $query = JobItemModel::find();
+        return $query->count();
+    }
+
 }
