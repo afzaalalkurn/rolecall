@@ -65785,3 +65785,883 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1503063144.799
     'REQUEST_TIME' => 1503063144
 ]
+2017-08-19 04:27:16 [192.168.1.25][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+    in /var/www/html/rolecall.dev/public_html/frontend/controllers/SiteController.php:135
+2017-08-19 04:27:16 [192.168.1.25][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:10 [192.168.1.25][-][-][info][application] $_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46278'
+    'REDIRECT_URL' => '/'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116828.917
+    'REQUEST_TIME' => 1503116828
+]
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/home.png". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/home.png', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:16 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46286'
+    'REDIRECT_URL' => '/frontend/web/images/home.png'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/home.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116836.917
+    'REQUEST_TIME' => 1503116836
+]
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/home.png". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/home.png', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:17 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46296'
+    'REDIRECT_URL' => '/frontend/web/images/home.png'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/home.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116837.311
+    'REQUEST_TIME' => 1503116837
+]
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/home.png". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/home.png', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46304'
+    'REDIRECT_URL' => '/frontend/web/images/home.png'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/home.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116838.067
+    'REQUEST_TIME' => 1503116838
+]
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/bx_loader.gif". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/bx_loade...', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:18 [192.168.1.25][-][f523oi5s0g9qk3ksbmf7sec844][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/css/jquery.bxslider.css'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46302'
+    'REDIRECT_URL' => '/frontend/web/images/bx_loader.gif'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/bx_loader.gif'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116838.067
+    'REQUEST_TIME' => 1503116838
+]
+2017-08-19 04:27:53 [192.168.1.25][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+    in /var/www/html/rolecall.dev/public_html/frontend/controllers/SiteController.php:197
+2017-08-19 04:27:53 [192.168.1.25][-][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:53 [192.168.1.25][-][-][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46312'
+    'REDIRECT_URL' => '/frontend/web/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/login'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116873.34
+    'REQUEST_TIME' => 1503116873
+]
+2017-08-19 04:27:58 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:57 [192.168.1.25][289][-][info][application] $_POST = [
+    '_frontendCSRF' => 'O-CYEQkSNMFk6LliGInXiv9vvZ4XqlTrTJbLoNfyYP8Z5HHNVodb9Mpox5Uugnv2SRp3BHgGTDbFgC1hjSCq_A=='
+    'LoginForm' => [
+        'email' => 'actor@mailinator.com'
+        'password' => 'actor@123'
+    ]
+    'login-button' => ''
+]
+
+$_COOKIE = [
+    '_frontendPHPBACKSESSID' => 'f523oi5s0g9qk3ksbmf7sec844'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/login'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '200'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=f523oi5s0g9qk3ksbmf7sec844; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46316'
+    'REDIRECT_URL' => '/frontend/web/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/login'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116877.688
+    'REQUEST_TIME' => 1503116877
+]
+2017-08-19 04:27:59 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+    in /var/www/html/rolecall.dev/public_html/frontend/modules/job/controllers/JobUserMapperController.php:64
+2017-08-19 04:27:59 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:27:59 [192.168.1.25][289][-][info][application] $_GET = [
+    'user_id' => '289'
+    'status' => 'Pending'
+]
+
+$_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/login'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46320'
+    'REDIRECT_URL' => '/frontend/web/job/job-user-mapper/index'
+    'REDIRECT_QUERY_STRING' => 'user_id=289&status=Pending'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'user_id=289&status=Pending'
+    'REQUEST_URI' => '/job/job-user-mapper/index?user_id=289&status=Pending'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116879.036
+    'REQUEST_TIME' => 1503116879
+]
+2017-08-19 04:28:05 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/modules/user/controllers/UserController.php:279
+2017-08-19 04:28:05 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:05 [192.168.1.25][289][-][info][application] $_GET = [
+    'id' => '289'
+]
+
+$_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/job/job-user-mapper/index?user_id=289&status=Pending'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46332'
+    'REDIRECT_URL' => '/frontend/web/user/user/upgrade'
+    'REDIRECT_QUERY_STRING' => 'id=289'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'id=289'
+    'REQUEST_URI' => '/user/user/upgrade?id=289'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116885.39
+    'REQUEST_TIME' => 1503116885
+]
+2017-08-19 04:28:51 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][error][yii\db\Exception] PDOException: SQLSTATE[HY000]: General error: 1364 Field 'agreement_id' doesn't have a default value in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Command.php:842
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Command.php(842): PDOStatement->execute()
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Schema.php(454): yii\db\Command->execute()
+#2 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/ActiveRecord.php(494): yii\db\Schema->insert('user_transactio...', Array)
+#3 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/ActiveRecord.php(461): yii\db\ActiveRecord->insertInternal(NULL)
+#4 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/BaseActiveRecord.php(643): yii\db\ActiveRecord->insert(false, NULL)
+#5 /var/www/html/rolecall.dev/public_html/frontend/modules/user/controllers/UserController.php(313): yii\db\BaseActiveRecord->save(false)
+#6 [internal function]: frontend\modules\user\controllers\UserController->actionExecutePayment('289')
+#7 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/InlineAction.php(57): call_user_func_array(Array, Array)
+#8 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#9 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php(523): yii\base\Controller->runAction('execute-payment', Array)
+#10 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('user/user/execu...', Array)
+#11 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#12 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#13 {main}
+
+Next yii\db\Exception: SQLSTATE[HY000]: General error: 1364 Field 'agreement_id' doesn't have a default value
+The SQL being executed was: INSERT INTO `user_transaction` (`user_id`, `plan_id`, `first_name`, `last_name`, `email`, `response_data`, `created_at`, `updated_at`) VALUES (289, 2, 'Georgina', 'Lewise', 'tester@gmail.com', '{\"id\":\"ch_1AsOZqGeV5bu1jg9T9gmlXzw\",\"object\":\"charge\",\"amount\":994,\"amount_refunded\":0,\"application\":null,\"application_fee\":null,\"balance_transaction\":\"txn_1AsOZqGeV5bu1jg9osvHuXMV\",\"captured\":true,\"created\":1503116930,\"currency\":\"usd\",\"customer\":null,\"description\":\"Upgrade to Plus\",\"destination\":null,\"dispute\":null,\"failure_code\":null,\"failure_message\":null,\"fraud_details\":[],\"invoice\":null,\"livemode\":false,\"metadata\":[],\"on_behalf_of\":null,\"order\":null,\"outcome\":{\"network_status\":\"approved_by_network\",\"reason\":null,\"risk_level\":\"normal\",\"seller_message\":\"Payment complete.\",\"type\":\"authorized\"},\"paid\":true,\"receipt_email\":null,\"receipt_number\":null,\"refunded\":false,\"refunds\":{\"object\":\"list\",\"data\":[],\"has_more\":false,\"total_count\":0,\"url\":\"\\/v1\\/charges\\/ch_1AsOZqGeV5bu1jg9T9gmlXzw\\/refunds\"},\"review\":null,\"shipping\":null,\"source\":{\"id\":\"card_1AsOZmGeV5bu1jg9VGvoo5Ev\",\"object\":\"card\",\"address_city\":null,\"address_country\":null,\"address_line1\":null,\"address_line1_check\":null,\"address_line2\":null,\"address_state\":null,\"address_zip\":\"440022\",\"address_zip_check\":\"pass\",\"brand\":\"Visa\",\"country\":\"US\",\"customer\":null,\"cvc_check\":\"pass\",\"dynamic_last4\":null,\"exp_month\":10,\"exp_year\":2018,\"fingerprint\":\"IYfxBCXRfMppCHdn\",\"funding\":\"credit\",\"last4\":\"4242\",\"metadata\":[],\"name\":\"tester@gmail.com\",\"tokenization_method\":null},\"source_transfer\":null,\"statement_descriptor\":null,\"status\":\"succeeded\",\"transfer_group\":null}', 1503116931, 1503116931) in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Schema.php:636
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Command.php(852): yii\db\Schema->convertException(Object(PDOException), 'INSERT INTO `us...')
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/Schema.php(454): yii\db\Command->execute()
+#2 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/ActiveRecord.php(494): yii\db\Schema->insert('user_transactio...', Array)
+#3 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/ActiveRecord.php(461): yii\db\ActiveRecord->insertInternal(NULL)
+#4 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/db/BaseActiveRecord.php(643): yii\db\ActiveRecord->insert(false, NULL)
+#5 /var/www/html/rolecall.dev/public_html/frontend/modules/user/controllers/UserController.php(313): yii\db\BaseActiveRecord->save(false)
+#6 [internal function]: frontend\modules\user\controllers\UserController->actionExecutePayment('289')
+#7 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/InlineAction.php(57): call_user_func_array(Array, Array)
+#8 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#9 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php(523): yii\base\Controller->runAction('execute-payment', Array)
+#10 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('user/user/execu...', Array)
+#11 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#12 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#13 {main}
+Additional Information:
+Array
+(
+    [0] => HY000
+    [1] => 1364
+    [2] => Field 'agreement_id' doesn't have a default value
+)
+
+2017-08-19 04:28:51 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:49 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][info][application] $_GET = [
+    'id' => '289'
+]
+
+$_POST = [
+    'id' => 'tok_1AsOZmGeV5bu1jg9wWnpKe2X'
+    'object' => 'token'
+    'card' => [
+        'id' => 'card_1AsOZmGeV5bu1jg9VGvoo5Ev'
+        'object' => 'card'
+        'address_city' => ''
+        'address_country' => ''
+        'address_line1' => ''
+        'address_line1_check' => ''
+        'address_line2' => ''
+        'address_state' => ''
+        'address_zip' => '440022'
+        'address_zip_check' => 'pass'
+        'brand' => 'Visa'
+        'country' => 'US'
+        'cvc_check' => 'pass'
+        'dynamic_last4' => ''
+        'exp_month' => '10'
+        'exp_year' => '2018'
+        'funding' => 'credit'
+        'last4' => '4242'
+        'name' => 'tester@gmail.com'
+        'tokenization_method' => ''
+    ]
+    'client_ip' => '45.116.149.108'
+    'created' => '1503116926'
+    'email' => 'tester@gmail.com'
+    'livemode' => 'false'
+    'type' => 'card'
+    'used' => 'false'
+]
+
+$_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'application/json, text/javascript, */*; q=0.01'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/user/user/upgrade?id=289'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'CONTENT_LENGTH' => '683'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46408'
+    'REDIRECT_URL' => '/frontend/web/user/user/execute-payment'
+    'REDIRECT_QUERY_STRING' => 'id=289'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'id=289'
+    'REQUEST_URI' => '/user/user/execute-payment?id=289'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116929.321
+    'REQUEST_TIME' => 1503116929
+]
+2017-08-19 04:28:57 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+    in /var/www/html/rolecall.dev/public_html/frontend/controllers/SiteController.php:135
+2017-08-19 04:28:57 [192.168.1.25][289][-][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:57 [192.168.1.25][289][-][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/user/user/upgrade?id=289'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46414'
+    'REDIRECT_URL' => '/'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116937.646
+    'REQUEST_TIME' => 1503116937
+]
+2017-08-19 04:28:57 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/home.png". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/home.png', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:28:57 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:28:57 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:57 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46418'
+    'REDIRECT_URL' => '/frontend/web/images/home.png'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/home.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116937.799
+    'REQUEST_TIME' => 1503116937
+]
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/bx_loader.gif". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/bx_loade...', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/css/jquery.bxslider.css'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46424'
+    'REDIRECT_URL' => '/frontend/web/images/bx_loader.gif'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/bx_loader.gif'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116938.131
+    'REQUEST_TIME' => 1503116938
+]
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "images/home.png". in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Module.php:532
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php(102): yii\base\Module->runAction('images/home.png', Array)
+#1 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/web/Application.php:114
+Stack trace:
+#0 /var/www/html/rolecall.dev/public_html/vendor/yiisoft/yii2/base/Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/html/rolecall.dev/public_html/frontend/web/index.php(17): yii\base\Application->run()
+#2 {main}
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+    in /var/www/html/rolecall.dev/public_html/frontend/views/rolecall/layouts/main.php:123
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 192.168.1.25
+2017-08-19 04:28:58 [192.168.1.25][289][4c6r2odfk9f24od36r0biqlqe0][info][application] $_COOKIE = [
+    '_frontendPHPBACKSESSID' => '4c6r2odfk9f24od36r0biqlqe0'
+    '_frontendCSRF' => 'ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa:2:{i:0;s:13:\"_frontendCSRF\";i:1;s:32:\"\"éÜ_•o5®€~÷6¬|¶uÊšo¬Ý‰æÁZÒÊ\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 289
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'rolecall.dev'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:55.0) Gecko/20100101 Firefox/55.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-ZA,en-GB;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://rolecall.dev/'
+    'HTTP_COOKIE' => '_frontendPHPBACKSESSID=4c6r2odfk9f24od36r0biqlqe0; _frontendCSRF=ca3f5686dc8d6f4fafe58a83f77f493b461e2400f513bc817f11ab843c68d24fa%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_frontendCSRF%22%3Bi%3A1%3Bs%3A32%3A%22%22%04%E9%DC_%95o5%AE%80%7E%F76%0B%AC%7C%B6u%CA%9Ao%AC%18%DD%89%16%E6%C1Z%D2%CA%03%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.25 (Ubuntu) Server at rolecall.dev Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Ubuntu)'
+    'SERVER_NAME' => 'rolecall.dev'
+    'SERVER_ADDR' => '192.168.1.25'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '192.168.1.25'
+    'DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/rolecall.dev/public_html/'
+    'SERVER_ADMIN' => 'webmaster@rolecall.dev'
+    'SCRIPT_FILENAME' => '/var/www/html/rolecall.dev/public_html/frontend/web/index.php'
+    'REMOTE_PORT' => '46426'
+    'REDIRECT_URL' => '/frontend/web/images/home.png'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/images/home.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1503116938.131
+    'REQUEST_TIME' => 1503116938
+]
